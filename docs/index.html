@@ -113,6 +113,21 @@ dl.kv dd.big{font-size:16px;font-weight:600}
 .lookup p{margin:0;font-size:12px;color:var(--muted)}
 .lookup .links{display:flex;gap:8px;flex-wrap:wrap}
 .lookup .btn{font-size:13px;padding:6px 11px}
+.bell{border:1px solid var(--line);background:var(--panel);border-radius:6px;font-size:14px;padding:3px 9px;cursor:pointer;font-family:var(--f-body);font-weight:600}
+.bell[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+.pending{font-size:12px;color:var(--warn);font-weight:500}
+.alist{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
+.arow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.arow .an{font-family:var(--f-display);font-weight:700;font-size:18px;letter-spacing:.05em}
+.arow .an small{font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--muted);letter-spacing:0;margin-left:6px}
+.arow .types{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tchip{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.tchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.setbox{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
+.setbox label{font-size:12px;font-weight:600;color:var(--muted)}
+.setbox .row2{display:flex;gap:8px;flex-wrap:wrap}
+.setbox input{flex:1;min-width:0;font-family:var(--f-mono);font-size:15px;padding:8px 10px;border-radius:6px;border:1px solid var(--line);background:var(--mono-bg);color:var(--ink)}
+.setbox p{margin:0;font-size:12px;color:var(--muted)}
 .empty{color:var(--muted);font-size:14px}
 section.hist{margin-top:22px}
 h2{font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;margin:0 0 8px}
@@ -167,6 +182,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     <nav class="apts" id="apts" aria-label="즐겨찾는 공항"></nav>
     <button class="navbtn" id="open-picker" aria-haspopup="dialog">공항 ▾</button>
     <button class="navbtn" id="open-flight">✈ 오늘 비행</button>
+    <button class="navbtn" id="open-alerts" aria-label="알림 설정">🔔</button>
   </div>
 </div></header>
 
@@ -194,12 +210,14 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
 (function(){
   const REPO = "shpdragonfly-bit/atis-board";
   const RAW = "https://raw.githubusercontent.com/" + REPO + "/data/";  // data lives on the "data" branch
-  const K = {airport:"atisboard.airport", favs:"atisboard.favs", flight:"atisboard.flight", tab:"atisboard.tab", cache:"atisboard.cache"};
+  const K = {airport:"atisboard.airport", favs:"atisboard.favs", flight:"atisboard.flight", tab:"atisboard.tab", cache:"atisboard.cache", topic:"atisboard.ntfy", pend:"atisboard.alertPending"};
   const DEFAULT_FAVS = ["RKSI","RKSS","RKPC","RJAA","VHHH","KLAX"];
   const REGIONS = [["FAV","즐겨찾기"],["ALL","전체"],["KR","국내"],["JP","일본"],["CN","중국·대만·홍콩"],["SEA","동남아·인도"],["AM","미주"],["EU","유럽·중동"],["OC","대양주"]];
 
   let data = null, view = "airport", current = null, histCache = {};
-  let offline = false, savedAt = null, lastRun = null;
+  let offline = false, savedAt = null, lastRun = null, alertCfg = null;
+  const NTFY = "https://ntfy.sh";
+  const ALL_TYPES = ["ARR", "DEP", "ATIS"];
   const $ = id => document.getElementById(id);
   const pad = n => String(n).padStart(2,"0");
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -388,16 +406,84 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     }).join("");
     $("apts").querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => go(b.dataset.id)));
     $("open-flight").setAttribute("aria-current", view === "flight");
+    $("open-alerts").setAttribute("aria-current", view === "alerts");
     const cur = $("apts").querySelector('[aria-current="true"]');
     if (cur && cur.scrollIntoView) cur.scrollIntoView({block:"nearest", inline:"nearest"});
+  }
+
+  // ---------- alerts ----------
+  // The collector sends alerts for the airports in data/notify.json. The app changes that
+  // choice by publishing it to the ntfy topic "<channel>-settings"; the collector picks it up
+  // on its next round (about 10 minutes) and the new choice then shows in notify.json.
+  function alertChoice(){
+    const pend = load(K.pend, null);
+    const live = alertCfg || {airports:{}, updated:0};
+    if (pend && pend.ts > (live.updated || 0)) return {airports: pend.airports, pending: true};
+    return {airports: live.airports || {}, pending: false};
+  }
+  const alertTypes = id => alertChoice().airports[id] || null;
+  async function publishAlerts(airports){
+    const topic = load(K.topic, "");
+    if (!topic){ location.hash = "alerts"; return false; }
+    const ts = Math.floor(Date.now() / 1000);
+    try {
+      const r = await fetch(NTFY, {method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({topic: topic + "-settings", title: "ATIS Board 알림 설정", message: JSON.stringify({airports, ts})})});
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      save(K.pend, {airports, ts});
+      return true;
+    } catch(e){
+      alertMsg = "알림 설정을 보내지 못했습니다. 인터넷 연결을 확인하고 다시 시도하세요.";
+      return false;
+    }
+  }
+  let alertMsg = "";
+  async function setAlert(id, types){
+    const a = Object.assign({}, alertChoice().airports);
+    if (types && types.length) a[id] = types; else delete a[id];
+    if (await publishAlerts(a)) alertMsg = "";
+    render();
+  }
+
+  function renderAlerts(){
+    const topic = load(K.topic, "");
+    const ch = alertChoice();
+    const ids = Object.keys(ch.airports);
+    $("title").textContent = "알림 설정";
+    $("sub").textContent = "새 ATIS가 들어오면 ntfy 앱으로 알림을 받을 공항입니다. 바꾼 내용은 다음 수집 때(10분 이내) 적용됩니다.";
+    let warn = "";
+    if (alertCfg && alertCfg.enabled === false) warn += `<p class="notice err">GitHub 저장소에 NTFY_TOPIC이 아직 등록되지 않아 알림이 나가지 않습니다. 저장소 Settings → Secrets and variables → Actions에서 등록하세요.</p>`;
+    if (alertMsg) warn += `<p class="notice err">${esc(alertMsg)}</p>`;
+    const rows = ids.map(id => {
+      const a = data.airports[id] || {};
+      const t = ch.airports[id];
+      return `<div class="arow"><div><div class="an">${esc(id)}<small>${esc(a.name || "")}</small></div>
+        <div class="types">${ALL_TYPES.map(x => `<button class="tchip" data-id="${id}" data-t="${x}" aria-pressed="${t.includes(x)}">${{ARR:"도착", DEP:"출발", ATIS:"통합"}[x]}</button>`).join("")}</div></div>
+        <button class="btn" data-del="${id}">알림 끄기</button></div>`;
+    }).join("");
+    $("view").innerHTML = `${warn}
+      <section class="setbox"><label for="ntfy-topic">알림 채널 이름 (ntfy 앱에서 구독한 이름, 이 기기에만 저장)</label>
+        <div class="row2"><input id="ntfy-topic" value="${esc(topic)}" placeholder="atis-…" autocapitalize="off" spellcheck="false"><button class="btn primary" id="save-topic">저장</button></div>
+        <p>${topic ? "저장됨." : "채널 이름을 넣어야 이 기기에서 알림 공항을 바꿀 수 있습니다."}</p></section>
+      <h2>알림 받는 공항 ${ch.pending ? `<span class="pending">· 적용 대기 중</span>` : ""}</h2>
+      <div class="alist">${rows || `<p class="empty">알림 받는 공항이 없습니다. 공항 화면의 🔕 알림 버튼으로 추가하세요.</p>`}</div>`;
+    $("save-topic").addEventListener("click", () => { save(K.topic, $("ntfy-topic").value.trim()); render(); });
+    $("view").querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => setAlert(b.dataset.del, null)));
+    $("view").querySelectorAll(".tchip").forEach(b => b.addEventListener("click", () => {
+      const cur = ch.airports[b.dataset.id] || [];
+      const next = cur.includes(b.dataset.t) ? cur.filter(x => x !== b.dataset.t) : cur.concat(b.dataset.t);
+      setAlert(b.dataset.id, next);
+    }));
   }
 
   // ---------- airport view ----------
   function renderAirport(){
     const apt = data.airports[current];
     $("title").innerHTML = `${esc(apt.name || "")} ${esc(current)} <span class="iata">${esc(apt.iata || "")}</span>
-      <button class="star" id="star" aria-pressed="${isFav(current)}">${isFav(current) ? "★ 즐겨찾기" : "☆ 즐겨찾기"}</button>`;
+      <button class="star" id="star" aria-pressed="${isFav(current)}">${isFav(current) ? "★ 즐겨찾기" : "☆ 즐겨찾기"}</button>
+      <button class="bell" id="bell" aria-pressed="${!!alertTypes(current)}">${alertTypes(current) ? "🔔 알림 켜짐" : "🔕 알림"}</button>${alertChoice().pending ? `<span class="pending">알림 설정 적용 대기 중</span>` : ""}`;
     $("star").addEventListener("click", () => { toggleFav(current); render(); });
+    $("bell").addEventListener("click", () => setAlert(current, alertTypes(current) ? null : ALL_TYPES.slice()));
     const checked = apt.checkedAt ? "확인 " + fmtAge(ageMin(apt.checkedAt)) : "";
     $("sub").innerHTML = `${esc(apt.sourceName || "")}${apt.sourceUrl ? ` · <a href="${esc(apt.sourceUrl)}" target="_blank" rel="noopener">원본</a>` : ""}${checked ? " · " + checked : ""}`;
     const official = directLinks(current).filter(([t]) => !/atis\.guru|METAR/.test(t));
@@ -523,12 +609,13 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   function render(){
     if (!data) return;
     renderNav();
-    if (view === "flight") renderFlight(); else renderAirport();
+    if (view === "flight") renderFlight(); else if (view === "alerts") renderAlerts(); else renderAirport();
   }
   function go(id){ location.hash = id; }
   function route(){
     const h = (location.hash || "").slice(1);
     if (h.toLowerCase() === "flight") { view = "flight"; }
+    else if (h.toLowerCase() === "alerts") { view = "alerts"; }
     else {
       const id = resolve(h) || current || resolve(load(K.airport, "")) || "RKSI";
       view = "airport"; current = data.airports[id] ? id : Object.keys(data.airports)[0];
@@ -575,6 +662,12 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
         const st = await fetch(RAW + "status.json" + bust, {cache:"no-cache"});
         if (st.ok) lastRun = (await st.json()).lastRun || null;
       } catch(e){}
+      try {
+        const nf = await fetch(RAW + "notify.json" + bust, {cache:"no-cache"});
+        if (nf.ok) alertCfg = await nf.json();
+        const pend = load(K.pend, null);
+        if (alertCfg && pend && (alertCfg.updated || 0) >= pend.ts) save(K.pend, null);  // applied
+      } catch(e){}
       if (force && data) { data = d; render(); renderHealth(); }
       else useData(d, false);
     } catch(e){
@@ -594,6 +687,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("sheet").hidden) closePicker(); });
   $("q").addEventListener("input", renderList);
   $("open-flight").addEventListener("click", () => { location.hash = "flight"; });
+  $("open-alerts").addEventListener("click", () => { location.hash = "alerts"; });
   window.addEventListener("hashchange", () => { if (data) route(); });
   document.addEventListener("visibilitychange", () => { if (!document.hidden) fetchData(false); });
 

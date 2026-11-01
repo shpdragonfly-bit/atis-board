@@ -31,7 +31,8 @@ AIRPORTS = ROOT / "airports.json"
 DATA = Path(os.environ.get("ATIS_DATA_DIR") or ROOT / "data")  # the data branch checkout in Actions
 LATEST = DATA / "atis.json"
 STATUS = DATA / "status.json"  # written every run, so the app can tell the collector is alive
-NOTIFY = ROOT / "notify.json"  # airports to send ntfy alerts for
+NOTIFY = ROOT / "notify.json"  # default alert airports, used until the app sends a choice
+NOTIFY_LIVE = DATA / "notify.json"  # the choice in force; the app shows it and changes it via ntfy
 NTFY_SERVER = os.environ.get("NTFY_SERVER") or "https://ntfy.sh"
 WEBAPP_URL = "https://shpdragonfly-bit.github.io/atis-board/"
 HISTORY = DATA / "history"
@@ -262,7 +263,43 @@ def update_history(icao: str, items: list[dict], now: datetime) -> None:
         path.write_text(json.dumps(hist[-HISTORY_KEEP:], ensure_ascii=False, indent=1) + "\n")
 
 
-def send_alerts(airports: dict, old_airports: dict, now: datetime) -> int:
+def alert_settings(now: datetime) -> dict:
+    """The alert airports in force.
+
+    The app cannot write to this repository, so it publishes the pilot's choice
+    to the ntfy topic "<NTFY_TOPIC>-settings". Each run reads the newest such
+    message and keeps it in the data branch (ntfy only holds messages ~12 h).
+    """
+    try:
+        current = json.loads(NOTIFY_LIVE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        try:
+            current = {"airports": json.loads(NOTIFY.read_text()).get("airports", {}), "updated": 0}
+        except (FileNotFoundError, json.JSONDecodeError):
+            current = {"airports": {}, "updated": 0}
+    topic = os.environ.get("NTFY_TOPIC", "").strip()
+    if topic:
+        try:
+            lines = get(f"{NTFY_SERVER}/{topic}-settings/json?poll=1&since=all", timeout=20).splitlines()
+            for ln in lines:
+                ev = json.loads(ln)
+                if ev.get("event") != "message":
+                    continue
+                body = json.loads(ev.get("message") or "{}")
+                ts = int(body.get("ts") or ev.get("time") or 0)
+                if ts > int(current.get("updated") or 0) and isinstance(body.get("airports"), dict):
+                    current = {"airports": {str(k).upper(): [str(t).upper() for t in v]
+                                            for k, v in body["airports"].items() if isinstance(v, list)},
+                               "updated": ts}
+                    print(f"alert settings updated from app: {sorted(current['airports'])}")
+        except Exception as e:
+            print(f"alert settings not read: {e}", file=sys.stderr)
+    current["enabled"] = bool(topic)
+    current["checkedAt"] = iso(now)
+    return current
+
+
+def send_alerts(airports: dict, old_airports: dict, now: datetime, settings: dict) -> int:
     """Push a phone alert through ntfy for every new ATIS at the airports in notify.json.
 
     The ntfy topic is a secret (NTFY_TOPIC), because anyone who knows it can read
@@ -271,12 +308,8 @@ def send_alerts(airports: dict, old_airports: dict, now: datetime) -> int:
     topic = os.environ.get("NTFY_TOPIC", "").strip()
     if not topic:
         return 0
-    try:
-        cfg = json.loads(NOTIFY.read_text())
-    except (FileNotFoundError, json.JSONDecodeError):
-        return 0
     wanted = {str(k).upper(): [t.upper() for t in v] if isinstance(v, list) else ["ARR", "DEP", "ATIS"]
-              for k, v in (cfg.get("airports") or {}).items()}
+              for k, v in (settings.get("airports") or {}).items()}
     sent = 0
     for icao, types in wanted.items():
         new, prev = airports.get(icao), old_airports.get(icao)
@@ -371,7 +404,9 @@ def main() -> int:
         elif (old.get("airports", {}).get(icao) or {}).get("metar"):
             entry["metar"] = old["airports"][icao]["metar"]
     print(f"METAR for {len(metars)} airports")
-    print(f"alerts sent: {send_alerts(airports, old.get('airports', {}), now)}")
+    settings = alert_settings(now)
+    print(f"alerts sent: {send_alerts(airports, old.get('airports', {}), now, settings)}"
+          + ("" if settings["enabled"] else " (NTFY_TOPIC secret not set)"))
 
     STATE.parent.mkdir(exist_ok=True)
     STATE.write_text(json.dumps(checked, indent=1) + "\n")
@@ -396,6 +431,13 @@ def main() -> int:
     else:
         print("no change; atis.json left as is")
     DATA.mkdir(exist_ok=True)
+    saved = dict(settings); saved.pop("checkedAt", None)
+    try:
+        before = json.loads(NOTIFY_LIVE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        before = None
+    if before != saved:  # only rewrite (and commit) when the choice changes
+        NOTIFY_LIVE.write_text(json.dumps(saved, ensure_ascii=False, indent=1) + "\n")
     STATUS.write_text(json.dumps({"lastRun": iso(now), "fetched": attempted, "failures": failures,
                                   "metar": len(metars)}) + "\n")
     return 0 if attempted == 0 or failures < attempted else 1

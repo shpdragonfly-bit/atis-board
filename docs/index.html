@@ -181,7 +181,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   function opsLines(text){
     let parts = text.includes("\n") ? text.split("\n") : text.split(/\.\s+/);
     return parts.map(s => s.trim()).filter(s =>
-      /RWY|RUNWAY|APCH|APPROACH|SID|STAR|ARRIVAL|DEPARTURE|FREQ|CAUTION|GPS|GNSS|CLSD|CLOSED|NOTAM|BIRD|WIND ?SHEAR|EXP\b|LNDG|DEPG/i.test(s) &&
+      /RWY|RUNWAY|APCH|APPROACH|SID|STAR|ARRIVAL|DEPARTURE|FREQ|CAUTION|GPS|GNSS|CLSD|CLOSED|NOTAM|BIRD|WIND ?SHEAR|EXP\b|LNDG|DEPG|PERCENT|WET|SNOW|ICE|SLUSH|TWY|^(?:[-+]|FBL |MOD |HVY )?(?:RA|SN|DZ|TS|SH|FG|BR|HZ)\w*$/i.test(s) &&
       !/^(?:WIND\b|QNH|T\s?\d|DP\s|VIS\b)/i.test(s) && s.length > 3);
   }
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ATIS Board</title>
-<meta name="description" content="인천·김포·제주·해외 주요 공항 ATIS 문자 보드 (비공식)">
+<meta name="description" content="인천·국내·해외 주요 공항 ATIS 문자 보드 (비공식)">
 <meta name="theme-color" content="#171e26" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,10 +16,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
 <style>
-/* Layout: EFB-style board — sticky airport strip, ATIS cards side by side on iPad, stacked on phone */
+/* Layout: EFB-style board — sticky bar with favourites, raw ATIS first, decoded view folded away */
 :root{
   --bg:#eef1f4; --panel:#ffffff; --ink:#18212b; --muted:#5b6876; --line:#d5dbe2;
-  --accent:#b4690e; --accent-ink:#ffffff; --mono-bg:#f5f7f9;
+  --accent:#b4690e; --accent-ink:#ffffff; --mono-bg:#f5f7f9; --shade:rgba(15,20,26,.45);
   --ok:#1f7a4d; --warn:#a86a00; --old:#a23a2c;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
@@ -28,69 +28,110 @@
 }
 @media (prefers-color-scheme: dark){:root{
   --bg:#0f141a; --panel:#171e26; --ink:#e3e8ee; --muted:#93a0ad; --line:#2a3440;
-  --accent:#f0a33a; --accent-ink:#1a1206; --mono-bg:#11171e;
+  --accent:#f0a33a; --accent-ink:#1a1206; --mono-bg:#11171e; --shade:rgba(0,0,0,.6);
   --ok:#4cc38a; --warn:#f0b54a; --old:#ef7f6c; color-scheme:dark}}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body.locked{overflow:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
 .gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .wrap{max-width:1100px;margin:0 auto;padding-block:0 40px}
+button{font:inherit;color:inherit}
 header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
 .bar-in{max-width:1100px;margin:0 auto;padding-block:10px 8px;display:flex;flex-direction:column;gap:8px}
-.bar-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bar-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .brand{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:.04em;text-transform:uppercase}
 .brand span{color:var(--accent)}
 .clock{margin-left:auto;font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;gap:12px;align-items:center}
 .clock b{color:var(--ink);font-weight:600}
-.apts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+.bar-row{display:flex;gap:8px;align-items:center;min-width:0}
+.apts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;-webkit-overflow-scrolling:touch;flex:1;min-width:0}
 .apts::-webkit-scrollbar{display:none}
-.apt{flex:0 0 auto;font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.06em;padding:4px 11px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;display:flex;gap:6px;align-items:baseline}
-.apt small{font-family:var(--f-body);font-weight:500;font-size:11px;letter-spacing:0}
-.apt[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.apt .dot{width:7px;height:7px;border-radius:50%;align-self:center;background:var(--line)}
-.apt .dot.ok{background:var(--ok)} .apt .dot.warn{background:var(--warn)} .apt .dot.old{background:var(--old)}
-.apt[aria-current="true"] .dot{outline:1.5px solid var(--accent-ink)}
-h1{font-family:var(--f-display);font-weight:600;font-size:30px;letter-spacing:.02em;margin:20px 0 2px;text-wrap:balance}
+.chip{flex:0 0 auto;font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.06em;padding:4px 11px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;display:flex;gap:6px;align-items:center}
+.chip small{font-family:var(--f-body);font-weight:500;font-size:11px;letter-spacing:0}
+.chip[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;background:var(--line)}
+.dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.old{background:var(--old)}
+.chip[aria-current="true"] .dot{outline:1.5px solid var(--accent-ink)}
+.navbtn{flex:0 0 auto;font-weight:600;font-size:13px;padding:5px 10px;border-radius:6px;border:1px solid var(--line);background:var(--mono-bg);cursor:pointer;white-space:nowrap}
+.navbtn[aria-current="true"]{border-color:var(--accent);color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:600;font-size:30px;letter-spacing:.02em;margin:20px 0 2px;text-wrap:balance;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+h1 .iata{font-size:18px;color:var(--muted);letter-spacing:.08em}
+.star{border:1px solid var(--line);background:var(--panel);border-radius:6px;font-size:14px;padding:3px 9px;cursor:pointer;font-family:var(--f-body);font-weight:600}
+.star[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
 .sub{color:var(--muted);margin:0 0 10px;font-size:14px}
 .sub a{color:inherit}
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;align-items:center}
-.btn{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.btn{font-size:14px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn:focus-visible,.apt:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn:focus-visible,.chip:focus-visible,.navbtn:focus-visible,.star:focus-visible,summary:focus-visible,input:focus-visible,.row:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .notice{font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--muted);margin:0 0 14px}
 .notice.err{border-color:var(--old);color:var(--old)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .card-head{display:flex;align-items:flex-start;gap:14px}
-.letter{font-family:var(--f-display);font-weight:700;font-size:58px;line-height:.9;min-width:52px;text-align:center;color:var(--accent)}
+.letter{font-family:var(--f-display);font-weight:700;font-size:54px;line-height:.9;min-width:48px;text-align:center;color:var(--accent)}
 .meta{flex:1;min-width:0}
 .kind{font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.08em;text-transform:uppercase}
 .times{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid currentColor;margin-top:6px}
 .pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)} .pill.old{color:var(--old)}
+pre.raw{margin:0;padding:12px 14px;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;font-family:var(--f-mono);font-size:15px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+details.decode summary{cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
+details.decode[open] summary{margin-bottom:10px}
+.decoded{display:flex;flex-direction:column;gap:10px}
 dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
 dl.kv dt{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding-top:2px}
 dl.kv dd{margin:0;font-family:var(--f-mono);font-size:14px;min-width:0;overflow-wrap:anywhere}
-dl.kv dd.big{font-size:17px;font-weight:600}
+dl.kv dd.big{font-size:16px;font-weight:600}
 .ops{display:flex;flex-direction:column;gap:4px;margin:0;padding:0;list-style:none}
 .ops li{font-family:var(--f-mono);font-size:13px;padding:6px 8px;border-left:3px solid var(--accent);background:var(--mono-bg);border-radius:0 4px 4px 0;overflow-wrap:anywhere}
 .ops li.caution{border-left-color:var(--old)}
-details summary{cursor:pointer;font-size:13px;color:var(--muted)}
-pre{margin:8px 0 0;padding:10px;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;font-family:var(--f-mono);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
 .src{font-size:12px;color:var(--muted)}
 .empty{color:var(--muted);font-size:14px}
 section.hist{margin-top:22px}
-section.hist h2{font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;margin:0 0 8px}
+h2{font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;margin:0 0 8px}
 .hist-list{display:flex;flex-direction:column;gap:6px}
 .hist-row{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
-.hist-row summary{display:flex;gap:12px;align-items:baseline;color:var(--ink);font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;list-style:none}
+.hist-row summary{display:flex;gap:12px;align-items:baseline;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;list-style:none;cursor:pointer}
 .hist-row summary::-webkit-details-marker{display:none}
 .hist-row .hl{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--accent);min-width:18px}
+.hist-row pre{margin:8px 0 0;font-family:var(--f-mono);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+/* flight view */
+form.flight{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:10px;align-items:end;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 18px}
+form.flight label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;min-width:0}
+input.code{font-family:var(--f-mono);font-size:17px;text-transform:uppercase;padding:9px 10px;border-radius:6px;border:1px solid var(--line);background:var(--mono-bg);color:var(--ink);width:100%;min-width:0}
+@media (max-width:560px){form.flight{grid-template-columns:1fr 1fr}form.flight .go{grid-column:1/-1}}
+.leg{margin:0 0 22px}
+.leg h2{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.leg h2 .role{font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--accent-ink);background:var(--accent);padding:1px 8px;border-radius:4px;letter-spacing:0}
+.leg h2 a{font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
+/* picker */
+.sheet{position:fixed;inset:0;z-index:20;background:var(--shade);display:flex;justify-content:center;align-items:flex-start;padding:calc(env(safe-area-inset-top,0px) + 24px) max(12px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 12px) max(12px,env(safe-area-inset-left,0px))}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;width:min(720px,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.panel-head{padding:12px 14px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)}
+.panel-top{display:flex;gap:10px;align-items:center}
+.panel-top input{flex:1;font-family:var(--f-body);font-size:16px;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--mono-bg);color:var(--ink);min-width:0}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--panel)}
+.list{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 0}
+.row{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 14px;cursor:pointer;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row:hover{background:var(--mono-bg)}
+.row .rstar{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--line);padding:2px 4px;line-height:1}
+.row .rstar[aria-pressed="true"]{color:var(--accent)}
+.row .codes{font-family:var(--f-display);font-weight:700;font-size:17px;letter-spacing:.05em;line-height:1.1}
+.row .codes small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.row .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .st{display:flex;gap:6px;align-items:center;font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.row .st b{color:var(--ink);font-weight:600}
 footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
-@media (max-width:480px){.letter{font-size:46px}h1{font-size:26px}.clock .kst{display:none}}
-@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+@media (max-width:480px){.letter{font-size:44px}h1{font-size:26px}.clock .kst{display:none}pre.raw{font-size:14px}.row .st .age{display:none}}
 </style>
 </head>
 <body>
@@ -99,40 +140,57 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     <div class="brand">ATIS<span>·</span>Board</div>
     <div class="clock"><span><b id="utc">--:--</b>Z</span><span class="kst">KST <b id="kst">--:--</b></span></div>
   </div>
-  <nav class="apts" id="apts" aria-label="공항"></nav>
+  <div class="bar-row">
+    <nav class="apts" id="apts" aria-label="즐겨찾는 공항"></nav>
+    <button class="navbtn" id="open-picker" aria-haspopup="dialog">공항 ▾</button>
+    <button class="navbtn" id="open-flight">✈ 오늘 비행</button>
+  </div>
 </div></header>
 
-<main class="wrap gutter">
+<main class="wrap gutter" id="main">
   <h1 id="title">ATIS Board</h1>
   <p class="sub" id="sub">불러오는 중…</p>
-  <div class="tools" id="tools"></div>
-  <div id="notice"></div>
-  <div class="grid" id="cards"></div>
-  <section class="hist" id="hist" hidden>
-    <h2>최근 받은 ATIS</h2>
-    <div class="hist-list" id="hist-list"></div>
-  </section>
-  <footer>비공식 정보입니다. 실제 운항에는 VHF ATIS, ACARS D-ATIS 등 공식 수단으로 확인하세요. ACARS 수집 데이터(atis.guru)는 항공기가 ATIS를 요청했을 때만 갱신되어 수 시간 지난 정보일 수 있으며, 발행 시각은 ATIS 본문의 시각으로 계산합니다. 자료 수집 주기는 약 10~20분입니다.</footer>
+  <div id="view"></div>
+  <footer>비공식 정보입니다. 실제 운항에는 VHF ATIS, ACARS D-ATIS 등 공식 수단으로 확인하세요. ACARS 수집 데이터(atis.guru)는 항공기가 ATIS를 요청했을 때만 갱신되어 수 시간 지난 정보일 수 있으며, 발행 시각은 ATIS 본문의 시각으로 계산합니다. 수집 주기: 주요 공항 약 10분, 그 밖의 공항 30~60분 (GitHub 사정으로 늦어질 수 있음).</footer>
 </main>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="공항 선택">
+    <div class="panel-head">
+      <div class="panel-top">
+        <input id="q" type="search" placeholder="ICAO · IATA · 공항 이름" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        <button class="btn" id="close-picker">닫기</button>
+      </div>
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </div>
+    <div class="list" id="list"></div>
+  </div>
+</div>
 
 <script>
 (function(){
   const REPO = "shpdragonfly-bit/atis-board";
   const RAW = "https://raw.githubusercontent.com/" + REPO + "/main/data/";
-  const LS = "atisboard.airport";
-  let data = null, current = null, histCache = {};
+  const K = {airport:"atisboard.airport", favs:"atisboard.favs", flight:"atisboard.flight", tab:"atisboard.tab"};
+  const DEFAULT_FAVS = ["RKSI","RKSS","RKPC","RJAA","VHHH","KLAX"];
+  const REGIONS = [["FAV","즐겨찾기"],["ALL","전체"],["KR","국내"],["JP","일본"],["CN","중국·대만·홍콩"],["SEA","동남아·인도"],["AM","미주"],["EU","유럽·중동"],["OC","대양주"]];
 
+  let data = null, view = "airport", current = null, histCache = {};
   const $ = id => document.getElementById(id);
   const pad = n => String(n).padStart(2,"0");
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const load = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch(e){ return d; } };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
+  let favs = load(K.favs, DEFAULT_FAVS);
+  let tab = load(K.tab, "FAV");
 
+  // ---------- time ----------
   function tick(){
     const d = new Date();
     $("utc").textContent = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
     const k = new Date(d.getTime() + 9*3600e3);
     $("kst").textContent = pad(k.getUTCHours()) + ":" + pad(k.getUTCMinutes());
   }
-
   const ageMin = iso => iso ? Math.round((Date.now() - Date.parse(iso)) / 60000) : null;
   function fmtAge(m){
     if (m == null) return "시각 불명";
@@ -141,6 +199,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     if (m < 1440) return Math.floor(m/60) + "시간 " + (m%60) + "분 전";
     return Math.floor(m/1440) + "일 전";
   }
+  const shortAge = m => m == null ? "–" : m < 60 ? m + "m" : m < 1440 ? Math.floor(m/60) + "h" : Math.floor(m/1440) + "d";
   function fmtTimes(iso){
     if (!iso) return "발행 시각 없음";
     const d = new Date(iso), k = new Date(d.getTime() + 9*3600e3);
@@ -154,11 +213,12 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     return ["old", "오래된 참고 정보"];
   }
 
+  // ---------- decoding (shown only under 해석 보기) ----------
   function fields(text){
     const f = " " + text.replace(/\s+/g, " ").toUpperCase() + " ";
     const out = {};
-    let w = f.match(/WIND\s+(?:TDZ\s+)?(CALM|VRB|\d{3})(?:\s*DEG)?\s*[\/,]?\s*(\d{1,3})?\s*(?:G\s*(\d+))?\s*KT/) ||
-            f.match(/\s(VRB|\d{3})(\d{2,3})(?:G(\d{2,3}))?KT\b/);
+    const w = f.match(/WIND\s+(?:TDZ\s+)?(CALM|VRB|\d{3})(?:\s*DEG)?\s*[\/,]?\s*(\d{1,3})?\s*(?:G\s*(\d+))?\s*KT/) ||
+              f.match(/\s(VRB|\d{3})(\d{2,3})(?:G(\d{2,3}))?KT\b/);
     if (w) out.wind = w[1] === "CALM" ? "CALM" : (w[1] + (w[1] === "VRB" ? "" : "°") + " / " + (w[2] || "–") + (w[3] ? " G" + w[3] : "") + " KT");
     if (/\bCAVOK\b/.test(f)) out.vis = "CAVOK";
     else {
@@ -177,67 +237,86 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     else if (a) out.qnh = a[1].slice(0,2) + "." + a[1].slice(2) + " inHg";
     return out;
   }
-
   function opsLines(text){
-    let parts = text.includes("\n") ? text.split("\n") : text.split(/\.\s+/);
+    const parts = text.includes("\n") ? text.split("\n") : text.split(/\.\s+/);
     return parts.map(s => s.trim()).filter(s =>
       /RWY|RUNWAY|APCH|APPROACH|SID|STAR|ARRIVAL|DEPARTURE|FREQ|CAUTION|GPS|GNSS|CLSD|CLOSED|NOTAM|BIRD|WIND ?SHEAR|EXP\b|LNDG|DEPG|PERCENT|WET|SNOW|ICE|SLUSH|TWY|^(?:[-+]|FBL |MOD |HVY )?(?:RA|SN|DZ|TS|SH|FG|BR|HZ)\w*$/i.test(s) &&
       !/^(?:WIND\b|QNH|T\s?\d|DP\s|VIS\b)/i.test(s) && s.length > 3);
   }
 
-  function label(type){ return {ARR:"도착 ATIS", DEP:"출발 ATIS"}[type] || "ATIS"; }
+  // ---------- helpers ----------
+  const label = t => ({ARR:"도착 ATIS", DEP:"출발 ATIS"}[t] || "ATIS");
+  const typeOrder = t => ({ARR:0, DEP:1}[t] ?? 2);
+  function newest(apt){
+    const t = (apt.atis || []).map(a => a.issued ? Date.parse(a.issued) : 0);
+    return t.length && Math.max(...t) ? new Date(Math.max(...t)).toISOString() : null;
+  }
+  function aptDot(apt){ return (apt.atis || []).length ? freshness(newest(apt))[0] : ""; }
+  function resolve(code){
+    if (!data || !code) return null;
+    const c = code.trim().toUpperCase();
+    if (data.airports[c]) return c;
+    for (const [id, a] of Object.entries(data.airports)) if ((a.iata || "") === c || a.name === code.trim()) return id;
+    return null;
+  }
+  const isFav = id => favs.includes(id);
+  function toggleFav(id){
+    favs = isFav(id) ? favs.filter(x => x !== id) : favs.concat(id);
+    save(K.favs, favs);
+  }
 
-  function card(a, apt){
+  // ---------- card ----------
+  function card(a, icao, apt){
     const [cls, tag] = freshness(a.issued);
     const f = fields(a.text);
     const kv = [["WIND", f.wind, true], ["VIS", f.vis], ["CLOUD", f.cloud], ["T / DP", f.temp], [f.qnh && f.qnh.includes("inHg") ? "ALTM" : "QNH", f.qnh, true]].filter(x => x[1]);
     const ops = opsLines(a.text);
-    const extra = [a.requestedBy ? "요청 항공기 " + esc(a.requestedBy) : "", a.received ? "수집 " + fmtTimes(a.received) : ""].filter(Boolean).join(" · ");
+    const extra = [a.requestedBy ? "요청 " + esc(a.requestedBy) : "", a.received ? "수집 " + fmtTimes(a.received) : ""].filter(Boolean).join(" · ");
     return `<article class="card">
       <div class="card-head"><div class="letter" aria-label="정보 ${esc(a.letter || "?")}">${esc(a.letter || "?")}</div>
-        <div class="meta"><div class="kind">${label(a.type)} · ${esc(current)}</div>
+        <div class="meta"><div class="kind">${label(a.type)} · ${esc(icao)}</div>
         <div class="times">${fmtTimes(a.issued)}</div>
         <span class="pill ${cls}">${tag} · ${fmtAge(ageMin(a.issued))}</span></div></div>
-      ${kv.length ? `<dl class="kv">${kv.map(x => `<dt>${x[0]}</dt><dd class="${x[2] ? "big" : ""}">${esc(x[1])}</dd>`).join("")}</dl>` : ""}
-      ${ops.length ? `<ul class="ops">${ops.map(l => `<li class="${/CAUTION|GPS|GNSS|UNRELIABLE|CLSD|CLOSED|BIRD|SHEAR/i.test(l) ? "caution" : ""}">${esc(l)}</li>`).join("")}</ul>` : ""}
-      <details><summary>원문 보기</summary><pre>${esc(a.text)}</pre></details>
+      <pre class="raw">${esc(a.text)}</pre>
+      ${(kv.length || ops.length) ? `<details class="decode"><summary>해석 보기</summary><div class="decoded">
+        ${kv.length ? `<dl class="kv">${kv.map(x => `<dt>${x[0]}</dt><dd class="${x[2] ? "big" : ""}">${esc(x[1])}</dd>`).join("")}</dl>` : ""}
+        ${ops.length ? `<ul class="ops">${ops.map(l => `<li class="${/CAUTION|GPS|GNSS|UNRELIABLE|CLSD|CLOSED|BIRD|SHEAR/i.test(l) ? "caution" : ""}">${esc(l)}</li>`).join("")}</ul>` : ""}
+      </div></details>` : ""}
       <div class="src">출처: ${esc(apt.sourceName || apt.source)}${extra ? " · " + extra : ""}</div>
     </article>`;
   }
 
-  function bestIssued(apt){
-    const t = (apt.atis || []).map(a => a.issued ? Date.parse(a.issued) : 0);
-    return t.length ? new Date(Math.max(...t)).toISOString() : null;
-  }
-
+  // ---------- header chips ----------
   function renderNav(){
-    const ids = Object.keys(data.airports);
+    const ids = favs.filter(id => data.airports[id]);
+    if (view === "airport" && current && !ids.includes(current)) ids.push(current);
     $("apts").innerHTML = ids.map(id => {
       const apt = data.airports[id];
-      const [cls] = (apt.atis || []).length ? freshness(bestIssued(apt)) : ["", ""];
-      return `<button class="apt" data-id="${id}" aria-current="${id === current}"><span class="dot ${cls}"></span>${id}<small>${esc(apt.name || "")}</small></button>`;
+      return `<button class="chip" data-id="${id}" aria-current="${view === "airport" && id === current}"><span class="dot ${aptDot(apt)}"></span>${id}<small>${esc(apt.name || "")}</small></button>`;
     }).join("");
-    $("apts").querySelectorAll(".apt").forEach(b => b.addEventListener("click", () => select(b.dataset.id)));
+    $("apts").querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => go(b.dataset.id)));
+    $("open-flight").setAttribute("aria-current", view === "flight");
     const cur = $("apts").querySelector('[aria-current="true"]');
     if (cur && cur.scrollIntoView) cur.scrollIntoView({block:"nearest", inline:"nearest"});
   }
 
-  function render(){
-    if (!data) return;
+  // ---------- airport view ----------
+  function renderAirport(){
     const apt = data.airports[current];
-    renderNav();
-    $("title").textContent = (apt.name ? apt.name + " " : "") + current;
-    const checked = data.generatedAt ? "자료 확인 " + fmtAge(ageMin(data.generatedAt)) : "";
+    $("title").innerHTML = `${esc(apt.name || "")} ${esc(current)} <span class="iata">${esc(apt.iata || "")}</span>
+      <button class="star" id="star" aria-pressed="${isFav(current)}">${isFav(current) ? "★ 즐겨찾기" : "☆ 즐겨찾기"}</button>`;
+    $("star").addEventListener("click", () => { toggleFav(current); render(); });
+    const checked = apt.checkedAt ? "확인 " + fmtAge(ageMin(apt.checkedAt)) : "";
     $("sub").innerHTML = `${esc(apt.sourceName || "")}${apt.sourceUrl ? ` · <a href="${esc(apt.sourceUrl)}" target="_blank" rel="noopener">원본</a>` : ""}${checked ? " · " + checked : ""}`;
     const phones = (apt.phone || []).map(p => `<a class="btn" href="tel:${esc(p.number.replace(/[^0-9+]/g, ""))}">☎ ${esc(p.label)} <span style="font-family:var(--f-mono)">${esc(p.number)}</span></a>`).join("");
-    $("tools").innerHTML = `<button class="btn primary" id="reload">새로고침</button>${phones}`;
-    $("reload").addEventListener("click", () => load(true));
     let note = "";
     if (apt.error) note += `<p class="notice err">최근 수집에 실패해 이전 자료를 보여줍니다 (${esc(fmtAge(ageMin(apt.errorAt)))}).</p>`;
-    if (apt.note && !(apt.atis || []).length) note += `<p class="notice">${esc(apt.note)}</p>`;
-    $("notice").innerHTML = note;
-    const list = (apt.atis || []).slice().sort((x, y) => ({ARR:0, DEP:1}[x.type] ?? 2) - ({ARR:0, DEP:1}[y.type] ?? 2));
-    $("cards").innerHTML = list.length ? list.map(a => card(a, apt)).join("") : `<p class="empty">표시할 ATIS가 없습니다.</p>`;
+    if (!(apt.atis || []).length) note += `<p class="notice">${esc(apt.note || "아직 받은 ATIS가 없습니다.")}</p>`;
+    const list = (apt.atis || []).slice().sort((x, y) => typeOrder(x.type) - typeOrder(y.type));
+    $("view").innerHTML = `<div class="tools"><button class="btn primary" id="reload">새로고침</button>${phones}</div>${note}
+      <div class="grid">${list.map(a => card(a, current, apt)).join("")}</div>
+      <section class="hist" id="hist" hidden><h2>최근 받은 ATIS</h2><div class="hist-list" id="hist-list"></div></section>`;
+    $("reload").addEventListener("click", () => fetchData(true));
     renderHistory();
   }
 
@@ -249,41 +328,130 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
       catch(e){ h = []; }
       histCache[id] = h;
     }
-    if (id !== current) return;
+    if (id !== current || view !== "airport" || !$("hist")) return;
     const rows = h.slice(-12).reverse();
     $("hist").hidden = rows.length < 2;
     $("hist-list").innerHTML = rows.map(e => `<details class="hist-row"><summary><span class="hl">${esc(e.letter || "?")}</span><span>${esc(label(e.type))}</span><span>${fmtTimes(e.issued)}</span></summary><pre>${esc(e.text)}</pre></details>`).join("");
   }
 
-  function select(id){
-    if (!data || !data.airports[id]) return;
-    current = id;
-    try { localStorage.setItem(LS, id); } catch(e){}
-    if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
-    render();
+  // ---------- flight view ----------
+  function pickFor(apt, want){
+    const list = apt.atis || [];
+    const exact = list.filter(a => a.type === want);
+    if (exact.length) return exact;
+    const gen = list.filter(a => a.type === "ATIS");
+    return gen.length ? gen : list;
+  }
+  function renderFlight(){
+    const fl = load(K.flight, {dep:"RKSI", dest:"", altn:""});
+    $("title").textContent = "오늘 비행";
+    $("sub").textContent = "출발 공항은 출발 ATIS, 목적지·교체 공항은 도착 ATIS를 모아 보여줍니다. 입력한 값은 이 기기에 저장됩니다.";
+    const legs = [["출발", fl.dep, "DEP"], ["목적지", fl.dest, "ARR"]]
+      .concat(String(fl.altn || "").split(/[\s,\/]+/).filter(Boolean).map(c => ["교체", c, "ARR"]));
+    const body = legs.filter(l => l[1]).map(([role, code, want]) => {
+      const id = resolve(code);
+      if (!id) return `<section class="leg"><h2><span class="role">${role}</span>${esc(code.toUpperCase())}</h2><p class="notice">목록에 없는 공항입니다. airports.json에 추가하면 수집됩니다.</p></section>`;
+      const apt = data.airports[id];
+      const items = pickFor(apt, want);
+      return `<section class="leg"><h2><span class="role">${role}</span>${esc(apt.name || "")} ${id} <a href="#${id}">공항 화면 →</a></h2>
+        ${items.length ? `<div class="grid">${items.map(a => card(a, id, apt)).join("")}</div>` : `<p class="notice">${esc(apt.note || "아직 받은 ATIS가 없습니다.")}</p>`}</section>`;
+    }).join("");
+    $("view").innerHTML = `<form class="flight" id="flight-form" autocomplete="off">
+        <label>출발<input class="code" id="f-dep" value="${esc(fl.dep)}" placeholder="RKSI" autocapitalize="characters"></label>
+        <label>목적지<input class="code" id="f-dest" value="${esc(fl.dest)}" placeholder="KLAX" autocapitalize="characters"></label>
+        <label>교체 (여러 개 가능)<input class="code" id="f-altn" value="${esc(fl.altn)}" placeholder="KONT KSFO" autocapitalize="characters"></label>
+        <button class="btn primary go" type="submit">보기</button>
+      </form>${body || `<p class="empty">출발·목적지 공항을 입력하세요. ICAO, IATA 코드나 한글 이름(예: 인천)을 쓸 수 있습니다.</p>`}`;
+    $("flight-form").addEventListener("submit", e => {
+      e.preventDefault();
+      save(K.flight, {dep:$("f-dep").value.trim().toUpperCase(), dest:$("f-dest").value.trim().toUpperCase(), altn:$("f-altn").value.trim().toUpperCase()});
+      render();
+    });
   }
 
-  async function load(force){
+  // ---------- picker ----------
+  function renderTabs(){
+    $("tabs").innerHTML = REGIONS.map(([id, name]) => `<button class="tab" role="tab" data-tab="${id}" aria-selected="${id === tab}">${name}</button>`).join("");
+    $("tabs").querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; save(K.tab, tab); renderTabs(); renderList(); }));
+  }
+  function renderList(){
+    const q = $("q").value.trim().toUpperCase();
+    let ids = Object.keys(data.airports);
+    if (q) ids = ids.filter(id => { const a = data.airports[id]; return id.includes(q) || (a.iata || "").includes(q) || (a.name || "").toUpperCase().includes(q); });
+    else if (tab === "FAV") ids = favs.filter(id => data.airports[id]);
+    else if (tab !== "ALL") ids = ids.filter(id => data.airports[id].region === tab);
+    $("list").innerHTML = ids.length ? ids.map(id => {
+      const a = data.airports[id];
+      const letters = (a.atis || []).slice().sort((x, y) => typeOrder(x.type) - typeOrder(y.type)).map(x => (x.type === "ATIS" ? "" : x.type + " ") + "<b>" + esc(x.letter || "?") + "</b>").join(" · ");
+      const n = newest(a);
+      return `<div class="row" tabindex="0" data-id="${id}">
+        <button class="rstar" data-star="${id}" aria-pressed="${isFav(id)}" aria-label="즐겨찾기">${isFav(id) ? "★" : "☆"}</button>
+        <div class="codes">${id}<small>${esc(a.iata || "")}</small></div>
+        <div class="nm">${esc(a.name || "")}</div>
+        <div class="st">${letters || "–"} <span class="dot ${aptDot(a)}"></span><span class="age">${shortAge(ageMin(n))}</span></div>
+      </div>`;
+    }).join("") : `<p class="empty" style="padding:14px">${tab === "FAV" && !q ? "즐겨찾기한 공항이 없습니다. ☆를 눌러 추가하세요." : "찾는 공항이 없습니다."}</p>`;
+    $("list").querySelectorAll(".rstar").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); toggleFav(b.dataset.star); renderList(); renderNav(); }));
+    $("list").querySelectorAll(".row").forEach(r => {
+      r.addEventListener("click", () => { closePicker(); go(r.dataset.id); });
+      r.addEventListener("keydown", e => { if (e.key === "Enter") { closePicker(); go(r.dataset.id); } });
+    });
+  }
+  function openPicker(){
+    if (!data) return;
+    $("sheet").hidden = false; document.body.classList.add("locked");
+    $("q").value = ""; renderTabs(); renderList();
+    if (window.matchMedia("(min-width:700px)").matches) $("q").focus();
+  }
+  function closePicker(){ $("sheet").hidden = true; document.body.classList.remove("locked"); }
+
+  // ---------- routing ----------
+  function render(){
+    if (!data) return;
+    renderNav();
+    if (view === "flight") renderFlight(); else renderAirport();
+  }
+  function go(id){ location.hash = id; }
+  function route(){
+    const h = (location.hash || "").slice(1);
+    if (h.toLowerCase() === "flight") { view = "flight"; }
+    else {
+      const id = resolve(h) || current || resolve(load(K.airport, "")) || "RKSI";
+      view = "airport"; current = data.airports[id] ? id : Object.keys(data.airports)[0];
+      save(K.airport, current);
+    }
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  async function fetchData(force){
     try {
       const r = await fetch(RAW + "atis.json" + (force ? "?t=" + Date.now() : ""), {cache:"no-cache"});
       if (!r.ok) throw new Error("HTTP " + r.status);
+      const first = !data;
       data = await r.json();
       if (force) histCache = {};
-      const want = (location.hash || "").slice(1).toUpperCase();
-      let saved = null; try { saved = localStorage.getItem(LS); } catch(e){}
-      current = [want, current, saved, "RKSI"].find(x => x && data.airports[x]) || Object.keys(data.airports)[0];
-      if (force || !document.querySelector("details[open]")) render();
+      if (first) route();
+      else if (force || !document.querySelector("details[open]")) render();
+      if (!$("sheet").hidden) renderList();
     } catch(e){
-      $("sub").textContent = data ? "새 자료를 받지 못해 이전 자료를 보여줍니다." : "자료를 불러오지 못했습니다. 첫 수집이 끝나기 전이거나 네트워크 문제일 수 있습니다.";
+      $("sub").textContent = data ? "새 자료를 받지 못해 이전 자료를 보여줍니다." : "자료를 불러오지 못했습니다. 네트워크를 확인해 주세요.";
     }
   }
 
-  // re-render for the age badges, but not while the reader has a raw text open
-  tick(); setInterval(() => { tick(); if (data && !document.querySelector("details[open]")) render(); }, 30000);
-  setInterval(() => load(false), 120000);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) load(false); });
-  window.addEventListener("hashchange", () => select((location.hash || "").slice(1).toUpperCase()));
-  load(false);
+  $("open-picker").addEventListener("click", openPicker);
+  $("close-picker").addEventListener("click", closePicker);
+  $("sheet").addEventListener("click", e => { if (e.target === $("sheet")) closePicker(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("sheet").hidden) closePicker(); });
+  $("q").addEventListener("input", renderList);
+  $("open-flight").addEventListener("click", () => { location.hash = "flight"; });
+  window.addEventListener("hashchange", () => { if (data) route(); });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) fetchData(false); });
+
+  // age badges tick; don't redraw while a details box is open
+  tick(); setInterval(() => { tick(); if (data && !document.querySelector("details[open]") && document.activeElement?.tagName !== "INPUT") render(); }, 30000);
+  setInterval(() => fetchData(false), 120000);
+  fetchData(false);
 })();
 </script>
 </body>

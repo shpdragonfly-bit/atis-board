@@ -32,6 +32,9 @@ LATEST = DATA / "atis.json"
 HISTORY = DATA / "history"
 HISTORY_KEEP = 300          # entries kept per airport
 REFRESH_EVEN_IF_SAME_MIN = 60  # rewrite unchanged data at most this often
+STATE = ROOT / ".state" / "checked.json"  # last check per airport; kept in the Actions cache
+TIER_MINUTES = {1: 10, 2: 30, 3: 60}      # how often each tier is fetched
+DUE_SLACK = timedelta(minutes=3)           # runs start a little irregularly
 USER_AGENT = "atis-board/1.0 (personal, low-frequency; +https://github.com/shpdragonfly-bit/atis-board)"
 
 
@@ -102,15 +105,29 @@ def record(kind: str, text: str, ref: datetime, **extra) -> dict:
 
 # ---------------------------------------------------------------- sources
 
-def src_faa(icao: str, now: datetime) -> tuple[list[dict], str]:
-    url = f"https://datis.clowd.io/api/{icao}"
-    data = json.loads(get(url))
+FAA_ALL_URL = "https://datis.clowd.io/api/all"
+_faa_cache: dict | None = None
+
+
+def _faa_items(data) -> list[dict]:
     if isinstance(data, dict):
-        if data.get("error"):
-            return [], url
-        data = [data]
+        return [] if data.get("error") else [data]
+    return [d for d in data if isinstance(d, dict)]
+
+
+def src_faa(icao: str, now: datetime) -> tuple[list[dict], str]:
+    """US D-ATIS. All airports come from one /api/all call per run."""
+    global _faa_cache
+    if _faa_cache is None:
+        _faa_cache = {}
+        for item in _faa_items(json.loads(get(FAA_ALL_URL, timeout=30))):
+            _faa_cache.setdefault(str(item.get("airport", "")).upper(), []).append(item)
+    items = _faa_cache.get(icao)
+    url = f"https://datis.clowd.io/api/{icao}"
+    if items is None:  # not in the bulk list; ask for this one airport
+        items = _faa_items(json.loads(get(url)))
     out = []
-    for item in data:
+    for item in items:
         text = item.get("datis") or ""
         if not text:
             continue
@@ -205,24 +222,44 @@ def main() -> int:
     except (FileNotFoundError, json.JSONDecodeError):
         old = {"airports": {}}
 
+    try:
+        checked = json.loads(STATE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        checked = {}
+    force = "--all" in sys.argv
+
     airports: dict = {}
-    failures = 0
+    failures = attempted = 0
     last_host = None
     for cfg in airports_cfg:
         icao, source = cfg["icao"], cfg["source"]
+        tier = int(cfg.get("tier", 3))
+        entry = {"name": cfg.get("name"), "iata": cfg.get("iata"), "region": cfg.get("region"),
+                 "tier": tier, "source": source, "sourceName": SOURCE_NAMES[source],
+                 "phone": cfg.get("phone", [])}
+        prev = old.get("airports", {}).get(icao)
+        last = checked.get(icao) or (prev or {}).get("checkedAt")
+        due = force or prev is None or not last or \
+            now - datetime.strptime(last, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc) \
+            >= timedelta(minutes=TIER_MINUTES.get(tier, 60)) - DUE_SLACK
+        if not due:
+            keep = {k: prev[k] for k in ("sourceUrl", "checkedAt", "atis", "note", "error", "errorAt") if k in prev}
+            entry.update(keep)
+            airports[icao] = entry
+            continue
         if last_host == source == "atisguru":
             time.sleep(2)  # be gentle with the volunteer-run site
         last_host = source
-        entry = {"name": cfg.get("name"), "region": cfg.get("region"), "source": source,
-                 "sourceName": SOURCE_NAMES[source], "phone": cfg.get("phone", [])}
+        attempted += 1
         try:
             items, url = SOURCES[source](icao, now)
             entry.update({"sourceUrl": url, "checkedAt": iso(now), "atis": items})
+            checked[icao] = iso(now)
             if not items:
                 entry["note"] = "현재 제공되는 ATIS 문자가 없습니다."
         except Exception as e:  # keep the last good data on failure
             failures += 1
-            prev = old.get("airports", {}).get(icao, {})
+            prev = prev or {}
             entry.update({"sourceUrl": prev.get("sourceUrl"), "checkedAt": prev.get("checkedAt"),
                           "atis": prev.get("atis", []), "error": f"{type(e).__name__}: {e}"[:200],
                           "errorAt": iso(now)})
@@ -230,6 +267,10 @@ def main() -> int:
         airports[icao] = entry
         update_history(icao, entry["atis"], now)
         print(f"[{icao}] {len(entry['atis'])} ATIS" + (" (error, kept previous)" if "error" in entry else ""))
+
+    STATE.parent.mkdir(exist_ok=True)
+    STATE.write_text(json.dumps(checked, indent=1) + "\n")
+    print(f"fetched {attempted} of {len(airports_cfg)} airports this run")
 
     changed = content_hash(airports) != content_hash(old.get("airports", {}))
     stale = True
@@ -249,7 +290,7 @@ def main() -> int:
         print("atis.json written", "(content changed)" if changed else "(refresh)")
     else:
         print("no change; atis.json left as is")
-    return 0 if failures < len(airports_cfg) else 1
+    return 0 if attempted == 0 or failures < attempted else 1
 
 
 if __name__ == "__main__":

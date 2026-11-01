@@ -9,6 +9,7 @@
 ## 동작 방식
 
 1. GitHub Actions가 약 10분마다 `scripts/collect.py`를 실행합니다 (GitHub 사정으로 10~20분 늦게 도는 경우가 흔합니다).
+   공항마다 `tier`에 따라 읽는 주기가 다릅니다: 1 = 10분, 2 = 30분, 3 = 60분. 미국 공항(FAA)은 한 번의 호출로 모두 받습니다.
 2. 결과를 `data/atis.json`과 공항별 기록 `data/history/{ICAO}.json`에 저장하고, 내용이 바뀌었을 때만 커밋합니다.
 3. GitHub Pages(`docs/`)의 웹앱이 그 JSON을 읽어 보여줍니다.
 
@@ -16,9 +17,11 @@
 
 | 소스 | 공항 | 비고 |
 |---|---|---|
-| [atis.guru](https://atis.guru/) | RKSI, RKSS, RKPC, RKPK, RJAA, RJTT, EGLL | ACARS로 수집된 D-ATIS. 항공기가 요청했을 때만 갱신되어 수 시간~수일 지난 정보일 수 있음 |
+| [atis.guru](https://atis.guru/) | 국내·일본·중국·동남아·유럽·대양주·캐나다 55곳 | ACARS로 수집된 D-ATIS. 항공기가 요청했을 때만 갱신되어 수 시간~수일 지난 정보일 수 있음 |
 | [홍콩 민항처 ATIS](https://atis.cad.gov.hk/ATIS/ATISweb/atis.php) | VHHH | 공식 공개 페이지 |
-| [FAA D-ATIS (datis.clowd.io)](https://datis.clowd.io/) | KLAX, KSFO, KJFK | 공식 FAA D-ATIS |
+| [FAA D-ATIS (datis.clowd.io)](https://datis.clowd.io/) | 미국 15곳 | 공식 FAA D-ATIS |
+
+전체 목록은 `airports.json`에 있습니다.
 
 - 발행 시각은 사이트의 수신 시각이 아니라 ATIS 본문에 적힌 `HHMMZ`로 계산합니다.
 - 화면의 배지: 35분 이내 "최신", 90분 이내 "갱신 확인 필요", 그 이상 "오래된 참고 정보".
@@ -26,11 +29,17 @@
 
 ## 공항 추가·삭제
 
-`airports.json`에 한 줄을 추가하면 됩니다. `source`는 `atisguru`, `hkcad`, `faa` 중 하나입니다.
+`airports.json`에 한 줄을 추가하면 됩니다. `source`는 `atisguru`, `hkcad`, `faa` 중 하나, `region`은 KR·JP·CN·SEA·AM·EU·OC 중 하나입니다. atis.guru 공항을 많이 늘릴 때는 `tier` 3을 쓰세요(개인이 운영하는 사이트라 부담을 줄이기 위해).
 
 ```json
-{"icao": "RJBB", "name": "간사이", "region": "JP", "source": "atisguru"}
+{"icao": "RJBB", "iata": "KIX", "name": "간사이", "region": "JP", "source": "atisguru", "tier": 2}
 ```
+
+## 웹앱 기능
+
+- 원문 우선 표시, 해석은 "해석 보기"로 펼침
+- 즐겨찾기(☆) 공항이 위쪽 버튼으로 표시, "공항 ▾"에서 검색·지역별 전체 목록
+- "오늘 비행": 출발 공항은 출발 ATIS, 목적지·교체는 도착 ATIS를 한 화면에
 
 ## 수동 실행
 

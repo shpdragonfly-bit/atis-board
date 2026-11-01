@@ -29,6 +29,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Remembers when each airport was last fetched, so slower tiers are
+      # fetched every 30 or 60 minutes without committing that state.
+      - name: Restore fetch state
+        uses: actions/cache@v4
+        with:
+          path: .state
+          key: atis-state-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: atis-state-
+
       - name: Collect ATIS
         run: python scripts/collect.py
 

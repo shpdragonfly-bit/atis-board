@@ -10,7 +10,7 @@
 
 1. GitHub Actions가 약 10분마다 `scripts/collect.py`를 실행합니다 (GitHub 사정으로 10~20분 늦게 도는 경우가 흔합니다).
    공항마다 `tier`에 따라 읽는 주기가 다릅니다: 1 = 10분, 2 = 30분, 3 = 60분. 미국 공항(FAA)은 한 번의 호출로 모두 받습니다.
-2. 결과를 `data/atis.json`과 공항별 기록 `data/history/{ICAO}.json`에 저장하고, 내용이 바뀌었을 때만 커밋합니다.
+2. 결과를 **`data` 브랜치**의 `atis.json`과 공항별 기록 `history/{ICAO}.json`에 저장하고, 내용이 바뀌었을 때만 커밋합니다. (main에 커밋하면 Pages가 매번 다시 배포되므로 분리했습니다.)
 3. GitHub Pages(`docs/`)의 웹앱이 그 JSON을 읽어 보여줍니다.
 
 ## 자료 출처

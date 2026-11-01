@@ -91,6 +91,20 @@ dl.kv dd.big{font-size:16px;font-weight:600}
 .ops li{font-family:var(--f-mono);font-size:13px;padding:6px 8px;border-left:3px solid var(--accent);background:var(--mono-bg);border-radius:0 4px 4px 0;overflow-wrap:anywhere}
 .ops li.caution{border-left-color:var(--old)}
 .src{font-size:12px;color:var(--muted)}
+.kind small{font-family:var(--f-body);font-weight:500;font-size:12px;letter-spacing:0;text-transform:none;color:var(--muted);margin-left:6px}
+.card.ghost{border-style:dashed}
+.card.ghost .letter{color:var(--line)}
+.stale{display:flex;flex-direction:column;gap:6px;font-size:13px;padding:10px 12px;border-radius:6px;border:1px solid var(--old);color:var(--old);background:transparent}
+.stale b{font-weight:600}
+.stale .btn{align-self:flex-start;font-size:13px;padding:5px 10px}
+.hint{font-size:13px;padding:8px 12px;border-radius:6px;background:var(--mono-bg);border:1px dashed var(--line);color:var(--ink)}
+.hint em{font-style:normal;font-weight:600;color:var(--muted);margin-right:4px}
+.hint code{font-family:var(--f-mono);font-weight:600}
+.metar{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 16px;display:flex;flex-direction:column;gap:6px}
+.metar .mhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.metar .mhead b{font-family:var(--f-display);font-size:15px;letter-spacing:.1em;color:var(--ink)}
+.metar pre{margin:0;font-family:var(--f-mono);font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.leg-note{font-size:13px;color:var(--warn);margin:0 0 8px}
 .empty{color:var(--muted);font-size:14px}
 section.hist{margin-top:22px}
 h2{font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;margin:0 0 8px}
@@ -245,7 +259,52 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   }
 
   // ---------- helpers ----------
-  const label = t => ({ARR:"도착 ATIS", DEP:"출발 ATIS"}[t] || "ATIS");
+  const label = t => ({ARR:"도착 ATIS", DEP:"출발 ATIS"}[t] || "통합 ATIS");
+  const STALE_MIN = 90;
+  const ts = a => a && a.issued ? Date.parse(a.issued) : 0;
+  const latest = list => list.reduce((b, a) => (!b || ts(a) > ts(b)) ? a : b, null);
+  // Airports either publish separate arrival/departure ATIS or one combined ATIS.
+  function slots(apt){
+    const L = apt.atis || [];
+    return {arr: latest(L.filter(a => a.type === "ARR")), dep: latest(L.filter(a => a.type === "DEP")), gen: latest(L.filter(a => a.type === "ATIS"))};
+  }
+  function runwaysFor(text, role){
+    const want = role === "ARR" ? /APCH|APPROACH|ILS|RNP|RNAV|VOR|LDG|LANDING|ARR|LNDG/ : /DEP|TKOF|TAKE ?OFF|DEPG/;
+    const out = [];
+    const parts = text.toUpperCase().includes("\n") ? text.toUpperCase().split("\n") : text.toUpperCase().split(/\.\s+/);
+    for (const ln of parts){
+      if (!want.test(ln) || /CONDITION|FREQ|CLSD|CLOSED|VACATE/.test(ln)) continue;
+      for (const m of ln.matchAll(/(?:RWYS?|RUNWAYS?)\s*((?:\d{2}[LRC]?(?:\s*(?:,|\/|AND)\s*)?)+)/g))
+        for (const r of m[1].match(/\d{2}[LRC]?/g) || []) if (!out.includes(r)) out.push(r);
+    }
+    return out;
+  }
+  function phoneBtns(apt, small){
+    return (apt.phone || []).map(p => `<a class="btn${small ? "" : ""}" href="tel:${esc(p.number.replace(/[^0-9+]/g, ""))}">☎ ${esc(p.label)} <span style="font-family:var(--f-mono)">${esc(p.number)}</span></a>`).join("");
+  }
+  // Extra notes on a card: stale warning, and a runway hint from the opposite, fresher ATIS.
+  function cardNotes(role, a, apt){
+    const s = slots(apt), m = a ? ageMin(a.issued) : null;
+    let html = "";
+    if (!a || m == null || m > STALE_MIN){
+      const what = a ? `이 ${label(role)}는 <b>${fmtAge(m)}</b> 것입니다.` : `받은 ${label(role)}가 없습니다.`;
+      html += `<div class="stale"><span>${what} 최신 정보는 주파수${(apt.phone || []).length ? " 또는 전화 ATIS" : ""}로 확인하세요.${apt.metar ? " 현재 기상은 위 METAR를 참고하세요." : ""}</span>${phoneBtns(apt)}</div>`;
+      const other = role === "DEP" ? s.arr : role === "ARR" ? s.dep : null;
+      if (other && ageMin(other.issued) != null && ageMin(other.issued) <= STALE_MIN && ts(other) > ts(a)){
+        const rw = runwaysFor(other.text, other.type);
+        if (rw.length){
+          const d = new Date(other.issued);
+          html += `<div class="hint"><em>참고(추정)</em>최신 ${label(other.type)} <code>${esc(other.letter || "?")}</code> (${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}Z) 기준 ${other.type === "ARR" ? "착륙" : "이륙"} 활주로 <code>${rw.map(esc).join(", ")}</code>. ${role === "DEP" ? "출발" : "도착"}도 같은 방향일 가능성이 높습니다.</div>`;
+        }
+      }
+    }
+    return html;
+  }
+  function metarBlock(apt){
+    if (!apt.metar) return "";
+    const m = ageMin(apt.metar.time);
+    return `<section class="metar"><div class="mhead"><b>METAR</b><span>${fmtTimes(apt.metar.time)}</span><span class="pill ${m != null && m <= 70 ? "ok" : "old"}" style="margin:0">${fmtAge(m)}</span></div><pre>${esc(apt.metar.raw)}</pre></section>`;
+  }
   const typeOrder = t => ({ARR:0, DEP:1}[t] ?? 2);
   function newest(apt){
     const t = (apt.atis || []).map(a => a.issued ? Date.parse(a.issued) : 0);
@@ -266,6 +325,11 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   }
 
   // ---------- card ----------
+  function ghostCard(role, icao, apt){
+    return `<article class="card ghost"><div class="card-head"><div class="letter">–</div>
+      <div class="meta"><div class="kind">${label(role)} · ${esc(icao)}</div><div class="times">수신된 문자 없음</div></div></div>
+      ${cardNotes(role, null, apt)}</article>`;
+  }
   function card(a, icao, apt){
     const [cls, tag] = freshness(a.issued);
     const f = fields(a.text);
@@ -274,9 +338,10 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     const extra = [a.requestedBy ? "요청 " + esc(a.requestedBy) : "", a.received ? "수집 " + fmtTimes(a.received) : ""].filter(Boolean).join(" · ");
     return `<article class="card">
       <div class="card-head"><div class="letter" aria-label="정보 ${esc(a.letter || "?")}">${esc(a.letter || "?")}</div>
-        <div class="meta"><div class="kind">${label(a.type)} · ${esc(icao)}</div>
+        <div class="meta"><div class="kind">${label(a.type)} · ${esc(icao)}${a.type === "ATIS" ? "<small>도착·출발 공용</small>" : ""}</div>
         <div class="times">${fmtTimes(a.issued)}</div>
         <span class="pill ${cls}">${tag} · ${fmtAge(ageMin(a.issued))}</span></div></div>
+      ${cardNotes(a.type, a, apt)}
       <pre class="raw">${esc(a.text)}</pre>
       ${(kv.length || ops.length) ? `<details class="decode"><summary>해석 보기</summary><div class="decoded">
         ${kv.length ? `<dl class="kv">${kv.map(x => `<dt>${x[0]}</dt><dd class="${x[2] ? "big" : ""}">${esc(x[1])}</dd>`).join("")}</dl>` : ""}
@@ -308,16 +373,33 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     $("star").addEventListener("click", () => { toggleFav(current); render(); });
     const checked = apt.checkedAt ? "확인 " + fmtAge(ageMin(apt.checkedAt)) : "";
     $("sub").innerHTML = `${esc(apt.sourceName || "")}${apt.sourceUrl ? ` · <a href="${esc(apt.sourceUrl)}" target="_blank" rel="noopener">원본</a>` : ""}${checked ? " · " + checked : ""}`;
-    const phones = (apt.phone || []).map(p => `<a class="btn" href="tel:${esc(p.number.replace(/[^0-9+]/g, ""))}">☎ ${esc(p.label)} <span style="font-family:var(--f-mono)">${esc(p.number)}</span></a>`).join("");
+    const phones = phoneBtns(apt);
     let note = "";
     if (apt.error) note += `<p class="notice err">최근 수집에 실패해 이전 자료를 보여줍니다 (${esc(fmtAge(ageMin(apt.errorAt)))}).</p>`;
     if (!(apt.atis || []).length) note += `<p class="notice">${esc(apt.note || "아직 받은 ATIS가 없습니다.")}</p>`;
-    const list = (apt.atis || []).slice().sort((x, y) => typeOrder(x.type) - typeOrder(y.type));
     $("view").innerHTML = `<div class="tools"><button class="btn primary" id="reload">새로고침</button>${phones}</div>${note}
-      <div class="grid">${list.map(a => card(a, current, apt)).join("")}</div>
+      ${metarBlock(apt)}
+      <div class="grid">${airportCards(apt, current)}</div>
       <section class="hist" id="hist" hidden><h2>최근 받은 ATIS</h2><div class="hist-list" id="hist-list"></div></section>`;
     $("reload").addEventListener("click", () => fetchData(true));
     renderHistory();
+  }
+
+  // Split airports get an arrival and a departure slot (a missing one shows as an empty card);
+  // airports with one combined ATIS get a single card. A combined ATIS newer than the split
+  // ones comes first (some airports combine them at night).
+  function airportCards(apt, icao){
+    const s = slots(apt);
+    const split = s.arr || s.dep;
+    const out = [];
+    if (s.gen && (!split || ts(s.gen) >= Math.max(ts(s.arr), ts(s.dep)))) out.push(card(s.gen, icao, apt));
+    if (split){
+      out.push(s.arr ? card(s.arr, icao, apt) : ghostCard("ARR", icao, apt));
+      out.push(s.dep ? card(s.dep, icao, apt) : ghostCard("DEP", icao, apt));
+      if (s.gen && !out.length) out.push(card(s.gen, icao, apt));
+    }
+    if (s.gen && split && ts(s.gen) < Math.max(ts(s.arr), ts(s.dep))) out.push(card(s.gen, icao, apt));
+    return out.join("");
   }
 
   async function renderHistory(){
@@ -335,12 +417,14 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   }
 
   // ---------- flight view ----------
-  function pickFor(apt, want){
-    const list = apt.atis || [];
-    const exact = list.filter(a => a.type === want);
-    if (exact.length) return exact;
-    const gen = list.filter(a => a.type === "ATIS");
-    return gen.length ? gen : list;
+  // What to show for a leg: the wanted ATIS, or the combined one if it is newer,
+  // or the opposite ATIS with a note when nothing else exists.
+  function pickFor(apt, want, icao){
+    const s = slots(apt), exact = want === "DEP" ? s.dep : s.arr, other = want === "DEP" ? s.arr : s.dep;
+    if (s.gen && (!exact || ts(s.gen) >= ts(exact))) return {html: card(s.gen, icao, apt)};
+    if (exact) return {html: card(exact, icao, apt)};
+    if (other) return {note: `${label(want)}가 없어 ${label(other.type)}를 대신 보여줍니다.`, html: ghostCard(want, icao, apt) + card(other, icao, apt)};
+    return {html: ghostCard(want, icao, apt)};
   }
   function renderFlight(){
     const fl = load(K.flight, {dep:"RKSI", dest:"", altn:""});
@@ -352,9 +436,9 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
       const id = resolve(code);
       if (!id) return `<section class="leg"><h2><span class="role">${role}</span>${esc(code.toUpperCase())}</h2><p class="notice">목록에 없는 공항입니다. airports.json에 추가하면 수집됩니다.</p></section>`;
       const apt = data.airports[id];
-      const items = pickFor(apt, want);
+      const pick = pickFor(apt, want, id);
       return `<section class="leg"><h2><span class="role">${role}</span>${esc(apt.name || "")} ${id} <a href="#${id}">공항 화면 →</a></h2>
-        ${items.length ? `<div class="grid">${items.map(a => card(a, id, apt)).join("")}</div>` : `<p class="notice">${esc(apt.note || "아직 받은 ATIS가 없습니다.")}</p>`}</section>`;
+        ${pick.note ? `<p class="leg-note">${esc(pick.note)}</p>` : ""}${metarBlock(apt)}<div class="grid">${pick.html}</div></section>`;
     }).join("");
     $("view").innerHTML = `<form class="flight" id="flight-form" autocomplete="off">
         <label>출발<input class="code" id="f-dep" value="${esc(fl.dep)}" placeholder="RKSI" autocapitalize="characters"></label>
@@ -382,7 +466,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     else if (tab !== "ALL") ids = ids.filter(id => data.airports[id].region === tab);
     $("list").innerHTML = ids.length ? ids.map(id => {
       const a = data.airports[id];
-      const letters = (a.atis || []).slice().sort((x, y) => typeOrder(x.type) - typeOrder(y.type)).map(x => (x.type === "ATIS" ? "" : x.type + " ") + "<b>" + esc(x.letter || "?") + "</b>").join(" · ");
+      const letters = (a.atis || []).slice().sort((x, y) => typeOrder(x.type) - typeOrder(y.type)).map(x => (x.type === "ATIS" ? "ATIS " : x.type + " ") + "<b>" + esc(x.letter || "?") + "</b>").join(" · ");
       const n = newest(a);
       return `<div class="row" tabindex="0" data-id="${id}">
         <button class="rstar" data-star="${id}" aria-pressed="${isFav(id)}" aria-label="즐겨찾기">${isFav(id) ? "★" : "☆"}</button>

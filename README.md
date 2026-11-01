@@ -20,6 +20,7 @@
 | [atis.guru](https://atis.guru/) | 국내·일본·중국·동남아·유럽·대양주·캐나다 55곳 | ACARS로 수집된 D-ATIS. 항공기가 요청했을 때만 갱신되어 수 시간~수일 지난 정보일 수 있음 |
 | [홍콩 민항처 ATIS](https://atis.cad.gov.hk/ATIS/ATISweb/atis.php) | VHHH | 공식 공개 페이지 |
 | [FAA D-ATIS (datis.clowd.io)](https://datis.clowd.io/) | 미국 15곳 | 공식 FAA D-ATIS |
+| [NOAA Aviation Weather Center](https://aviationweather.gov/data/api/) | 전 공항 METAR | 매 실행마다 25곳씩 묶어 조회 |
 
 전체 목록은 `airports.json`에 있습니다.
 
@@ -38,6 +39,9 @@
 ## 웹앱 기능
 
 - 원문 우선 표시, 해석은 "해석 보기"로 펼침
+- 도착·출발이 따로 나오는 공항은 두 칸(없는 쪽은 빈 카드), 하나로 나오는 공항은 "통합 ATIS (도착·출발 공용)" 한 칸
+- 90분 넘은 ATIS에는 경고와 전화 ATIS 버튼, 반대쪽 ATIS가 최신이면 그 기준 활주로를 "참고(추정)"로 표시
+- 공항마다 최신 METAR 원문
 - 즐겨찾기(☆) 공항이 위쪽 버튼으로 표시, "공항 ▾"에서 검색·지역별 전체 목록
 - "오늘 비행": 출발 공항은 출발 ATIS, 목적지·교체는 도착 ATIS를 한 화면에
 

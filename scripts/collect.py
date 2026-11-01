@@ -182,6 +182,48 @@ def src_hkcad(icao: str, now: datetime) -> tuple[list[dict], str]:
     return [record(kind_of(b[0]), "\n".join(b), now) for b in out], url
 
 
+METAR_URL = "https://aviationweather.gov/api/data/metar?format=json&ids="
+
+
+def fetch_metars(icaos: list[str], now: datetime) -> dict[str, dict]:
+    """Latest METAR per airport from the NOAA Aviation Weather Center, in batches."""
+    out: dict[str, dict] = {}
+    for i in range(0, len(icaos), 25):
+        batch = icaos[i:i + 25]
+        try:
+            rows = json.loads(get(METAR_URL + ",".join(batch), timeout=30) or "[]")
+        except Exception as e:
+            print(f"METAR batch {batch[0]}..: {e}", file=sys.stderr)
+            continue
+        for r in rows if isinstance(rows, list) else []:
+            icao = str(r.get("icaoId") or r.get("station_id") or "").upper()
+            raw = (r.get("rawOb") or r.get("raw_text") or "").strip()
+            if not icao or not raw:
+                continue
+            t = None
+            if isinstance(r.get("obsTime"), (int, float)):
+                t = datetime.fromtimestamp(r["obsTime"], timezone.utc)
+            elif r.get("reportTime"):
+                try:
+                    t = datetime.fromisoformat(str(r["reportTime"]).replace("Z", "+00:00").replace(" ", "T"))
+                    t = t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+                except ValueError:
+                    t = None
+            if t is None:  # fall back to the DDHHMMZ group in the report
+                m = re.search(r"\b(\d{2})(\d{2})(\d{2})Z\b", raw)
+                if m:
+                    try:
+                        t = now.replace(day=int(m.group(1)), hour=int(m.group(2)), minute=int(m.group(3)), second=0)
+                        if t > now + timedelta(hours=1):
+                            t = (t.replace(day=1) - timedelta(days=1)).replace(day=int(m.group(1)))
+                    except ValueError:
+                        t = None
+            prev = out.get(icao)
+            if prev is None or (t and prev["time"] and iso(t) > prev["time"]):
+                out[icao] = {"raw": raw, "time": iso(t) if t else None}
+    return out
+
+
 SOURCES = {"faa": src_faa, "atisguru": src_atisguru, "hkcad": src_hkcad}
 SOURCE_NAMES = {
     "faa": "FAA D-ATIS (datis.clowd.io)",
@@ -193,7 +235,8 @@ SOURCE_NAMES = {
 # ---------------------------------------------------------------- main
 
 def content_hash(airports: dict) -> str:
-    slim = {k: [(a["type"], a["text"]) for a in v.get("atis", [])] for k, v in airports.items()}
+    slim = {k: [[(a["type"], a["text"]) for a in v.get("atis", [])], (v.get("metar") or {}).get("raw")]
+            for k, v in airports.items()}
     return hashlib.sha256(json.dumps(slim, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
@@ -244,7 +287,7 @@ def main() -> int:
             now - datetime.strptime(last, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc) \
             >= timedelta(minutes=TIER_MINUTES.get(tier, 60)) - DUE_SLACK
         if not due:
-            keep = {k: prev[k] for k in ("sourceUrl", "checkedAt", "atis", "note", "error", "errorAt") if k in prev}
+            keep = {k: prev[k] for k in ("sourceUrl", "checkedAt", "atis", "note", "error", "errorAt", "metar") if k in prev}
             entry.update(keep)
             airports[icao] = entry
             continue
@@ -268,6 +311,14 @@ def main() -> int:
         airports[icao] = entry
         update_history(icao, entry["atis"], now)
         print(f"[{icao}] {len(entry['atis'])} ATIS" + (" (error, kept previous)" if "error" in entry else ""))
+
+    metars = fetch_metars([c["icao"] for c in airports_cfg], now)
+    for icao, entry in airports.items():
+        if icao in metars:
+            entry["metar"] = metars[icao]
+        elif (old.get("airports", {}).get(icao) or {}).get("metar"):
+            entry["metar"] = old["airports"][icao]["metar"]
+    print(f"METAR for {len(metars)} airports")
 
     STATE.parent.mkdir(exist_ok=True)
     STATE.write_text(json.dumps(checked, indent=1) + "\n")

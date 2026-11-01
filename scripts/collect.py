@@ -18,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 import re
 import sys
 import time
@@ -27,7 +28,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 AIRPORTS = ROOT / "airports.json"
-DATA = ROOT / "data"
+DATA = Path(os.environ.get("ATIS_DATA_DIR") or ROOT / "data")  # the data branch checkout in Actions
 LATEST = DATA / "atis.json"
 HISTORY = DATA / "history"
 HISTORY_KEEP = 300          # entries kept per airport

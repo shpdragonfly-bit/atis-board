@@ -108,6 +108,11 @@ dl.kv dd.big{font-size:16px;font-weight:600}
 .metar .mhead b{font-family:var(--f-display);font-size:15px;letter-spacing:.1em;color:var(--ink)}
 .metar pre{margin:0;font-family:var(--f-mono);font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
 .leg-note{font-size:13px;color:var(--warn);margin:0 0 8px}
+.lookup{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px;background:var(--mono-bg)}
+.lookup h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:17px;letter-spacing:.06em}
+.lookup p{margin:0;font-size:12px;color:var(--muted)}
+.lookup .links{display:flex;gap:8px;flex-wrap:wrap}
+.lookup .btn{font-size:13px;padding:6px 11px}
 .empty{color:var(--muted);font-size:14px}
 section.hist{margin-top:22px}
 h2{font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;margin:0 0 8px}
@@ -176,7 +181,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   <div class="panel" role="dialog" aria-modal="true" aria-label="공항 선택">
     <div class="panel-head">
       <div class="panel-top">
-        <input id="q" type="search" placeholder="ICAO · IATA · 공항 이름" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        <input id="q" type="search" placeholder="ICAO · IATA · 공항 이름 (예: CYUL)" autocomplete="off" autocapitalize="characters" spellcheck="false">
         <button class="btn" id="close-picker">닫기</button>
       </div>
       <div class="tabs" id="tabs" role="tablist"></div>
@@ -284,6 +289,23 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     }
     return out;
   }
+  // Pages where the pilot can read an airport's ATIS directly. The app only opens them
+  // in the browser; it does not fetch or copy their content.
+  function directLinks(icao){
+    const L = [];
+    if (/^C[A-Z]{3}$/.test(icao)) L.push(["NAV CANADA 공식 ATIS", "https://spaces.navcanada.ca/workspace/aeroview/" + icao]);
+    if (icao === "VHHH") L.push(["홍콩 민항처 공식 ATIS", "https://atis.cad.gov.hk/ATIS/ATISweb/atis.php"]);
+    L.push(["atis.guru (ACARS 수집)", "https://atis.guru/atis/" + icao]);
+    L.push(["METAR (NOAA)", "https://aviationweather.gov/data/metar/?ids=" + icao]);
+    return L;
+  }
+  function lookupPanel(icao, known){
+    const apt = data && data.airports[icao];
+    const links = directLinks(icao).map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">↗ ${esc(t)}</a>`).join("");
+    return `<div class="lookup"><h3>${esc(icao)} 직접 조회${known ? "" : " · 목록에 없는 공항"}</h3>
+      <div class="links">${links}${apt ? phoneBtns(apt) : ""}</div>
+      <p>공식·원본 페이지를 브라우저에서 엽니다. 앱은 주소만 연결하고 내용은 가져오지 않습니다.${known ? "" : " 자주 보시면 목록에 추가해 자동 수집할 수 있습니다."}</p></div>`;
+  }
   function phoneBtns(apt, small){
     return (apt.phone || []).map(p => `<a class="btn${small ? "" : ""}" href="tel:${esc(p.number.replace(/[^0-9+]/g, ""))}">☎ ${esc(p.label)} <span style="font-family:var(--f-mono)">${esc(p.number)}</span></a>`).join("");
   }
@@ -378,7 +400,8 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     $("star").addEventListener("click", () => { toggleFav(current); render(); });
     const checked = apt.checkedAt ? "확인 " + fmtAge(ageMin(apt.checkedAt)) : "";
     $("sub").innerHTML = `${esc(apt.sourceName || "")}${apt.sourceUrl ? ` · <a href="${esc(apt.sourceUrl)}" target="_blank" rel="noopener">원본</a>` : ""}${checked ? " · " + checked : ""}`;
-    const phones = phoneBtns(apt) + (apt.links || []).map(l => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">↗ ${esc(l.label)}</a>`).join("");
+    const official = directLinks(current).filter(([t]) => !/atis\.guru|METAR/.test(t));
+    const phones = phoneBtns(apt) + official.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">↗ ${esc(t)}</a>`).join("");
     let note = "";
     if (apt.error) note += `<p class="notice err">최근 수집에 실패해 이전 자료를 보여줍니다 (${esc(fmtAge(ageMin(apt.errorAt)))}).</p>`;
     if (!(apt.atis || []).length) note += `<p class="notice">${esc(apt.note || "아직 받은 ATIS가 없습니다.")}</p>`;
@@ -439,7 +462,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
       .concat(String(fl.altn || "").split(/[\s,\/]+/).filter(Boolean).map(c => ["교체", c, "ARR"]));
     const body = legs.filter(l => l[1]).map(([role, code, want]) => {
       const id = resolve(code);
-      if (!id) return `<section class="leg"><h2><span class="role">${role}</span>${esc(code.toUpperCase())}</h2><p class="notice">목록에 없는 공항입니다. airports.json에 추가하면 수집됩니다.</p></section>`;
+      if (!id) return `<section class="leg"><h2><span class="role">${role}</span>${esc(code.toUpperCase())}</h2>${/^[A-Z]{4}$/.test(code.toUpperCase()) ? `<div class="card" style="padding:0;overflow:hidden">${lookupPanel(code.toUpperCase(), false)}</div>` : `<p class="notice">목록에 없는 공항입니다. ICAO 4자리 코드로 입력하면 공식 페이지로 직접 조회할 수 있습니다.</p>`}</section>`;
       const apt = data.airports[id];
       const pick = pickFor(apt, want, id);
       return `<section class="leg"><h2><span class="role">${role}</span>${esc(apt.name || "")} ${id} <a href="#${id}">공항 화면 →</a></h2>
@@ -469,7 +492,9 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     if (q) ids = ids.filter(id => { const a = data.airports[id]; return id.includes(q) || (a.iata || "").includes(q) || (a.name || "").toUpperCase().includes(q); });
     else if (tab === "FAV") ids = favs.filter(id => data.airports[id]);
     else if (tab !== "ALL") ids = ids.filter(id => data.airports[id].region === tab);
-    $("list").innerHTML = ids.length ? ids.map(id => {
+    const code = /^[A-Z]{4}$/.test(q) ? q : (q && ids.length === 1 ? ids[0] : null);
+    const panel = code ? lookupPanel(code, !!data.airports[code]) : "";
+    $("list").innerHTML = panel + (ids.length ? ids.map(id => {
       const a = data.airports[id];
       const letters = (a.atis || []).slice().sort((x, y) => typeOrder(x.type) - typeOrder(y.type)).map(x => (x.type === "ATIS" ? "ATIS " : x.type + " ") + "<b>" + esc(x.letter || "?") + "</b>").join(" · ");
       const n = newest(a);
@@ -479,7 +504,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
         <div class="nm">${esc(a.name || "")}</div>
         <div class="st">${letters || "–"} <span class="dot ${aptDot(a)}"></span><span class="age">${shortAge(ageMin(n))}</span></div>
       </div>`;
-    }).join("") : `<p class="empty" style="padding:14px">${tab === "FAV" && !q ? "즐겨찾기한 공항이 없습니다. ☆를 눌러 추가하세요." : "찾는 공항이 없습니다."}</p>`;
+    }).join("") : (panel ? "" : `<p class="empty" style="padding:14px">${tab === "FAV" && !q ? "즐겨찾기한 공항이 없습니다. ☆를 눌러 추가하세요." : "찾는 공항이 없습니다. ICAO 4자리 코드를 넣으면 공식 페이지로 직접 조회할 수 있습니다."}</p>`));
     $("list").querySelectorAll(".rstar").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); toggleFav(b.dataset.star); renderList(); renderNav(); }));
     $("list").querySelectorAll(".row").forEach(r => {
       r.addEventListener("click", () => { closePicker(); go(r.dataset.id); });

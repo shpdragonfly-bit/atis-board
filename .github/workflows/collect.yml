@@ -1,13 +1,15 @@
 name: Collect ATIS
 
-# Runs every 10 minutes. GitHub often starts scheduled runs late (10-20 min)
-# under load; that is expected. "Run workflow" on the Actions tab runs it now.
+# GitHub's own schedule is often late or skipped for small repositories, so
+# each run stays up for about 50 minutes, collects every 10 minutes, and then
+# starts the next run itself. The schedule below only restarts the chain if it
+# ever breaks. "Run workflow" on the Actions tab also starts it.
 #
 # Collected data is committed to the separate "data" branch, so the web app
 # on main (GitHub Pages) is not rebuilt every time an ATIS changes.
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -17,6 +19,8 @@ permissions:
   contents: write
   actions: write
 
+# One run at a time; a newer waiting run replaces an older waiting one,
+# so the chain can never multiply.
 concurrency:
   group: collect-atis
   cancel-in-progress: false
@@ -24,7 +28,10 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 58
+    env:
+      ROUNDS: 5          # collections per run
+      INTERVAL: 600      # seconds between collections
     steps:
       - uses: actions/checkout@v4
 
@@ -41,7 +48,6 @@ jobs:
             git -C store checkout -q --orphan data
             git -C store rm -rq --cached . || true
             find store -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-            # first run: carry over data collected on main before the split
             if [ -d data ]; then cp -r data/. store/; fi
           fi
 
@@ -58,27 +64,33 @@ jobs:
           key: atis-state-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: atis-state-
 
-      - name: Collect ATIS
+      - name: Collect every 10 minutes
         env:
           ATIS_DATA_DIR: store
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: python scripts/collect.py
-
-      - name: Commit data if it changed
-        working-directory: store
         run: |
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No data change."
-            exit 0
-          fi
-          git commit -q -m "ATIS update $(date -u +%Y-%m-%dT%H:%MZ)"
-          for i in 1 2 3; do
-            git push -q origin HEAD:data && exit 0
-            git pull -q --rebase origin data || true
-            sleep 5
+          publish() {
+            ( cd store
+              git add -A
+              if git diff --cached --quiet; then echo "No data change."; return 0; fi
+              git commit -q -m "ATIS update $(date -u +%Y-%m-%dT%H:%MZ)"
+              for i in 1 2 3; do
+                git push -q origin HEAD:data && return 0
+                git pull -q --rebase origin data || true
+                sleep 5
+              done
+              return 1 )
+          }
+          # a push-triggered run (code change) collects once and lets the chain carry on
+          rounds=$ROUNDS
+          if [ "${{ github.event_name }}" = "push" ]; then rounds=1; fi
+          for i in $(seq 1 "$rounds"); do
+            echo "::group::Round $i of $rounds ($(date -u +%H:%MZ))"
+            python scripts/collect.py || echo "collector reported failures"
+            publish || echo "publish failed"
+            echo "::endgroup::"
+            if [ "$i" -lt "$rounds" ]; then sleep "$INTERVAL"; fi
           done
-          exit 1
 
       - name: Keep the schedule enabled
         # GitHub turns off scheduled workflows after 60 days without repository activity.
@@ -86,3 +98,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/collect.yml/enable"
+
+      - name: Start the next run
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run collect.yml --ref main -R "${{ github.repository }}"

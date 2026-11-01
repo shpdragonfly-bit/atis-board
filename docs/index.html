@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ATIS Board</title>
+<meta name="description" content="인천·김포·제주·해외 주요 공항 ATIS 문자 보드 (비공식)">
+<meta name="theme-color" content="#171e26" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ATIS">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: EFB-style board — sticky airport strip, ATIS cards side by side on iPad, stacked on phone */
+:root{
+  --bg:#eef1f4; --panel:#ffffff; --ink:#18212b; --muted:#5b6876; --line:#d5dbe2;
+  --accent:#b4690e; --accent-ink:#ffffff; --mono-bg:#f5f7f9;
+  --ok:#1f7a4d; --warn:#a86a00; --old:#a23a2c;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#0f141a; --panel:#171e26; --ink:#e3e8ee; --muted:#93a0ad; --line:#2a3440;
+  --accent:#f0a33a; --accent-ink:#1a1206; --mono-bg:#11171e;
+  --ok:#4cc38a; --warn:#f0b54a; --old:#ef7f6c; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1100px;margin:0 auto;padding-block:0 40px}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1100px;margin:0 auto;padding-block:10px 8px;display:flex;flex-direction:column;gap:8px}
+.bar-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:.04em;text-transform:uppercase}
+.brand span{color:var(--accent)}
+.clock{margin-left:auto;font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;gap:12px;align-items:center}
+.clock b{color:var(--ink);font-weight:600}
+.apts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+.apts::-webkit-scrollbar{display:none}
+.apt{flex:0 0 auto;font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.06em;padding:4px 11px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;display:flex;gap:6px;align-items:baseline}
+.apt small{font-family:var(--f-body);font-weight:500;font-size:11px;letter-spacing:0}
+.apt[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.apt .dot{width:7px;height:7px;border-radius:50%;align-self:center;background:var(--line)}
+.apt .dot.ok{background:var(--ok)} .apt .dot.warn{background:var(--warn)} .apt .dot.old{background:var(--old)}
+.apt[aria-current="true"] .dot{outline:1.5px solid var(--accent-ink)}
+h1{font-family:var(--f-display);font-weight:600;font-size:30px;letter-spacing:.02em;margin:20px 0 2px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 10px;font-size:14px}
+.sub a{color:inherit}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;align-items:center}
+.btn{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible,.apt:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.notice{font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--muted);margin:0 0 14px}
+.notice.err{border-color:var(--old);color:var(--old)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card-head{display:flex;align-items:flex-start;gap:14px}
+.letter{font-family:var(--f-display);font-weight:700;font-size:58px;line-height:.9;min-width:52px;text-align:center;color:var(--accent)}
+.meta{flex:1;min-width:0}
+.kind{font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.08em;text-transform:uppercase}
+.times{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid currentColor;margin-top:6px}
+.pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)} .pill.old{color:var(--old)}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
+dl.kv dt{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding-top:2px}
+dl.kv dd{margin:0;font-family:var(--f-mono);font-size:14px;min-width:0;overflow-wrap:anywhere}
+dl.kv dd.big{font-size:17px;font-weight:600}
+.ops{display:flex;flex-direction:column;gap:4px;margin:0;padding:0;list-style:none}
+.ops li{font-family:var(--f-mono);font-size:13px;padding:6px 8px;border-left:3px solid var(--accent);background:var(--mono-bg);border-radius:0 4px 4px 0;overflow-wrap:anywhere}
+.ops li.caution{border-left-color:var(--old)}
+details summary{cursor:pointer;font-size:13px;color:var(--muted)}
+pre{margin:8px 0 0;padding:10px;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;font-family:var(--f-mono);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+.src{font-size:12px;color:var(--muted)}
+.empty{color:var(--muted);font-size:14px}
+section.hist{margin-top:22px}
+section.hist h2{font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;margin:0 0 8px}
+.hist-list{display:flex;flex-direction:column;gap:6px}
+.hist-row{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+.hist-row summary{display:flex;gap:12px;align-items:baseline;color:var(--ink);font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;list-style:none}
+.hist-row summary::-webkit-details-marker{display:none}
+.hist-row .hl{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--accent);min-width:18px}
+footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
+@media (max-width:480px){.letter{font-size:46px}h1{font-size:26px}.clock .kst{display:none}}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in gutter">
+  <div class="bar-top">
+    <div class="brand">ATIS<span>·</span>Board</div>
+    <div class="clock"><span><b id="utc">--:--</b>Z</span><span class="kst">KST <b id="kst">--:--</b></span></div>
+  </div>
+  <nav class="apts" id="apts" aria-label="공항"></nav>
+</div></header>
+
+<main class="wrap gutter">
+  <h1 id="title">ATIS Board</h1>
+  <p class="sub" id="sub">불러오는 중…</p>
+  <div class="tools" id="tools"></div>
+  <div id="notice"></div>
+  <div class="grid" id="cards"></div>
+  <section class="hist" id="hist" hidden>
+    <h2>최근 받은 ATIS</h2>
+    <div class="hist-list" id="hist-list"></div>
+  </section>
+  <footer>비공식 정보입니다. 실제 운항에는 VHF ATIS, ACARS D-ATIS 등 공식 수단으로 확인하세요. ACARS 수집 데이터(atis.guru)는 항공기가 ATIS를 요청했을 때만 갱신되어 수 시간 지난 정보일 수 있으며, 발행 시각은 ATIS 본문의 시각으로 계산합니다. 자료 수집 주기는 약 10~20분입니다.</footer>
+</main>
+
+<script>
+(function(){
+  const REPO = "shpdragonfly-bit/atis-board";
+  const RAW = "https://raw.githubusercontent.com/" + REPO + "/main/data/";
+  const LS = "atisboard.airport";
+  let data = null, current = null, histCache = {};
+
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(2,"0");
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  function tick(){
+    const d = new Date();
+    $("utc").textContent = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
+    const k = new Date(d.getTime() + 9*3600e3);
+    $("kst").textContent = pad(k.getUTCHours()) + ":" + pad(k.getUTCMinutes());
+  }
+
+  const ageMin = iso => iso ? Math.round((Date.now() - Date.parse(iso)) / 60000) : null;
+  function fmtAge(m){
+    if (m == null) return "시각 불명";
+    if (m < 1) return "방금";
+    if (m < 60) return m + "분 전";
+    if (m < 1440) return Math.floor(m/60) + "시간 " + (m%60) + "분 전";
+    return Math.floor(m/1440) + "일 전";
+  }
+  function fmtTimes(iso){
+    if (!iso) return "발행 시각 없음";
+    const d = new Date(iso), k = new Date(d.getTime() + 9*3600e3);
+    return pad(d.getUTCMonth()+1) + "/" + pad(d.getUTCDate()) + " " + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + "Z · KST " + pad(k.getUTCHours()) + ":" + pad(k.getUTCMinutes());
+  }
+  function freshness(iso){
+    const m = ageMin(iso);
+    if (m == null) return ["old", "시각 확인 필요"];
+    if (m <= 35) return ["ok", "최신"];
+    if (m <= 90) return ["warn", "갱신 확인 필요"];
+    return ["old", "오래된 참고 정보"];
+  }
+
+  function fields(text){
+    const f = " " + text.replace(/\s+/g, " ").toUpperCase() + " ";
+    const out = {};
+    let w = f.match(/WIND\s+(?:TDZ\s+)?(CALM|VRB|\d{3})(?:\s*DEG)?\s*[\/,]?\s*(\d{1,3})?\s*(?:G\s*(\d+))?\s*KT/) ||
+            f.match(/\s(VRB|\d{3})(\d{2,3})(?:G(\d{2,3}))?KT\b/);
+    if (w) out.wind = w[1] === "CALM" ? "CALM" : (w[1] + (w[1] === "VRB" ? "" : "°") + " / " + (w[2] || "–") + (w[3] ? " G" + w[3] : "") + " KT");
+    if (/\bCAVOK\b/.test(f)) out.vis = "CAVOK";
+    else {
+      const v = f.match(/\bVIS(?:IBILITY)?\s+(\d+\s?(?:KM|M)?(?:\s+OR\s+MORE)?)/) || f.match(/\s(\d{1,2}(?:\s\d\/\d)?SM)\b/);
+      if (v) out.vis = v[1].replace(" OR MORE", "+");
+    }
+    const cl = f.match(/((?:\b(?:FEW|SCT|BKN|OVC)\s?\d{3,5}\s?(?:FT)?\s*)+)/);
+    if (cl) out.cloud = cl[1].trim();
+    const T = f.match(/\bT(?:EMP)?\s?(M|MS)?(\d{1,2})\b/), D = f.match(/\bDP\s?(M|MS)?(\d{1,2})\b/);
+    const td = f.match(/\s(M?\d{2})\/(M?\d{2})\s/);
+    if (T || D) out.temp = (T ? (T[1] ? "-" : "") + T[2] : "–") + " / " + (D ? (D[1] ? "-" : "") + D[2] : "–") + " °C";
+    else if (td) out.temp = td[1].replace("M","-") + " / " + td[2].replace("M","-") + " °C";
+    const q = f.match(/\bQNH\s?(\d{3,4})/) || f.match(/\sQ(\d{4})\b/);
+    const a = f.match(/\bA(\d{4})\b/) || f.match(/ALTIMETER\s?(\d{4})/);
+    if (q) out.qnh = q[1] + " hPa";
+    else if (a) out.qnh = a[1].slice(0,2) + "." + a[1].slice(2) + " inHg";
+    return out;
+  }
+
+  function opsLines(text){
+    let parts = text.includes("\n") ? text.split("\n") : text.split(/\.\s+/);
+    return parts.map(s => s.trim()).filter(s =>
+      /RWY|RUNWAY|APCH|APPROACH|SID|STAR|ARRIVAL|DEPARTURE|FREQ|CAUTION|GPS|GNSS|CLSD|CLOSED|NOTAM|BIRD|WIND ?SHEAR|EXP\b|LNDG|DEPG/i.test(s) &&
+      !/^(?:WIND\b|QNH|T\s?\d|DP\s|VIS\b)/i.test(s) && s.length > 3);
+  }
+
+  function label(type){ return {ARR:"도착 ATIS", DEP:"출발 ATIS"}[type] || "ATIS"; }
+
+  function card(a, apt){
+    const [cls, tag] = freshness(a.issued);
+    const f = fields(a.text);
+    const kv = [["WIND", f.wind, true], ["VIS", f.vis], ["CLOUD", f.cloud], ["T / DP", f.temp], [f.qnh && f.qnh.includes("inHg") ? "ALTM" : "QNH", f.qnh, true]].filter(x => x[1]);
+    const ops = opsLines(a.text);
+    const extra = [a.requestedBy ? "요청 항공기 " + esc(a.requestedBy) : "", a.received ? "수집 " + fmtTimes(a.received) : ""].filter(Boolean).join(" · ");
+    return `<article class="card">
+      <div class="card-head"><div class="letter" aria-label="정보 ${esc(a.letter || "?")}">${esc(a.letter || "?")}</div>
+        <div class="meta"><div class="kind">${label(a.type)} · ${esc(current)}</div>
+        <div class="times">${fmtTimes(a.issued)}</div>
+        <span class="pill ${cls}">${tag} · ${fmtAge(ageMin(a.issued))}</span></div></div>
+      ${kv.length ? `<dl class="kv">${kv.map(x => `<dt>${x[0]}</dt><dd class="${x[2] ? "big" : ""}">${esc(x[1])}</dd>`).join("")}</dl>` : ""}
+      ${ops.length ? `<ul class="ops">${ops.map(l => `<li class="${/CAUTION|GPS|GNSS|UNRELIABLE|CLSD|CLOSED|BIRD|SHEAR/i.test(l) ? "caution" : ""}">${esc(l)}</li>`).join("")}</ul>` : ""}
+      <details><summary>원문 보기</summary><pre>${esc(a.text)}</pre></details>
+      <div class="src">출처: ${esc(apt.sourceName || apt.source)}${extra ? " · " + extra : ""}</div>
+    </article>`;
+  }
+
+  function bestIssued(apt){
+    const t = (apt.atis || []).map(a => a.issued ? Date.parse(a.issued) : 0);
+    return t.length ? new Date(Math.max(...t)).toISOString() : null;
+  }
+
+  function renderNav(){
+    const ids = Object.keys(data.airports);
+    $("apts").innerHTML = ids.map(id => {
+      const apt = data.airports[id];
+      const [cls] = (apt.atis || []).length ? freshness(bestIssued(apt)) : ["", ""];
+      return `<button class="apt" data-id="${id}" aria-current="${id === current}"><span class="dot ${cls}"></span>${id}<small>${esc(apt.name || "")}</small></button>`;
+    }).join("");
+    $("apts").querySelectorAll(".apt").forEach(b => b.addEventListener("click", () => select(b.dataset.id)));
+    const cur = $("apts").querySelector('[aria-current="true"]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({block:"nearest", inline:"nearest"});
+  }
+
+  function render(){
+    if (!data) return;
+    const apt = data.airports[current];
+    renderNav();
+    $("title").textContent = (apt.name ? apt.name + " " : "") + current;
+    const checked = data.generatedAt ? "자료 확인 " + fmtAge(ageMin(data.generatedAt)) : "";
+    $("sub").innerHTML = `${esc(apt.sourceName || "")}${apt.sourceUrl ? ` · <a href="${esc(apt.sourceUrl)}" target="_blank" rel="noopener">원본</a>` : ""}${checked ? " · " + checked : ""}`;
+    const phones = (apt.phone || []).map(p => `<a class="btn" href="tel:${esc(p.number.replace(/[^0-9+]/g, ""))}">☎ ${esc(p.label)} <span style="font-family:var(--f-mono)">${esc(p.number)}</span></a>`).join("");
+    $("tools").innerHTML = `<button class="btn primary" id="reload">새로고침</button>${phones}`;
+    $("reload").addEventListener("click", () => load(true));
+    let note = "";
+    if (apt.error) note += `<p class="notice err">최근 수집에 실패해 이전 자료를 보여줍니다 (${esc(fmtAge(ageMin(apt.errorAt)))}).</p>`;
+    if (apt.note && !(apt.atis || []).length) note += `<p class="notice">${esc(apt.note)}</p>`;
+    $("notice").innerHTML = note;
+    const list = (apt.atis || []).slice().sort((x, y) => ({ARR:0, DEP:1}[x.type] ?? 2) - ({ARR:0, DEP:1}[y.type] ?? 2));
+    $("cards").innerHTML = list.length ? list.map(a => card(a, apt)).join("") : `<p class="empty">표시할 ATIS가 없습니다.</p>`;
+    renderHistory();
+  }
+
+  async function renderHistory(){
+    const id = current;
+    let h = histCache[id];
+    if (!h){
+      try { const r = await fetch(RAW + "history/" + id + ".json", {cache:"no-cache"}); h = r.ok ? await r.json() : []; }
+      catch(e){ h = []; }
+      histCache[id] = h;
+    }
+    if (id !== current) return;
+    const rows = h.slice(-12).reverse();
+    $("hist").hidden = rows.length < 2;
+    $("hist-list").innerHTML = rows.map(e => `<details class="hist-row"><summary><span class="hl">${esc(e.letter || "?")}</span><span>${esc(label(e.type))}</span><span>${fmtTimes(e.issued)}</span></summary><pre>${esc(e.text)}</pre></details>`).join("");
+  }
+
+  function select(id){
+    if (!data || !data.airports[id]) return;
+    current = id;
+    try { localStorage.setItem(LS, id); } catch(e){}
+    if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+    render();
+  }
+
+  async function load(force){
+    try {
+      const r = await fetch(RAW + "atis.json" + (force ? "?t=" + Date.now() : ""), {cache:"no-cache"});
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      data = await r.json();
+      if (force) histCache = {};
+      const want = (location.hash || "").slice(1).toUpperCase();
+      let saved = null; try { saved = localStorage.getItem(LS); } catch(e){}
+      current = [want, current, saved, "RKSI"].find(x => x && data.airports[x]) || Object.keys(data.airports)[0];
+      if (force || !document.querySelector("details[open]")) render();
+    } catch(e){
+      $("sub").textContent = data ? "새 자료를 받지 못해 이전 자료를 보여줍니다." : "자료를 불러오지 못했습니다. 첫 수집이 끝나기 전이거나 네트워크 문제일 수 있습니다.";
+    }
+  }
+
+  // re-render for the age badges, but not while the reader has a raw text open
+  tick(); setInterval(() => { tick(); if (data && !document.querySelector("details[open]")) render(); }, 30000);
+  setInterval(() => load(false), 120000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) load(false); });
+  window.addEventListener("hashchange", () => select((location.hash || "").slice(1).toUpperCase()));
+  load(false);
+})();
+</script>
+</body>
+</html>

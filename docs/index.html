@@ -47,6 +47,9 @@ header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .brand span{color:var(--accent)}
 .clock{margin-left:auto;font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;gap:12px;align-items:center}
 .clock b{color:var(--ink);font-weight:600}
+.health{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:480px){.bar-top{flex-wrap:nowrap}.brand{font-size:19px}.health{font-size:11px}}
+.health.warn{color:var(--warn)} .health.old{color:var(--old);font-weight:600}
 .bar-row{display:flex;gap:8px;align-items:center;min-width:0}
 .apts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;-webkit-overflow-scrolling:touch;flex:1;min-width:0}
 .apts::-webkit-scrollbar{display:none}
@@ -152,6 +155,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
 <header class="bar"><div class="bar-in gutter">
   <div class="bar-top">
     <div class="brand">ATIS<span>·</span>Board</div>
+    <span class="health" id="health" role="status"></span>
     <div class="clock"><span><b id="utc">--:--</b>Z</span><span class="kst">KST <b id="kst">--:--</b></span></div>
   </div>
   <div class="bar-row">
@@ -165,7 +169,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   <h1 id="title">ATIS Board</h1>
   <p class="sub" id="sub">불러오는 중…</p>
   <div id="view"></div>
-  <footer>비공식 정보입니다. 실제 운항에는 VHF ATIS, ACARS D-ATIS 등 공식 수단으로 확인하세요. ACARS 수집 데이터(atis.guru)는 항공기가 ATIS를 요청했을 때만 갱신되어 수 시간 지난 정보일 수 있으며, 발행 시각은 ATIS 본문의 시각으로 계산합니다. 수집 주기: 주요 공항 약 10분, 그 밖의 공항 30~60분 (GitHub 사정으로 늦어질 수 있음).</footer>
+  <footer>비공식 정보입니다. 실제 운항에는 VHF ATIS, ACARS D-ATIS 등 공식 수단으로 확인하세요. ACARS 수집 데이터(atis.guru)는 항공기가 ATIS를 요청했을 때만 갱신되어 수 시간 지난 정보일 수 있으며, 발행 시각은 ATIS 본문의 시각으로 계산합니다. 인터넷이 없을 때는 마지막으로 받은 자료를 보여줍니다. 수집 주기: 주요 공항 약 10분, 그 밖의 공항 30~60분 (GitHub 사정으로 늦어질 수 있음).</footer>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -185,11 +189,12 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
 (function(){
   const REPO = "shpdragonfly-bit/atis-board";
   const RAW = "https://raw.githubusercontent.com/" + REPO + "/data/";  // data lives on the "data" branch
-  const K = {airport:"atisboard.airport", favs:"atisboard.favs", flight:"atisboard.flight", tab:"atisboard.tab"};
+  const K = {airport:"atisboard.airport", favs:"atisboard.favs", flight:"atisboard.flight", tab:"atisboard.tab", cache:"atisboard.cache"};
   const DEFAULT_FAVS = ["RKSI","RKSS","RKPC","RJAA","VHHH","KLAX"];
   const REGIONS = [["FAV","즐겨찾기"],["ALL","전체"],["KR","국내"],["JP","일본"],["CN","중국·대만·홍콩"],["SEA","동남아·인도"],["AM","미주"],["EU","유럽·중동"],["OC","대양주"]];
 
   let data = null, view = "airport", current = null, histCache = {};
+  let offline = false, savedAt = null, lastRun = null;
   const $ = id => document.getElementById(id);
   const pad = n => String(n).padStart(2,"0");
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -373,7 +378,7 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     $("star").addEventListener("click", () => { toggleFav(current); render(); });
     const checked = apt.checkedAt ? "확인 " + fmtAge(ageMin(apt.checkedAt)) : "";
     $("sub").innerHTML = `${esc(apt.sourceName || "")}${apt.sourceUrl ? ` · <a href="${esc(apt.sourceUrl)}" target="_blank" rel="noopener">원본</a>` : ""}${checked ? " · " + checked : ""}`;
-    const phones = phoneBtns(apt);
+    const phones = phoneBtns(apt) + (apt.links || []).map(l => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">↗ ${esc(l.label)}</a>`).join("");
     let note = "";
     if (apt.error) note += `<p class="notice err">최근 수집에 실패해 이전 자료를 보여줍니다 (${esc(fmtAge(ageMin(apt.errorAt)))}).</p>`;
     if (!(apt.atis || []).length) note += `<p class="notice">${esc(apt.note || "아직 받은 ATIS가 없습니다.")}</p>`;
@@ -508,18 +513,53 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
     window.scrollTo(0, 0);
   }
 
+  // Header indicator: how long ago the collector last ran, or that we are offline.
+  function renderHealth(){
+    const el = $("health");
+    if (offline){
+      el.className = "health old";
+      el.innerHTML = `<span class="dot old"></span>오프라인 · 저장된 자료 ${savedAt ? fmtAge(ageMin(savedAt)) : ""}`;
+      return;
+    }
+    const m = ageMin(lastRun || (data && data.generatedAt));
+    if (m == null){ el.textContent = ""; return; }
+    const cls = m <= 25 ? "ok" : m <= 45 ? "warn" : "old";
+    el.className = "health " + (cls === "ok" ? "" : cls);
+    el.innerHTML = `<span class="dot ${cls}"></span>수집 ${fmtAge(m)}${cls === "old" ? " · 지연" : ""}`;
+  }
+
+  function useData(d, fromCache){
+    const first = !data;
+    data = d;
+    if (first) route();
+    else if (!document.querySelector("details[open]")) render();
+    if (!$("sheet").hidden) renderList();
+    renderHealth();
+  }
+
   async function fetchData(force){
     try {
-      const r = await fetch(RAW + "atis.json" + (force ? "?t=" + Date.now() : ""), {cache:"no-cache"});
+      const bust = force ? "?t=" + Date.now() : "";
+      const r = await fetch(RAW + "atis.json" + bust, {cache:"no-cache"});
       if (!r.ok) throw new Error("HTTP " + r.status);
-      const first = !data;
-      data = await r.json();
+      const d = await r.json();
+      offline = false; savedAt = new Date().toISOString();
+      save(K.cache, {savedAt, data: d});
       if (force) histCache = {};
-      if (first) route();
-      else if (force || !document.querySelector("details[open]")) render();
-      if (!$("sheet").hidden) renderList();
+      try {
+        const st = await fetch(RAW + "status.json" + bust, {cache:"no-cache"});
+        if (st.ok) lastRun = (await st.json()).lastRun || null;
+      } catch(e){}
+      if (force && data) { data = d; render(); renderHealth(); }
+      else useData(d, false);
     } catch(e){
-      $("sub").textContent = data ? "새 자료를 받지 못해 이전 자료를 보여줍니다." : "자료를 불러오지 못했습니다. 네트워크를 확인해 주세요.";
+      offline = true;
+      if (!data){
+        const c = load(K.cache, null);
+        if (c && c.data){ savedAt = c.savedAt; useData(c.data, true); }
+        else $("sub").textContent = "자료를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.";
+      }
+      renderHealth();
     }
   }
 
@@ -533,9 +573,13 @@ footer{margin-top:28px;font-size:12px;color:var(--muted);max-width:75ch}
   document.addEventListener("visibilitychange", () => { if (!document.hidden) fetchData(false); });
 
   // age badges tick; don't redraw while a details box is open
-  tick(); setInterval(() => { tick(); if (data && !document.querySelector("details[open]") && document.activeElement?.tagName !== "INPUT") render(); }, 30000);
+  tick(); setInterval(() => { tick(); renderHealth(); if (data && !document.querySelector("details[open]") && document.activeElement?.tagName !== "INPUT") render(); }, 30000);
   setInterval(() => fetchData(false), 120000);
-  fetchData(false);
+  window.addEventListener("online", () => fetchData(true));
+  const cached = load(K.cache, null);       // show the last saved data at once,
+  if (cached && cached.data){ savedAt = cached.savedAt; useData(cached.data, true); }
+  fetchData(false);                         // then replace it with fresh data
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 })();
 </script>
 </body>

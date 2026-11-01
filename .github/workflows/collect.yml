@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/**", "airports.json", ".github/workflows/collect.yml"]
+    paths: ["scripts/**", "airports.json", "notify.json", ".github/workflows/collect.yml"]
 
 permissions:
   contents: write
@@ -61,6 +61,7 @@ jobs:
       - name: Collect ATIS
         env:
           ATIS_DATA_DIR: store
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python scripts/collect.py
 
       - name: Commit data if it changed

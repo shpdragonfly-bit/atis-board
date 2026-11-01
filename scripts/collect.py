@@ -30,6 +30,10 @@ ROOT = Path(__file__).resolve().parent.parent
 AIRPORTS = ROOT / "airports.json"
 DATA = Path(os.environ.get("ATIS_DATA_DIR") or ROOT / "data")  # the data branch checkout in Actions
 LATEST = DATA / "atis.json"
+STATUS = DATA / "status.json"  # written every run, so the app can tell the collector is alive
+NOTIFY = ROOT / "notify.json"  # airports to send ntfy alerts for
+NTFY_SERVER = os.environ.get("NTFY_SERVER") or "https://ntfy.sh"
+WEBAPP_URL = "https://shpdragonfly-bit.github.io/atis-board/"
 HISTORY = DATA / "history"
 HISTORY_KEEP = 300          # entries kept per airport
 REFRESH_EVEN_IF_SAME_MIN = 60  # rewrite unchanged data at most this often
@@ -258,6 +262,54 @@ def update_history(icao: str, items: list[dict], now: datetime) -> None:
         path.write_text(json.dumps(hist[-HISTORY_KEEP:], ensure_ascii=False, indent=1) + "\n")
 
 
+def send_alerts(airports: dict, old_airports: dict, now: datetime) -> int:
+    """Push a phone alert through ntfy for every new ATIS at the airports in notify.json.
+
+    The ntfy topic is a secret (NTFY_TOPIC), because anyone who knows it can read
+    and send messages on it. Without it, nothing is sent.
+    """
+    topic = os.environ.get("NTFY_TOPIC", "").strip()
+    if not topic:
+        return 0
+    try:
+        cfg = json.loads(NOTIFY.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return 0
+    wanted = {str(k).upper(): [t.upper() for t in v] if isinstance(v, list) else ["ARR", "DEP", "ATIS"]
+              for k, v in (cfg.get("airports") or {}).items()}
+    sent = 0
+    for icao, types in wanted.items():
+        new, prev = airports.get(icao), old_airports.get(icao)
+        if not new or not prev:  # never alert on the first run for an airport
+            continue
+        seen = {(a["type"], a["text"]) for a in prev.get("atis", [])}
+        for a in new.get("atis", []):
+            if a["type"] not in types or (a["type"], a["text"]) in seen:
+                continue
+            issued = a.get("issued")
+            if issued:
+                age = now - datetime.strptime(issued, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+                if age > timedelta(minutes=90):  # a late, already-outdated report
+                    continue
+            kind = {"ARR": "도착", "DEP": "출발"}.get(a["type"], "통합")
+            hhmm = issued[11:13] + issued[14:16] + "Z" if issued else ""
+            body = {
+                "topic": topic,
+                "title": f"{icao} {kind} ATIS {a.get('letter') or '?'} {hhmm}".strip(),
+                "message": a["text"][:3500],
+                "tags": ["airplane"],
+                "click": f"{WEBAPP_URL}#{icao}",
+            }
+            try:
+                req = urllib.request.Request(NTFY_SERVER, data=json.dumps(body).encode(),
+                                             headers={"Content-Type": "application/json", "User-Agent": USER_AGENT})
+                urllib.request.urlopen(req, timeout=15).read()
+                sent += 1
+            except Exception as e:
+                print(f"[{icao}] alert failed: {e}", file=sys.stderr)
+    return sent
+
+
 def main() -> int:
     now = now_utc()
     airports_cfg = json.loads(AIRPORTS.read_text())
@@ -280,7 +332,7 @@ def main() -> int:
         tier = int(cfg.get("tier", 3))
         entry = {"name": cfg.get("name"), "iata": cfg.get("iata"), "region": cfg.get("region"),
                  "tier": tier, "source": source, "sourceName": SOURCE_NAMES[source],
-                 "phone": cfg.get("phone", [])}
+                 "phone": cfg.get("phone", []), "links": cfg.get("links", [])}
         prev = old.get("airports", {}).get(icao)
         last = checked.get(icao) or (prev or {}).get("checkedAt")
         due = force or prev is None or not last or \
@@ -319,6 +371,7 @@ def main() -> int:
         elif (old.get("airports", {}).get(icao) or {}).get("metar"):
             entry["metar"] = old["airports"][icao]["metar"]
     print(f"METAR for {len(metars)} airports")
+    print(f"alerts sent: {send_alerts(airports, old.get('airports', {}), now)}")
 
     STATE.parent.mkdir(exist_ok=True)
     STATE.write_text(json.dumps(checked, indent=1) + "\n")
@@ -342,6 +395,9 @@ def main() -> int:
         print("atis.json written", "(content changed)" if changed else "(refresh)")
     else:
         print("no change; atis.json left as is")
+    DATA.mkdir(exist_ok=True)
+    STATUS.write_text(json.dumps({"lastRun": iso(now), "fetched": attempted, "failures": failures,
+                                  "metar": len(metars)}) + "\n")
     return 0 if attempted == 0 or failures < attempted else 1
 
 

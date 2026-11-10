@@ -245,6 +245,56 @@ def content_hash(airports: dict) -> str:
     return hashlib.sha256(json.dumps(slim, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+def _issued(a: dict) -> datetime | None:
+    try:
+        return datetime.strptime(a["issued"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def tidy(icao: str, items: list[dict], prev_items: list[dict], combined: bool, now: datetime) -> list[dict]:
+    """Final ATIS list for an airport.
+
+    combined: the airport broadcasts one ATIS for arrivals and departures (NAV CANADA
+    airports). A "DEP" request there returns the same broadcast, so all items become one
+    "ATIS" and only the newest is kept.
+
+    Sources sometimes surface an older ATIS again (atis.guru shows whatever was received
+    last). An item never replaces a newer one of the same type that we already had,
+    either in the previous data or in the last 6 hours of history.
+    """
+    def norm(lst):
+        out = []
+        for a in lst:
+            a = dict(a)
+            if combined:
+                a["type"] = "ATIS"
+            out.append(a)
+        return out
+
+    candidates = norm(items) + norm(prev_items)
+    try:
+        hist = json.loads((HISTORY / f"{icao}.json").read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        hist = []
+    for h in hist[-40:]:
+        seen = _issued({"issued": h.get("firstSeen")})
+        if seen and now - seen <= timedelta(hours=6):
+            candidates += norm([{k: h[k] for k in ("type", "letter", "issued", "text") if k in h}])
+    fresh_types = {a["type"] for a in norm(items)}
+    best: dict[str, dict] = {}
+    for a in candidates:
+        t = a["type"]
+        if t not in fresh_types:  # a type the source no longer shows is dropped
+            continue
+        cur = best.get(t)
+        ai, ci = _issued(a), _issued(cur) if cur else None
+        if cur is None or (ai and (ci is None or ai > ci)):
+            best[t] = a
+    order = {"ARR": 0, "DEP": 1, "ATIS": 2}
+    return sorted(best.values(), key=lambda a: order.get(a["type"], 3))
+
+
 def update_history(icao: str, items: list[dict], now: datetime) -> None:
     path = HISTORY / f"{icao}.json"
     try:
@@ -364,6 +414,7 @@ def main() -> int:
         icao, source = cfg["icao"], cfg["source"]
         tier = int(cfg.get("tier", 3))
         entry = {"name": cfg.get("name"), "iata": cfg.get("iata"), "region": cfg.get("region"),
+                 "combined": bool(cfg.get("combined")),
                  "tier": tier, "source": source, "sourceName": SOURCE_NAMES[source],
                  "phone": cfg.get("phone", []), "links": cfg.get("links", [])}
         prev = old.get("airports", {}).get(icao)
@@ -381,7 +432,8 @@ def main() -> int:
         last_host = source
         attempted += 1
         try:
-            items, url = SOURCES[source](icao, now)
+            raw_items, url = SOURCES[source](icao, now)
+            items = tidy(icao, raw_items, (prev or {}).get("atis", []), bool(cfg.get("combined")), now)
             entry.update({"sourceUrl": url, "checkedAt": iso(now), "atis": items})
             checked[icao] = iso(now)
             if not items:

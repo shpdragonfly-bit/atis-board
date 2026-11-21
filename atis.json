@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-21T00:38:55Z",
+ "generatedAt": "2026-11-21T00:48:58Z",
  "disclaimer": "비공식 정보입니다. 운항에는 공식 ATIS(주파수·ACARS)로 확인하세요.",
  "airports": {
   "RKSI": {
@@ -18,7 +18,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKSI",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -58,7 +58,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKSS",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -98,7 +98,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPC",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -138,7 +138,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPK",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -298,15 +298,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJAA",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "J",
-     "issued": "2026-11-20T23:48:00Z",
-     "text": "RJAA ARR ATIS J\n2348Z M2330\n(APCH)ILS Z RWY34R\nLDG RWY 34R\nDEP RWY 34L\nDEP FREQ 124.2.\nTWY A2 CLSD.\nOBSERVE GEAR DOWN OPS PROC ON FNL.\nM\n202330Z 30003KT 240V350 40KM FEW030CU\n09/M01 Q1015/",
-     "received": "2026-11-20T23:48:00Z",
-     "requestedBy": "B-50025"
+     "letter": "L",
+     "issued": "2026-11-21T00:45:00Z",
+     "text": "RJAA ARR ATIS L\n0045Z M0030\n(APCH)ILS Z RWY34R\nLDG RWY 34R\nDEP RWY 34L\nDEP FREQ 124.2.\nTWY A2 CLSD.\nOBSERVE GEAR DOWN OPS PROC ON\nFNL.\nM\n210030Z 23005KT 180V260 40KM\nFEW030CU\n11/01 Q1015/A2999=\nQ/TWO NINE NINE NINE\nSTP",
+     "received": "2026-11-21T00:45:00Z",
+     "requestedBy": "YP602 (HL8702)"
     },
     {
      "type": "DEP",
@@ -318,8 +318,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJAA 210000Z 27003KT 190V330 9999 FEW030 10/M01 Q1015 NOSIG",
-    "time": "2026-11-21T00:00:00Z"
+    "raw": "METAR RJAA 210030Z 22005KT 170V250 9999 FEW030 11/01 Q1015 BECMG 26005KT",
+    "time": "2026-11-21T00:30:00Z"
    }
   },
   "RJTT": {
@@ -333,15 +333,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJTT",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "D",
-     "issued": "2026-11-21T00:07:00Z",
-     "text": "RJTT ARR ATIS D\n0007Z M0000\n(APCH)LDA W RWY22/LDA W RWY23\nLDG RWY 22/23\nDEP RWY 16L/16R\nDEP FREQ 126.0 FM RWY16R.\n120.8 FM RWY16L,\nSIMUL LDA APCHS TO RWY22/RWY23 ARE\nINPR,\nM\n210000Z 26005KT 220V320 50KM FEW030CU\n11/M02 Q1016/A3000=\nQ/THREE ZERO ZERO ZERO\nSTP",
-     "received": "2026-11-21T00:08:00Z",
-     "requestedBy": "LHH716 (D-ABYR)"
+     "letter": "E",
+     "issued": "2026-11-21T00:45:00Z",
+     "text": "RJTT ARR ATIS E\n0045Z M0030\n(APCH)LDA W RWY22/LDA W RWY23\nLDG RWY 22/23\nDEP RWY 16L/16R\nDEP FREQ 126.0 FM RWY16R.\n120.8 FM RWY16L,\nSIMUL LDA APCHS TO RWY22/RWY23 ARE\nINPR,\nM\n210030Z 29006KT 250V320 50KM FEW030CU\n12/M01 Q1016/A3000=\nQ/THREE ZERO ZERO ZERO\nSTP",
+     "received": "2026-11-21T00:41:00Z",
+     "requestedBy": "B-8359"
     },
     {
      "type": "DEP",
@@ -353,8 +353,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJTT 210000Z 26005KT 210V320 9999 FEW030 11/M02 Q1016 NOSIG",
-    "time": "2026-11-21T00:00:00Z"
+    "raw": "METAR RJTT 210030Z 28006KT 250V310 9999 FEW030 12/M01 Q1016 NOSIG",
+    "time": "2026-11-21T00:30:00Z"
    }
   },
   "RJBB": {
@@ -458,8 +458,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJFF 210000Z 15010KT 9999 -RA FEW020 BKN050 07/05 Q1024 WS R16L NOSIG",
-    "time": "2026-11-21T00:00:00Z"
+    "raw": "METAR RJFF 210030Z 17009KT 9999 -SHRA FEW025 SCT040 BKN050 08/05 Q1024 WS R16L NOSIG",
+    "time": "2026-11-21T00:30:00Z"
    }
   },
   "RJGG": {
@@ -493,8 +493,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJGG 210000Z 27013KT 9999 FEW020 09/00 Q1020 NOSIG",
-    "time": "2026-11-21T00:00:00Z"
+    "raw": "METAR RJGG 210030Z 28019KT 9999 FEW020 10/01 Q1019 NOSIG",
+    "time": "2026-11-21T00:30:00Z"
    }
   },
   "RJOO": {
@@ -563,8 +563,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ROAH 210000Z 01014KT CAVOK 19/10 Q1024",
-    "time": "2026-11-21T00:00:00Z"
+    "raw": "METAR ROAH 210030Z 36013KT CAVOK 20/10 Q1024",
+    "time": "2026-11-21T00:30:00Z"
    }
   },
   "VHHH": {
@@ -578,7 +578,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.cad.gov.hk/ATIS/ATISweb/atis.php",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -1301,7 +1301,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KLAX",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1326,7 +1326,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KSFO",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1351,7 +1351,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KJFK",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1376,7 +1376,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KEWR",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1401,7 +1401,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KORD",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1426,7 +1426,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KSEA",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1451,7 +1451,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KATL",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -1482,7 +1482,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KIAD",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1507,7 +1507,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KDFW",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ARR",
@@ -1538,7 +1538,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KIAH",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1563,7 +1563,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KLAS",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1588,7 +1588,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KBOS",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1613,7 +1613,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KONT",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1638,7 +1638,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/PANC",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1663,7 +1663,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/PHNL",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1688,15 +1688,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/CYVR",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",
      "letter": "H",
      "issued": "2026-11-21T00:00:00Z",
      "text": "CYVR ARR ATIS H\n0000Z 12006KT 20SM\nFEW015 FEW030 FEW230\n05/04 A3008 APCH RNAV Z\nOR Y OR ILS OR VISL RWYS\n08L AND 08R, SIMUL PRLL\nRWY OPS IN USE AND\nINFORM ARRL OF REQ APCH\nON INITIAL CTC. LDG RWY\n08L PRI AND 08R SRY DEP\nRWY 08R. INFORM CYVR ATC\nINFO H",
-     "received": "2026-11-21T00:35:00Z",
-     "requestedBy": "WR3649 (C-GLWJ)"
+     "received": "2026-11-21T00:46:00Z",
+     "requestedBy": "C-GELU"
     }
    ],
    "metar": {
@@ -1715,7 +1715,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/CYYZ",
-   "checkedAt": "2026-11-21T00:38:19Z",
+   "checkedAt": "2026-11-21T00:48:58Z",
    "atis": [
     {
      "type": "ATIS",

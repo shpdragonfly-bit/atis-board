@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-24T01:04:46Z",
+ "generatedAt": "2026-11-24T01:15:44Z",
  "disclaimer": "비공식 정보입니다. 운항에는 공식 ATIS(주파수·ACARS)로 확인하세요.",
  "airports": {
   "RKSI": {
@@ -18,15 +18,15 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKSI",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "O",
      "issued": "2026-11-24T01:00:00Z",
      "text": "RKSI ARR ATIS O\n0100Z\nEXP SIMUL PARALLEL ILS APCH RWY 33R AND ILS APCH RWY 34L\nEXP LDG RWY INFO FROM SEOUL APP\nWIND 350/15KT\nCAVOK\nT 2\nDP MS 8\nQNH 1024\nEXP REBIT 1Y OLMEN 1Y GUKDO 2E KARBU 2E ARRIVAL\nGPS SIGNAL UNRELIABLE DUE TO GPS INTERFERENCE IN SEOUL APCH AREA\nVACATE RWY33R VIA TWY ECHO NOT AVAILABLE UNLESS AUTHORIZED BY ATC PRIOR TO LANDING",
-     "received": "2026-11-24T00:59:00Z",
-     "requestedBy": "KE34 (HL8208)"
+     "received": "2026-11-24T01:00:00Z",
+     "requestedBy": "CI160 (B-18309)"
     },
     {
      "type": "DEP",
@@ -58,7 +58,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKSS",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
@@ -98,7 +98,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPC",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
@@ -138,7 +138,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPK",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
@@ -158,8 +158,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RKPK 240000Z 34009KT 9999 FEW040 07/00 Q1020",
-    "time": "2026-11-24T00:00:00Z"
+    "raw": "METAR RKPK 240100Z 34009KT 9999 FEW040 08/M02 Q1020",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RKTN": {
@@ -298,14 +298,14 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJAA",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "Q",
-     "issued": "2026-11-24T00:47:00Z",
-     "text": "RJAA ARR ATIS Q\n0047Z M0030\n(APCH)ILS Y RWY16L\nLDG RWY 16L\nDEP RWY 16R\nDEP FREQ 124.2.\nTWY A2 CLSD.\nM\n240030Z 21010KT 170V230 35KM\nFEW030CU\nBKN170AC 16/10 Q1014/A2996 WS\nR16L RMK MOD TURB OBS AT 0021Z\nON FNA\nRWY16L BTN 1200FT AND 200FT IN\nDES\nB737 AND WS PS MS 10KT OBS AT\n0013Z ON\nFNA RWY16L BTN 500FT AND\n400FT IN DES\nA320 AND MOD TURB OBS AT\n0029Z ON FNA\nRWY16L BTN 600FT AND 100FT IN\nDES\nB738=\nQ/TWO NINE NINE SIX\nSTP",
-     "received": "2026-11-24T00:43:00Z",
+     "letter": "T",
+     "issued": "2026-11-24T01:15:00Z",
+     "text": "RJAA ARR ATIS T\n0115Z M0100\n(APCH)ILS Y RWY16L\nLDG RWY 16L\nDEP RWY 16R\nDEP FREQ 124.2.\nTWY A2 CLSD.\nM\n240100Z 20009KT 170V240 35KM\nFEW030CU\nSCT170AC BKN190AC 16/10\nQ1013/A2992 WS R16L RMK P/FR\nAND WS PS\nMS 10KT OBS AT 0056Z ON FNA\nRWY16L\n500FT IN DES B38M=\nQ/TWO NINE NINE TWO\nSTP",
+     "received": "2026-11-24T01:11:00Z",
      "requestedBy": "YP731 (HL8704)"
     },
     {
@@ -318,8 +318,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJAA 240030Z 20010KT 160V230 9999 FEW030 BKN170 16/10 Q1014 WS R16L TEMPO 19018G28KT",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RJAA 240100Z 19009KT 160V230 9999 FEW030 SCT170 BKN190 16/10 Q1013 WS R16L TEMPO 19018G28KT",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RJTT": {
@@ -333,14 +333,14 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJTT",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "X",
-     "issued": "2026-11-24T00:40:00Z",
-     "text": "RJTT ARR ATIS X\n0040Z M0030\n(APCH)LDA W RWY22/LDA W\nRWY23\nLDG RWY 22/23\nDEP RWY 16L/16R\nDEP FREQ 126.0 FM\nRWY16R.\n120.8 FM\nRWY16L,\nSIMUL LDA APCHS TO\nRWY22/RWY23 ARE\nINPR,\nM\n240030Z 22020KT 40KM\nFEW020CU BKN180AC\nBKN/// 17/10\nQ1013/A2994 RMK P/FR=\nQ/TWO NINE NINE FOUR\nSTP",
-     "received": "2026-11-24T00:36:00Z",
+     "letter": "Y",
+     "issued": "2026-11-24T01:09:00Z",
+     "text": "RJTT ARR ATIS Y\n0109Z M0100\n(APCH)LDA W RWY22/LDA W\nRWY23\nLDG RWY 22/23\nDEP RWY 16L/16R\nDEP FREQ 126.0 FM\nRWY16R.\n120.8 FM\nRWY16L,\nSIMUL LDA APCHS TO\nRWY22/RWY23 ARE\nINPR,\nM\n240100Z 20017KT 40KM\nFEW020CU SCT110AC\nBKN160AC 17/10\nQ1013/A2991=\nQ/TWO NINE NINE ONE\nSTP",
+     "received": "2026-11-24T01:06:00Z",
      "requestedBy": "N875TM"
     },
     {
@@ -353,8 +353,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJTT 240030Z 21020KT 9999 FEW020 BKN180 BKN/// 17/10 Q1013 TEMPO 22028G38KT",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RJTT 240100Z 19017KT 9999 FEW020 SCT110 BKN160 17/10 Q1013 TEMPO 22026G36KT",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RJBB": {
@@ -388,8 +388,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJBB 240030Z 08006KT 340V120 4500 SHRA BR FEW010 SCT030 BKN045 14/13 Q1012 BECMG 32015KT TEMPO FEW008 BKN012",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RJBB 240100Z 01003KT 290V090 4000 +SHRA BR FEW010 FEW020CB BKN030 BKN045 15/14 Q1012 BECMG 30015KT 8000 -SHRA TEMPO FEW008 BKN012",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RJCC": {
@@ -423,8 +423,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJCC 240030Z 19016KT 9999 -SHRA FEW010 SCT030 BKN070 08/07 Q1002",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RJCC 240100Z 20014KT 9999 -SHRA FEW010 SCT030 BKN070 08/06 Q1001",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RJFF": {
@@ -458,8 +458,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJFF 240030Z 27006KT 210V300 9000 FEW005 SCT040 BKN140 13/11 Q1018 BECMG 31018KT TEMPO 31018G28KT",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RJFF 240100Z 30012KT 260V320 9999 FEW003 BKN140 14/09 Q1018 TEMPO 31020G30KT",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RJGG": {
@@ -493,8 +493,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJGG 240030Z 36009KT 9999 VCSH FEW020 BKN050 BKN100 09/06 Q1015 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RJGG 240100Z 01008KT 9999 -RA FEW020 BKN050 BKN100 09/07 Q1014 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "RJOO": {
@@ -528,8 +528,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJOO 240000Z 06003KT 350V100 6000 -SHRA BR FEW005 SCT010 BKN025 10/09 Q1013",
-    "time": "2026-11-24T00:00:00Z"
+    "raw": "METAR RJOO 240100Z VRB03KT 2000 R32L/0500VP2000D +SHRA BR FEW003 SCT008 BKN010 11/10 Q1012",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ROAH": {
@@ -563,8 +563,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ROAH 240030Z 24018KT 9999 VCSH FEW022 BKN070 26/21 Q1017",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ROAH 240100Z 25018KT 9999 -SHRA FEW022 SCT040 BKN070 26/21 Q1017",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "VHHH": {
@@ -578,19 +578,19 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.cad.gov.hk/ATIS/ATISweb/atis.php",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "D",
-     "issued": "2026-11-24T00:31:00Z",
-     "text": "VHHH ARR ATIS D 0031Z.\nARRIVALS, RWY 07L/R.\nEXP ILS APCH, RWY 07L/R.\nRWY 07 RUNWAY CONDITION REPORT AT 0000Z.\nRWY 07L RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY 07R RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY SFC ALL PARTS WET.\nCAUTION POSSIBLE GP FLUCTUATION RWY 07R.\nSPECIAL VHHH 240024Z WIND RWY 07L 030/12KT RWY 07R 050/13KT VIS RWY 07L 10KM RWY 07R 10KM FBL RA CLD FEW 600FT SCT 1200FT BKN 3000FT T20 DP17 QNH 1022HPA=\nACKNOWLEDGE INFO D ON FIRST CTC WITH APP."
+     "letter": "E",
+     "issued": "2026-11-24T01:07:00Z",
+     "text": "VHHH ARR ATIS E 0107Z.\nARRIVALS, RWY 07L/R.\nEXP ILS APCH, RWY 07L/R.\nRWY 07 RUNWAY CONDITION REPORT AT 0000Z.\nRWY 07L RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY 07R RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY SFC ALL PARTS WET.\nCAUTION POSSIBLE GP FLUCTUATION RWY 07R.\nSIG WS FCST RWY 07L/R. MOD TURB FCST RWY 07L/R. .\nWIND RWY 07L 030/10KT RWY 07R 050/12KT VIS RWY 07L 10KM RWY 07R 10KM FBL RA CLD FEW 1000FT SCT 1500FT T20 DP16 QNH 1022HPA=\nACKNOWLEDGE INFO E ON FIRST CTC WITH APP."
     },
     {
      "type": "DEP",
-     "letter": "P",
-     "issued": "2026-11-24T00:34:00Z",
-     "text": "VHHH DEP ATIS P 0034Z.\nDEPARTURES, RWY 07C/R.\nRWY 07 RUNWAY CONDITION REPORT AT 0000Z.\nRWY 07C RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY 07R RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY SFC ALL PARTS WET.\nINDEPENDENT PARALLEL DEPARTURE IN PROGRESS.\nMOD TURB FCST RWY 07C/R.\nSPECIAL VHHH 240024Z WIND RWY 07C 050/16KT RWY 07R 050/13KT VIS RWY 07C 10KM RWY 07R 10KM FBL RA CLD FEW 600FT SCT 1200FT BKN 3000FT T20 DP17 QNH 1022HPA=\nACKNOWLEDGE INFO P ON FIRST CTC WITH DELIVERY ."
+     "letter": "Q",
+     "issued": "2026-11-24T01:08:00Z",
+     "text": "VHHH DEP ATIS Q 0108Z.\nDEPARTURES, RWY 07C/R.\nRWY 07 RUNWAY CONDITION REPORT AT 0000Z.\nRWY 07C RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY 07R RUNWAY CONDITION CODES 5 , 5 , 5 .\nRWY SFC ALL PARTS WET.\nINDEPENDENT PARALLEL DEPARTURE IN PROGRESS.\nSIG WS FCST RWY 07C/R. MOD TURB REP RWY 07C. MOD TURB FCST RWY 07R.\nWIND RWY 07C 050/11KT RWY 07R 050/14KT VIS RWY 07C 10KM RWY 07R 10KM FBL RA CLD FEW 1000FT SCT 1500FT T20 DP16 QNH 1022HPA=\nACKNOWLEDGE INFO Q ON FIRST CTC WITH DELIVERY ."
     }
    ],
    "metar": {
@@ -629,8 +629,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RCTP 240030Z 03017G29KT 2500 -RA BR SCT003 BKN008 BKN011 17/17 Q1025 WS ALL RWY NOSIG RMK A3027",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "SPECI RCTP 240112Z 03018G29KT 4000 -RA BR SCT003 BKN008 BKN013 17/17 Q1025 WS ALL RWY NOSIG RMK A3029",
+    "time": "2026-11-24T01:12:00Z"
    }
   },
   "RCSS": {
@@ -664,8 +664,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RCSS 240030Z 12003KT 080V160 8000 -RA FEW006 SCT018 BKN024 19/16 Q1024 NOSIG RMK A3026",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR RCSS 240100Z 07007KT 020V120 9999 -RA FEW006 SCT018 BKN028 20/15 Q1025 NOSIG RMK A3027",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZBAA": {
@@ -699,8 +699,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZBAA 240030Z VRB01MPS CAVOK 02/M15 Q1034 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZBAA 240100Z 35004MPS CAVOK 02/M17 Q1034 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZBAD": {
@@ -734,8 +734,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZBAD 240030Z 20003MPS 140V210 CAVOK M00/M11 Q1034 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZBAD 240100Z 18002MPS CAVOK 02/M13 Q1034 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZSPD": {
@@ -769,8 +769,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZSPD 240030Z 34008MPS CAVOK 12/04 Q1029 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZSPD 240100Z 35008MPS CAVOK 12/03 Q1030 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZSSS": {
@@ -804,8 +804,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZSSS 240030Z 35007MPS CAVOK 11/01 Q1030 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZSSS 240100Z 35007MPS CAVOK 12/02 Q1031 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZGGG": {
@@ -839,8 +839,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZGGG 240030Z 36007MPS 9999 OVC056 18/14 Q1024 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZGGG 240100Z 36007MPS 9999 OVC056 19/14 Q1025 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZGSZ": {
@@ -874,8 +874,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZGSZ 240030Z 02007MPS 9999 FEW013 BKN036 19/16 Q1022 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZGSZ 240100Z 02007MPS 9999 FEW013 BKN036 19/16 Q1023 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZUUU": {
@@ -909,8 +909,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZUUU 240030Z 20002MPS 100V270 9999 -RA NSC 11/09 Q1035 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR ZUUU 240100Z 22002MPS 190V270 9999 -RA NSC 11/09 Q1035 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZSQD": {
@@ -944,8 +944,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZSQD 240000Z 29004MPS CAVOK 02/M08 Q1032 NOSIG",
-    "time": "2026-11-24T00:00:00Z"
+    "raw": "METAR ZSQD 240100Z 30006MPS 9999 FEW050 04/M09 Q1032 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "ZYTL": {
@@ -1014,8 +1014,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VTBS 240030Z 01005KT 9000 FEW020 28/25 Q1015 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR VTBS 240100Z 36005KT 9000 FEW030 29/24 Q1015 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "WSSS": {
@@ -1084,8 +1084,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR WMKK 240030Z VRB03KT 9999 FEW017CB 28/25 Q1012 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR WMKK 240100Z 03003KT 330V070 9999 FEW017CB 29/26 Q1012 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "WIII": {
@@ -1111,8 +1111,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR WIII 240030Z 20004KT 150V240 5000 HZ FEW020 29/26 Q1013 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR WIII 240100Z 21005KT 6000 FEW020 30/26 Q1013 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "VVNB": {
@@ -1146,8 +1146,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VVNB 240030Z 03009KT 360V060 9999 OVC041 20/17 Q1022 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR VVNB 240100Z 03011KT 9999 OVC042 20/16 Q1022 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "VVTS": {
@@ -1181,8 +1181,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VVTS 240030Z 10003KT 070V130 CAVOK 29/24 Q1014 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR VVTS 240100Z VRB02KT CAVOK 30/24 Q1014 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "VVDN": {
@@ -1216,8 +1216,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VVDN 240030Z 20001KT 8000 -RA FEW017 BKN044 24/22 Q1018 TEMPO 4000 RA BR",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR VVDN 240100Z VRB01KT 8000 FEW018 BKN054 25/23 Q1018 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "VDTI": {
@@ -1251,8 +1251,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VDTI 240030Z 01003KT 320V050 9999 FEW017 28/25 Q1014",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR VDTI 240100Z 01009KT 9999 FEW017 29/23 Q1014",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "VIDP": {
@@ -1301,7 +1301,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KLAX",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1326,7 +1326,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KSFO",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1351,7 +1351,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KJFK",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1376,7 +1376,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KEWR",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1401,7 +1401,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KORD",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1426,7 +1426,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KSEA",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1451,7 +1451,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KATL",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
@@ -1482,7 +1482,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KIAD",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1507,7 +1507,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KDFW",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ARR",
@@ -1538,7 +1538,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KIAH",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1563,7 +1563,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KLAS",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1588,7 +1588,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KBOS",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1613,7 +1613,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KONT",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1638,7 +1638,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/PANC",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1663,7 +1663,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/PHNL",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1688,20 +1688,20 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/CYVR",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
-     "letter": "E",
-     "issued": "2026-11-24T00:39:00Z",
-     "text": "CYVR ARR ATIS E\n0039Z 08011G17KT 30SM SCT072 CIG OVC100 11/02\nA2996 APCH RNAV Z OR Y OR ILS OR VISL RWYS 08L\nAND 08R, SIMUL PRLL RWY OPS IN USE AND INFORM\nARRL OF REQ APCH ON INITIAL CTC. LDG RWY 08L\nPRI AND 08R SRY DEP RWY 08R. RSC 08L 6/6/6 20\nPCT WET, 20 PCT WET, 20 PCT WET. VALID NOV 23\n2250 - NOV 24 0650. RSC 08R 6/6/6 10 PCT WET,\n10 PCT WET, 10 PCT WET. VALID NOV 23 2300 -\nNOV 24 0700. INFORM CYVR ATC INFO E",
-     "received": "2026-11-24T01:02:00Z",
-     "requestedBy": "B-18001"
+     "letter": "F",
+     "issued": "2026-11-24T01:00:00Z",
+     "text": "CYVR ARR ATIS F\n0100Z 06009G15KT 25SM\nCIG OVC110 11/02 A2996\nAPCH RNAV Z OR Y OR ILS\nOR VISL RWYS 08L AND\n08R, SIMUL PRLL RWY OPS\nIN USE AND INFORM ARRL\nOF REQ APCH ON INITIAL\nCTC. LDG RWY 08L PRI AND\n08R SRY DEP RWY 08R. RSC\n08L 6/6/6 20 PCT WET, 20\nPCT WET, 20 PCT WET.\nVALID NOV 23 2250 - NOV\n24 0650. RSC 08R 6/6/6\n10 PCT WET, 10 PCT WET,\n10 PCT WET. VALID NOV 23\n2300 - NOV 24 0700.\nINFORM CYVR ATC INFO F",
+     "received": "2026-11-24T01:13:00Z",
+     "requestedBy": "AC1049 (C-GMYU)"
     }
    ],
    "metar": {
-    "raw": "SPECI CYVR 240039Z 10011G17KT 30SM SCT072 OVC100 11/02 A2996 RMK AC3AC5 SLP149",
-    "time": "2026-11-24T00:39:00Z"
+    "raw": "METAR CYVR 240100Z 08009G15KT 25SM OVC110 11/02 A2996 RMK AC8 SLP148",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "CYYZ": {
@@ -1715,20 +1715,20 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/CYYZ",
-   "checkedAt": "2026-11-24T01:04:46Z",
+   "checkedAt": "2026-11-24T01:15:44Z",
    "atis": [
     {
      "type": "ATIS",
      "letter": "N",
      "issued": "2026-11-24T01:00:00Z",
-     "text": "CYYZ ARR ATIS N\n0100Z 31012G19KT 15SM\nFEW020 FEW050 SCT180\n02/M02 A3016 APCH ILS\nRWY 23, AND ILS RWY 24R,\nSIMUL PRLL APCH IN EFCT.\nLDG AND DEP RWY 23 AND\n24R. HIGH INTST RWY OPS\nIN PROGRESS, MINIMUM\nRUNWAY TIME REQUIRED BY\nBOTH ARRG AND DEPARTING\nAIRCRAFT. UNLS OTWZ\nINSTRUCTED BY ATC, ACFT\nEXITING AT C4 RQRD TO\nMNTN CONS MOV TIL RCH\nTWY D. GOOSE/SMALL BIRD\nACT IN THE CYYZ AREA.\nINFORM CYYZ ATC INFO N",
-     "received": "2026-11-24T01:02:00Z",
-     "requestedBy": "AC1511 (C-FHXN)"
+     "text": "CYYZ ARR ATIS N\n0100Z 31012G19KT 15SM FEW020 FEW050 SCT180\n02/M02 A3016 APCH ILS RWY 23, AND ILS RWY 24R,\nSIMUL PRLL APCH IN EFCT. LDG AND DEP RWY 23\nAND 24R. HIGH INTST RWY OPS IN PROGRESS,\nMINIMUM RUNWAY TIME REQUIRED BY BOTH ARRG AND\nDEPARTING AIRCRAFT. UNLS OTWZ INSTRUCTED BY\nATC, ACFT EXITING AT C4 RQRD TO MNTN CONS MOV\nTIL RCH TWY D. GOOSE/SMALL BIRD ACT IN THE\nCYYZ AREA. INFORM CYYZ ATC INFO N",
+     "received": "2026-11-24T01:07:00Z",
+     "requestedBy": "AC859 (C-FITL)"
     }
    ],
    "metar": {
-    "raw": "METAR CYYZ 240000Z 29015KT 15SM FEW050 FEW190 SCT260 03/M03 A3013 RMK SC1AC1CI2 AC TR SLP212",
-    "time": "2026-11-24T00:00:00Z"
+    "raw": "METAR CYYZ 240100Z 30012G19KT 15SM FEW020 FEW050 SCT180 02/M02 A3016 RMK CF1SC1AC3 CF TR SC TR SLP219",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "EGLL": {
@@ -1921,8 +1921,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR LEMD 240030Z 34003KT CAVOK 04/03 Q1022 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR LEMD 240100Z 35002KT CAVOK 04/03 Q1022 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "LEBL": {
@@ -1948,8 +1948,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR LEBL 240030Z 32010KT 9999 FEW023 10/07 Q1023 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR LEBL 240100Z 32011KT 9999 FEW025 10/07 Q1023 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "EHAM": {
@@ -2158,8 +2158,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR OMDB 240030Z 09004KT CAVOK 25/18 Q1018 NOSIG",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR OMDB 240100Z 08004KT 040V120 CAVOK 25/18 Q1018 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "OTHH": {
@@ -2193,8 +2193,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR OTHH 240000Z 34005KT CAVOK 22/19 Q1019 NOSIG",
-    "time": "2026-11-24T00:00:00Z"
+    "raw": "METAR OTHH 240100Z 32004KT CAVOK 23/20 Q1019 NOSIG",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "YSSY": {
@@ -2228,8 +2228,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR YSSY 240030Z 17016KT 9999 FEW022 SCT045 BKN054 22/16 Q1017",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR YSSY 240100Z 16016KT 9999 FEW022 BKN048 22/17 Q1017",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "YBBN": {
@@ -2263,8 +2263,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR YBBN 240030Z AUTO 03008KT 9999 // OVC070 26/18 Q1017",
-    "time": "2026-11-24T00:30:00Z"
+    "raw": "METAR YBBN 240100Z AUTO 04010KT 9999 // BKN070 BKN094 26/18 Q1017",
+    "time": "2026-11-24T01:00:00Z"
    }
   },
   "NZAA": {

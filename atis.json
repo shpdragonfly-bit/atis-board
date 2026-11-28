@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-28T05:05:35Z",
+ "generatedAt": "2026-11-28T05:15:52Z",
  "disclaimer": "비공식 정보입니다. 운항에는 공식 ATIS(주파수·ACARS)로 확인하세요.",
  "airports": {
   "RKSI": {
@@ -18,28 +18,28 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKSI",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "X",
      "issued": "2026-11-28T05:00:00Z",
      "text": "RKSI ARR ATIS X\n0500Z\nEXP SIMUL PARALLEL ILS APCH RWY 33R AND ILS APCH RWY 34L\nEXP LDG RWY INFO FROM SEOUL APP\nWIND 320/21KT\nVIS 10KM OR MORE\nCLD SCT 4500FT\nT 8\nDP MS 1\nQNH 1015\nEXP REBIT 1Y OLMEN 1Y GUKDO 2E KARBU 2E ARRIVAL\nGPS SIGNAL UNRELIABLE DUE TO GPS INTERFERENCE IN SEOUL APCH AREA\nVACATE RWY33R VIA TWY ECHO NOT AVAILABLE UNLESS AUTHORIZED BY ATC PRIOR TO LANDING",
-     "received": "2026-11-28T05:02:00Z",
-     "requestedBy": "YP732 (HL8702)"
+     "received": "2026-11-28T05:08:00Z",
+     "requestedBy": "KE928 (HL8733)"
     },
     {
      "type": "DEP",
-     "letter": "J",
-     "issued": "2026-11-28T04:00:00Z",
-     "text": "RKSI DEP ATIS J\n0400Z\nDEP RWY 33L FOR ROUTE G597 EAST AND Y697 EAST AND Y782\nDEP RWY 34R FOR ROUTE Y711 AND A593 AND Y697 WEST\nWIND 330/20KT\nVIS 10KM OR MORE\nCLD FEW 4000FT SCT 7000FT\nT 9\nDP MS 2\nQNH 1015\nRWY 33L EXPECT SID EGOBA2E OSPOT2E\nRWY 34R EXPECT SID BOPTA2Y NOPIK2Y\nGPS SIGNAL UNRELIABLE DUE TO GPS INTERFERENCE IN SEOUL APPROACH AREA\nDEPARTURE FREQUENCY 121.4 FOR BOPTA NOPIK AND 125.15 FOR EGOBA OSPOT",
-     "received": "2026-11-28T04:12:00Z",
-     "requestedBy": "B-322V"
+     "letter": "L",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "RKSI DEP ATIS L\n0500Z\nDEP RWY 33L FOR ROUTE G597 EAST AND Y697 EAST AND Y782\nDEP RWY 34R FOR ROUTE Y711 AND A593 AND Y697 WEST\nWIND 310/22KT\nVIS 10KM OR MORE\nCLD SCT 4500FT\nT 8\nDP MS 1\nQNH 1015\nRWY 33L EXPECT SID EGOBA2E OSPOT2E\nRWY 34R EXPECT SID BOPTA2Y NOPIK2Y\nGPS SIGNAL UNRELIABLE DUE TO GPS INTERFERENCE IN SEOUL APPROACH AREA\nDEPARTURE FREQUENCY 121.4 FOR BOPTA NOPIK AND 125.15 FOR EGOBA OSPOT",
+     "received": "2026-11-28T05:08:00Z",
+     "requestedBy": "HL7637"
     }
    ],
    "metar": {
-    "raw": "METAR RKSI 280430Z 31016G28KT 9999 FEW045 09/M03 Q1015 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RKSI 280500Z 31019KT 9999 SCT045 08/M01 Q1015 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RKSS": {
@@ -58,15 +58,15 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKSS",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "K",
      "issued": "2026-11-28T05:00:00Z",
      "text": "RKSS ARR ATIS K\n0500Z EXP ILS RWY32R APP\nDEP RWY32L\nSEOUL APP FREQ WILL BE 119.1\nSEOUL DEP FREQ WILL BE 125.15\nFLOW CONTROL IN EFFECT ON RKPC BY 6 MINUTES\nRWY32R TOUCHDOWN WND 300 AT 16 KTS\nCAV-OK\nTP 09 CELSIUS\nDP MINUS 04\nQNH 1014 HPA 2995 INCHES\nNSC\nTREND WEATHER\nNOSIG\nGPS SIGNALS ARE UNRELIABLE OR LOST INTERMITTENTLY IN INCHEON F I R\nADVISE ON INITIAL CONTACT YOU HAVE INFO K",
-     "received": "2026-11-28T05:03:00Z",
-     "requestedBy": "HL7741"
+     "received": "2026-11-28T05:10:00Z",
+     "requestedBy": "OZ0173 (HL8259)"
     },
     {
      "type": "DEP",
@@ -78,8 +78,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RKSS 280400Z 29016KT 250V310 CAVOK 09/M05 Q1014 NOSIG",
-    "time": "2026-11-28T04:00:00Z"
+    "raw": "METAR RKSS 280500Z 29012KT CAVOK 10/M04 Q1014 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RKPC": {
@@ -98,7 +98,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPC",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -118,8 +118,8 @@
     }
    ],
    "metar": {
-    "raw": "SPECI RKPC 280451Z 30023G53KT 250V340 9999 SCT025 BKN040 13/02 Q1018 WS ALL RWY NOSIG",
-    "time": "2026-11-28T04:51:00Z"
+    "raw": "METAR RKPC 280500Z 31025G43KT 260V330 9999 SCT025 BKN040 13/02 Q1018 WS ALL RWY NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RKPK": {
@@ -138,7 +138,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPK",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -173,7 +173,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKTN",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -213,7 +213,7 @@
    ],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKJJ",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -244,7 +244,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKJY",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -267,7 +267,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RKPU",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -298,28 +298,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJAA",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "U",
-     "issued": "2026-11-28T05:03:00Z",
-     "text": "RJAA ARR ATIS U\n0503Z M0500\n(APCH)ILS Z RWY16L\nLDG RWY 16L\nDEP RWY 16R\nDEP FREQ 124.2.\nM\n280500Z 24005KT 3000M BR SCT002ST\nBKN003ST 13/12 Q0999/A2952=\nQ/TWO NINE FIVE TWO\nSTP",
-     "received": "2026-11-28T05:03:00Z",
-     "requestedBy": "JA382A"
+     "letter": "V",
+     "issued": "2026-11-28T05:06:00Z",
+     "text": "RJAA ARR ATIS V\n0506Z M0500\n(APCH)ILS Z RWY16R/ILS Z\nRWY16L\nLDG RWY 16R/16L\nDEP RWY 16R\nDEP FREQ 124.2.\nSIMUL PARL APCHS INPR.\nM\n280500Z 24005KT 3000M BR\nSCT002ST\nBKN003ST 13/12 Q0999/A2952=\nQ/TWO NINE FIVE TWO\nSTP",
+     "received": "2026-11-28T05:06:00Z",
+     "requestedBy": "JA881J"
     },
     {
      "type": "DEP",
-     "letter": "S",
-     "issued": "2026-11-28T04:34:00Z",
-     "text": "RJAA DEP ATIS S\n0434Z MS0430\n(APCH)ILS Z RWY16L\nLDG RWY 16L\nDEP RWY 16R\nDEP FREQ 124.2.\nMS\n280430Z 26007KT 220V290 4500M BR\nFEW002ST BKN003ST BKN004ST 13/12\nQ0999/A2951=\nQ/TWO NINE FIVE ONE\nSTP",
-     "received": "2026-11-28T04:34:00Z",
-     "requestedBy": "B-LXQ"
+     "letter": "W",
+     "issued": "2026-11-28T05:14:00Z",
+     "text": "RJAA DEP ATIS W\n0514Z S0512\n(APCH)ILS Z RWY16R/ILS Z RWY16L\nLDG RWY 16R/16L\nDEP RWY 16R\nDEP FREQ 124.2.\nSIMUL PARL APCHS INPR.\nS\n280512Z 26005KT 210V290 3200M BR\nBKN002ST BKN003ST 13/12\nQ0999/A2952=\nQ/TWO NINE FIVE TWO\nSTP",
+     "received": "2026-11-28T05:14:00Z",
+     "requestedBy": "CX527 (B-LXQ)"
     }
    ],
    "metar": {
-    "raw": "METAR RJAA 280430Z 25007KT 220V290 4500 BR FEW002 BKN003 BKN004 13/12 Q0999 BECMG 23008KT 6000 NSW FEW005 BKN012",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RJAA 280500Z 24005KT 3000 BR SCT002 BKN003 13/12 Q0999 BECMG 26006KT",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RJTT": {
@@ -333,15 +333,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJTT",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "Z",
-     "issued": "2026-11-28T05:05:00Z",
-     "text": "RJTT ARR ATIS Z\n0505Z MS0500\n(APCH)ILS RWY22/ILS Z RWY23\nLDG RWY 22/23\nDEP RWY 16L/16R\nDEP FREQ 126.0 FM RWY16R.\n120.8 FM RWY16L,\nMS\n280500Z 24003KT 8KM SCT003ST BKN007ST\n14/12 Q0999/A2953=\nQ/TWO NINE FIVE THREE\nSTP",
-     "received": "2026-11-28T05:05:00Z",
-     "requestedBy": "JA740J"
+     "issued": "2026-11-28T05:14:00Z",
+     "text": "RJTT ARR ATIS Z\n0514Z MS0500\n(APCH)ILS RWY22/ILS Z RWY23\nLDG RWY 22/23\nDEP RWY 16L/16R\nDEP FREQ 126.0 FM RWY16R.\n120.8 FM RWY16L,\nMS\n280500Z 24003KT 8KM SCT003ST BKN007ST\n14/12 Q0999/A2953=\nQ/TWO NINE FIVE THREE\nSTP",
+     "received": "2026-11-28T05:14:00Z",
+     "requestedBy": "JA382A"
     },
     {
      "type": "DEP",
@@ -353,8 +353,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJTT 280430Z 25004KT 8000 SCT003 BKN006 13/12 Q0999 BECMG TL0500 20012KT FEW008 BKN015",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RJTT 280500Z 23003KT 8000 SCT003 BKN007 14/12 Q0999 BECMG TL0600 20016KT FEW008 BKN015",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RJBB": {
@@ -368,15 +368,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJBB",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "Y",
-     "issued": "2026-11-28T04:33:00Z",
-     "text": "RJBB ARR ATIS Y\n0433Z M0430\n(APCH)ILS Z RWY24L\nLDG RWY 24L\nDEP RWY 24R\nDEP FREQ 119.2.\nM\n280430Z 28015KT 25KM FEW010CU SCT040CU\nBKN150AC 19/13 Q1006/A2971=\nQ/TWO NINE SEVEN ONE\nSTP",
-     "received": "2026-11-28T04:33:00Z",
-     "requestedBy": "B-2099"
+     "letter": "A",
+     "issued": "2026-11-28T05:07:00Z",
+     "text": "RJBB ARR ATIS A\n0507Z M0500\n(APCH)ILS Z RWY24L\nLDG RWY 24L\nDEP RWY 24R\nDEP FREQ 119.2.\nM\n280500Z 28020KT 25KM FEW012CU SCT060SC\nBKN150AC 19/11 Q1005/A2970 RMK MOD TO\nSEV TURB OBS AT 0456Z 10NM SW AWAJI\nBTN 12000FT AND 11000FT IN DES A21N=\nQ/TWO NINE SEVEN ZERO\nSTP",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "EK9806 (A6-EFZ)"
     },
     {
      "type": "DEP",
@@ -388,8 +388,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJBB 280430Z 27015KT 9999 FEW010 SCT040 BKN150 19/13 Q1006 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RJBB 280500Z 27020KT 9999 FEW012 SCT060 BKN150 19/11 Q1005 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RJCC": {
@@ -403,28 +403,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJCC",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "O",
-     "issued": "2026-11-28T04:39:00Z",
-     "text": "RJCC ARR ATIS O\n0439Z M0430\n(APCH)ILS Y RWY01R\nLDG RWY 01R\nDEP RWY 01L\nDEP FREQ 124.7.\nM\n280430Z 15005KT 15KM FEW020CU SCT040CU\nBKN070AC 13/10 Q0997/A2945=\nQ/TWO NINE FOUR FIVE\nSTP",
-     "received": "2026-11-28T04:39:00Z",
-     "requestedBy": "OZ221 (HL8360)"
+     "letter": "Q",
+     "issued": "2026-11-28T05:05:00Z",
+     "text": "RJCC ARR ATIS Q\n0505Z M0500\n(APCH)ILS Y RWY01R\nLDG RWY 01R\nDEP RWY 01L\nDEP FREQ 124.7.\nM\n280500Z 36012KT 15KM FEW010ST SCT020CU\nBKN070AC 11/08 Q0996/A2944=\nQ/TWO NINE FOUR FOUR\nSTP",
+     "received": "2026-11-28T05:05:00Z",
+     "requestedBy": "HL7619"
     },
     {
      "type": "DEP",
-     "letter": "O",
-     "issued": "2026-11-27T05:00:00Z",
-     "text": "RJCC DEP ATIS O\n0500Z M0500\n(APCH)ILS Z RWY19L\nLDG RWY 19L\nDEP RWY 19R\nDEP FREQ 124.7.\nM\n270500Z 18010KT 10KM FEW015ST BKN050CU\nBKN080AC 08/07 Q1014/A2995=\nQ/TWO NINE NINE FIVE\nSTP",
-     "received": "2026-11-27T05:01:00Z",
-     "requestedBy": "WE531 (HL8768)"
+     "letter": "Q",
+     "issued": "2026-11-28T05:07:00Z",
+     "text": "RJCC DEP ATIS Q\n0507Z M0500\n(APCH)ILS Y RWY01R\nLDG RWY 01R\nDEP RWY 01L\nDEP FREQ 124.7.\nM\n280500Z 36012KT 15KM FEW010ST SCT020CU\nBKN070AC 11/08 Q0996/A2944=\nQ/TWO NINE FOUR FOUR\nSTP",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "B-18003"
     }
    ],
    "metar": {
-    "raw": "METAR RJCC 280430Z 14005KT 9999 FEW020 SCT040 BKN070 13/10 Q0997",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RJCC 280500Z 36012KT 9999 FEW010 SCT020 BKN070 11/08 Q0996",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RJFF": {
@@ -438,15 +438,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJFF",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "L",
-     "issued": "2026-11-28T02:05:00Z",
-     "text": "RJFF ARR ATIS L\n0205Z M0200\n(APCH)VISUAL RWY34R\nLDG RWY 34R\nDEP RWY 34R/34L\nDEP FREQ 127.9\nINFORM YR LDG RWY TO FUKUOKA TWR ON\nINITIAL CTC.\nM\n280200Z 30016KT 260V330 25KM FEW025CU\nBKN045CU 16/06 Q1014/A2996=\nQ/TWO NINE NINE SIX\nSTP",
-     "received": "2026-11-28T02:05:00Z",
-     "requestedBy": "TW203 (HL8502)"
+     "letter": "Y",
+     "issued": "2026-11-28T05:03:00Z",
+     "text": "RJFF ARR ATIS Y\n0503Z M0500\n(APCH)VISUAL RWY34R\nLDG RWY 34R\nDEP RWY 34R/34L\nDEP FREQ 127.9\nINFORM YR LDG RWY TO FUKUOKA TWR ON\nINITIAL CTC.\nM\n280500Z 30015KT 270V340 25KM FEW030CU\nSCT050SC 16/03 Q1013/A2992=\nQ/TWO NINE NINE TWO\nSTP",
+     "received": "2026-11-28T05:03:00Z",
+     "requestedBy": "OZ134 (HL8293)"
     },
     {
      "type": "DEP",
@@ -458,8 +458,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJFF 280430Z 29017KT 260V320 9999 FEW030 SCT060 16/03 Q1013 TEMPO 28018G28KT -TSRAGS",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RJFF 280500Z 30015KT 260V330 9999 FEW030 SCT050 16/03 Q1013 TEMPO 28018G28KT -TSRAGS",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RJGG": {
@@ -473,14 +473,14 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJGG",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "S",
-     "issued": "2026-11-28T04:32:00Z",
-     "text": "RJGG ARR ATIS S\n0432Z M0430\n(APCH)ILS Z RWY36\nUSING RWY 36\nDEP FREQ 120.0\nTWY A7,A9 CLSD\nM\n280430Z 22003KT 180V270 10KM FEW012CU\nBKN070AC 16/15 Q1005/A2968=\nQ/TWO NINE SIX EIGHT\nSTP",
-     "received": "2026-11-28T04:32:00Z",
+     "letter": "T",
+     "issued": "2026-11-28T05:03:00Z",
+     "text": "RJGG ARR ATIS T\n0503Z M0500\n(APCH)ILS Z RWY36\nUSING RWY 36\nDEP FREQ 120.0\nTWY A7,A9 CLSD\nM\n280500Z 27012KT 10KM FEW012CU BKN070AC\n19/14 Q1004/A2966=\nQ/TWO NINE SIX SIX\nSTP",
+     "received": "2026-11-28T05:03:00Z",
      "requestedBy": "JA382A"
     },
     {
@@ -493,8 +493,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJGG 280430Z 21003KT 180V260 9999 FEW012 BKN070 16/15 Q1005 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RJGG 280500Z 26012KT 9999 FEW012 BKN070 19/14 Q1004 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RJOO": {
@@ -508,7 +508,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RJOO",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -528,8 +528,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR RJOO 280400Z 24009KT 180V280 9999 FEW015 SCT030 BKN050 19/13 Q1005",
-    "time": "2026-11-28T04:00:00Z"
+    "raw": "METAR RJOO 280500Z 24006KT 180V290 9999 FEW020 SCT030 20/10 Q1004",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ROAH": {
@@ -543,15 +543,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ROAH",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "Y",
-     "issued": "2026-11-27T21:13:00Z",
-     "text": "ROAH ARR ATIS Y\n2113Z M2100\n(APCH)ILS Z RWY36L\nUSING RWY 36L\nDEP FREQ 119.1 335.8\nRWY 18L/36R CLSD\nM\n272100Z 33019KT 30KM FEW020CU SCT035SC\nBKN060SC 23/18 Q1017/A3004=\nQ/THREE ZERO ZERO FOUR\nSTP",
-     "received": "2026-11-27T21:13:00Z",
-     "requestedBy": "LD0128 (B-LKA)"
+     "letter": "P",
+     "issued": "2026-11-28T05:02:00Z",
+     "text": "ROAH ARR ATIS P\n0502Z M0500\n(APCH)ILS Z RWY36L\nLDG RWY 36L\nDEP RWY 36R\nDEP FREQ 119.1 335.8\nM\n280500Z 35022KT 15KM FEW025CU SCT035SC\nBKN180AC 22/14 Q1020/A3012=\nQ/THREE ZERO ONE TWO\nSTP",
+     "received": "2026-11-28T05:02:00Z",
+     "requestedBy": "HL8258"
     },
     {
      "type": "DEP",
@@ -563,8 +563,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ROAH 280430Z 35022KT 9999 FEW025 BKN035 BKN130 22/14 Q1020",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ROAH 280500Z 35022KT 9999 FEW025 SCT035 BKN180 22/14 Q1020",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "VHHH": {
@@ -578,19 +578,19 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.cad.gov.hk/ATIS/ATISweb/atis.php",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "L",
-     "issued": "2026-11-28T04:05:00Z",
-     "text": "VHHH ARR ATIS L 0405Z.\nARRIVALS, RWY 07L/R.\nEXP ILS APCH, RWY 07L/R.\nCAUTION POSSIBLE GP FLUCTUATION RWY 07R.\nSIG WS FCST RWY 07L/R.\nWIND RWY 07L 340/09KT RWY 07R 040/13KT CAVOK T25 DP03 QNH 1022HPA=\nACKNOWLEDGE INFO L ON FIRST CTC WITH APP."
+     "letter": "M",
+     "issued": "2026-11-28T05:09:00Z",
+     "text": "VHHH ARR ATIS M 0509Z.\nARRIVALS, RWY 07L/R.\nEXP ILS APCH, RWY 07L/R.\nCAUTION POSSIBLE GP FLUCTUATION RWY 07R.\nSIG WS FCST RWY07L/R.\nWIND RWY 07L 330/11KT RWY 07R 300/07KT CAVOK T27 DP03 QNH 1021HPA=\nACKNOWLEDGE INFO M ON FIRST CTC WITH APP."
     },
     {
      "type": "DEP",
-     "letter": "Q",
-     "issued": "2026-11-28T04:06:00Z",
-     "text": "VHHH DEP ATIS Q 0406Z.\nDEPARTURES, RWY 07C/R.\nINDEPENDENT PARALLEL DEPARTURE IN PROGRESS.\nSIG WS FCST RWY 07C/R.\nWIND RWY 07C 030/11KT RWY 07R 020/09KT CAVOK T25 DP03 QNH 1022HPA=\nACKNOWLEDGE INFO Q ON FIRST CTC WITH DELIVERY ."
+     "letter": "R",
+     "issued": "2026-11-28T05:11:00Z",
+     "text": "VHHH DEP ATIS R 0511Z.\nDEPARTURES, RWY 07C/R.\nINDEPENDENT PARALLEL DEPARTURE IN PROGRESS.\nSIG WS FCST RWY07C/R.\nWIND RWY 07C 050/07KT RWY 07R 050/05KT CAVOK T27 DP03 QNH 1021HPA=\nACKNOWLEDGE INFO R ON FIRST CTC WITH DELIVERY ."
     }
    ],
    "metar": {
@@ -609,28 +609,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RCTP",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "Q",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "RCTP ARR ATIS Q\n0430Z\nEXP ILS APCH\nRWY05L FOR ARR. RWY05R FOR\nDEP.\nWIND 050/13KT\nVIS 10 KM OR MORE\nCLD\nFEW 1500FT\nBKN 20000FT\nT 24 DP 14 QNH 1024HPA\nNOSIG\nDUE TO FLOW CONTROL BY MANILA\nF-I-R, TRAFFIC CONCERNED MAY\nBE DELAYED. CTN BIRD ACTIVITY\nIN THE VCY OF THE AD.\nINFORM TAIPEI APCH OR TAIPEI\nTOWER ON INITIAL CONTACT\nYOU HAVE INFORMATION Q",
-     "received": "2026-11-28T04:43:00Z",
-     "requestedBy": "TR874 (9V-OJB)"
+     "letter": "R",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "RCTP ARR ATIS R\n0500Z\nEXP ILS APCH\nRWY05L FOR ARR. RWY05R FOR DEP.\nWIND 030/12KT VARYING BTN 360 AND 060\nVIS 10 KM OR MORE\nCLD\nFEW 1500FT\nBKN 20000FT\nT 24 DP 14 QNH 1024HPA\nNOSIG\nDUE TO FLOW CONTROL BY MANILA F-I-R, TRAFFIC\nCONCERNED MAY BE DELAYED. CTN BIRD ACTIVITY\nIN THE VCY OF THE AD.\nINFORM TAIPEI APCH OR TAIPEI TOWER ON INITIAL\nCONTACT\nYOU HAVE INFORMATION R",
+     "received": "2026-11-28T05:09:00Z",
+     "requestedBy": "B-18007"
     },
     {
      "type": "DEP",
-     "letter": "D",
-     "issued": "2026-11-27T22:00:00Z",
-     "text": "RCTP DEP ATIS D\n2200Z\nEXP ILS APCH\nRWY05L ARR/DEP. RWY05R\nCLSD BTN 1700Z AND 2230Z\nFOR INSPECTION.\nWIND 080/03KT VARYING\nBTN 040 AND 110\nVIS 10 KM OR MORE\nCLD\nFEW 1200FT\nSCT 2500FT\nT 18 DP 16 QNH 1022HPA\nNOSIG\nTWY-S BEHIND PRKG BAY\n614 AND 615 CLSD. DUE TO\nFLOW CONTROL BY MANILA\nAND HONGKONG F-I-R,\nTRAFFIC CONCERNED MAY BE\nDELAYED. CTN BIRD\nACTIVITY IN THE VCY OF\nTHE AD.\nINFORM TAIPEI APCH OR\nTAIPEI TOWER ON INITIAL\nCONTACT\nYOU HAVE INFORMATION D",
-     "received": "2026-11-27T22:07:00Z",
-     "requestedBy": "B-16336"
+     "letter": "Q",
+     "issued": "2026-11-28T04:30:00Z",
+     "text": "RCTP DEP ATIS Q\n0430Z\nEXP ILS APCH\nRWY05L FOR ARR. RWY05R FOR DEP.\nWIND 050/13KT\nVIS 10 KM OR MORE\nCLD\nFEW 1500FT\nBKN 20000FT\nT 24 DP 14 QNH 1024HPA\nNOSIG\nDUE TO FLOW CONTROL BY MA",
+     "received": "2026-11-28T04:59:00Z",
+     "requestedBy": "7C6014 (HL8740)"
     }
    ],
    "metar": {
-    "raw": "METAR RCTP 280430Z 05013KT 9999 FEW015 BKN200 24/14 Q1024 NOSIG RMK A3025",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RCTP 280500Z 03012KT 360V060 9999 FEW015 BKN200 24/14 Q1024 NOSIG RMK A3024",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "RCSS": {
@@ -644,28 +644,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/RCSS",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "Y",
-     "issued": "2026-11-27T09:00:00Z",
-     "text": "RCSS ARR ATIS Y\n0900Z\nEXP ILS APCH\nRWY 10 ARR/DEP\nWIND 100/07KT\nVIS 10 KM OR MORE\nCLD\nFEW 2000FT\nBKN 2500FT\nBKN 6000FT\nT 22 DP 18 QNH 1018HPA\nNOSIG\nCLEARANCE DELIVERY ON\nGROUND FREQUENCY 1 2 1\n. 9 .\nINFORM TAIPEI APCH OR\nTOWER ON INITIAL CONTACT\nYOU HAVE INFORMATION Y",
-     "received": "2026-11-27T09:09:00Z",
-     "requestedBy": "3U8391 (B-8589)"
+     "letter": "H",
+     "issued": "2026-11-28T04:30:00Z",
+     "text": "RCSS ARR ATIS H\n0430Z\nEXP ILS APCH\nRWY 10 ARR/DEP\nWIND 070/04KT VARYING\nBTN 340 AND 150\nVIS 10 KM OR MORE\nCLD\nFEW 2500FT\nBKN 20000FT\nT 24 DP 13 QNH 1024HPA\nNOSIG\nCLEARANCE DELIVERY ON\nGROUND FREQUENCY 1 2 1\n. 9 .\nINFORM TAIPEI APCH OR\nTOWER ON INITIAL CONTACT\nYOU HAVE INFORMATION H",
+     "received": "2026-11-28T04:38:00Z",
+     "requestedBy": "HL7795"
     },
     {
      "type": "DEP",
-     "letter": "B",
-     "issued": "2026-11-27T10:30:00Z",
-     "text": "RCSS DEP ATIS B\n1030Z\nEXP ILS APCH\nRWY 10 ARR/DEP\nWIND 100/05KT\nVIS 10 KM OR MORE\nCLD\nFEW 1800FT\nBKN 2500FT\nBKN 5000FT\nT 21 DP 18 QNH 1019HPA\nNOSIG\nCLEARANCE DELIVERY ON\nGROUND FREQUENCY 1 2 1\n. 9 .\nINFORM TAIPEI APCH OR\nTOWER ON INITIAL CONTACT\nYOU HAVE INFORMATION B",
-     "received": "2026-11-27T10:32:00Z",
-     "requestedBy": "B-8589"
+     "letter": "I",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "RCSS DEP ATIS I\n0500Z\nEXP ILS APCH\nRWY 10 ARR/DEP\nWIND VRB/02KT\nVIS 10 KM OR MORE\nCLD\nFEW 2500FT\nSCT 18000FT\nBKN 25000FT\nT 25 DP 12 QNH 1023HPA\nNOSIG\nCLEARANCE DELIVERY ON GROUND\nFREQUENCY 1 2 1 . 9 .\nINFORM TAIPEI APCH OR TOWER ON\nINITIAL CONTACT\nYOU HAVE INFORMATION I",
+     "received": "2026-11-28T05:03:00Z",
+     "requestedBy": "JA815A"
     }
    ],
    "metar": {
-    "raw": "METAR RCSS 280430Z 07004KT 340V150 9999 FEW025 BKN200 24/13 Q1024 NOSIG RMK A3024",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR RCSS 280500Z VRB02KT 9999 FEW025 SCT180 BKN250 25/12 Q1023 NOSIG RMK A3023",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZBAA": {
@@ -679,28 +679,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZBAA",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "J",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "ZBAA ARR ATIS J\n0430Z EXP ILS APCH\nLDG RWY 36L & 36R & 01\nWIND 310 DEG 7 MPS 270V340 DEG\nCAVOK\nT 09 /DP M12\nQNH 1027 HPA\nVISUAL APPROACH IN PROGRESS\nADZ YOU HAVE INFO J.",
-     "received": "2026-11-28T04:38:00Z",
-     "requestedBy": "B-2037"
+     "letter": "K",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "ZBAA ARR ATIS K\n0500Z EXP ILS APCH\nLDG RWY 36L & 36R & 01\nWIND 300 DEG 7 MPS 260V320 DEG\nCAVOK\nT 09 /DP M12\nQNH 1026 HPA\nVISUAL APPROACH IN PROGRESS\nADZ YOU HAVE INFO K.",
+     "received": "2026-11-28T05:13:00Z",
+     "requestedBy": "B-1392"
     },
     {
      "type": "DEP",
-     "letter": "V",
-     "issued": "2026-11-27T21:31:00Z",
-     "text": "ZBAA DEP ATIS V\n2131Z DEP RWY 36L & 01\nRWY 36R IS CLSD\nWIND 330 DEG 10G15 MPS\nCAVOK\nT 03 /DP M14\nQNH 1025 HPA\nRWY INDEPENDENT PARALLEL DEP\nVISUAL APPROACH IN PROGRESS\nADZ YOU HAVE INFO V.",
-     "received": "2026-11-27T21:41:00Z",
-     "requestedBy": "A6-ENU"
+     "letter": "J",
+     "issued": "2026-11-28T04:30:00Z",
+     "text": "ZBAA DEP ATIS J\n0430Z DEP RWY 36L & 36R & 01\nWIND 310 DEG 7 MPS 270V340 DEG\nCAVOK\nT 09 /DP M12\nQNH 1027 HPA\nRWY INDEPENDENT PARALLEL DEP\nVISUAL APPROACH IN PROGRESS\nADZ YOU HAVE INFO J.",
+     "received": "2026-11-28T04:50:00Z",
+     "requestedBy": "B-16333"
     }
    ],
    "metar": {
-    "raw": "METAR ZBAA 280430Z 31007MPS 270V340 CAVOK 09/M12 Q1027 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZBAA 280500Z 30007MPS 260V320 CAVOK 09/M12 Q1026 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZBAD": {
@@ -714,15 +714,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZBAD",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "T",
-     "issued": "2026-11-28T03:30:00Z",
-     "text": "ZBAD ARR ATIS T\n0330Z EXP ILS APCH\nDEPENDENT PARL INSTR APCH\nLDG RWY 35L & 01L\nWIND VRB DEG 1 MPS\nCAVOK\nT 07 /DP M12\nQNH 1027 HPA\nVISUAL APPROACH IS IN PROGRESS\nADZ YOU HAVE INFO T.",
-     "received": "2026-11-28T03:44:00Z",
-     "requestedBy": "B-323F"
+     "letter": "W",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "ZBAD ARR ATIS W\n0500Z EXP ILS APCH\nDEPENDENT PARL INSTR APCH\nLDG RWY 35L & 01L\nWIND 250 DEG 3 MPS 210V340 DEG\nCAVOK\nT 09 /DP M13\nQNH 1027 HPA\nVISUAL APPROACH IS IN PROGRESS\nADZ YOU HAVE INFO W.",
+     "received": "2026-11-28T05:05:00Z",
+     "requestedBy": "B-1202"
     },
     {
      "type": "DEP",
@@ -734,8 +734,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZBAD 280430Z 28002MPS 240V350 CAVOK 09/M12 Q1027 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZBAD 280500Z 25003MPS 210V340 CAVOK 09/M13 Q1027 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZSPD": {
@@ -749,28 +749,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZSPD",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "H",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "ZSPD ARR ATIS H\n0430Z EXP ILS APCH\nLDG RWY 35L & 34R\nWIND RWY 35L TDZ 310/6MPS MID 300/8MPS\nEND 310/9MPS\nRWY 34R TDZ 310/10MPS MID 300/10MPS END\n320/8MPS\nCAVOK\nT 16 /DP MS04\nQNH 1024 HPA\nCAUTION THE BIRDS NEAR THE RUNWAY\nADZ YOU HAVE INFO H.",
-     "received": "2026-11-28T04:35:00Z",
-     "requestedBy": "KZ227 (JA11KZ)"
+     "letter": "J",
+     "issued": "2026-11-28T05:01:00Z",
+     "text": "ZSPD ARR ATIS J\n0501Z EXP ILS APCH\nINDEPENDENT PARL INSTR APCH\nLDG RWY 35L & 34R\nWIND RWY 35L TDZ 300/9MPS MID 310/8MPS END\n300/7MPS\nRWY 34R TDZ 310/9MPS MID 300/7MPS END 320/6MPS\nVIS RWY 35L TDZ 10000M MID 8000M END 10000M\nVIS RWY 34R TDZ 10000M MID 10000M END 10000M\nNSC\nT 16 /DP MS04\nQNH 1024 HPA\nCAUTION THE BIRDS NEAR THE RUNWAY\nADZ YOU HAVE INFO J.",
+     "received": "2026-11-28T05:14:00Z",
+     "requestedBy": "B-7365"
     },
     {
      "type": "DEP",
-     "letter": "H",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "ZSPD DEP ATIS H\n0430Z DEP RWY 35R & 34L\nWIND RWY 35R TDZ 310/8MPS MID\n310/9MPS END 300/6MPS\nRWY 34L TDZ 320/10MPS MID\n310/10MPS END 320/7MPS\nCAVOK\nT 16 /DP MS04\nQNH 1024 HPA\nCAUTION THE BIRDS NEAR THE\nRUNWAY\nADZ YOU HAVE INFO H.",
-     "received": "2026-11-28T04:42:00Z",
-     "requestedBy": "JA834J"
+     "letter": "J",
+     "issued": "2026-11-28T05:01:00Z",
+     "text": "ZSPD DEP ATIS J\n0501Z DEP RWY 35R & 34L\nWIND RWY 35R TDZ 300/8MPS MID\n310/9MPS END 290/8MPS\nRWY 34L TDZ 320/9MPS MID\n300/8MPS END 300/8MPS\nVIS RWY 35R TDZ 10000M MID\n10000M END 10000M\nVIS RWY 34L TDZ 10000M MID\n10000M END 10000M\nNSC\nT 16 /DP MS04\nQNH 1024 HPA\nCAUTION THE BIRDS NEAR THE\nRUNWAY\nADZ YOU HAVE INFO J.",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "JA834A"
     }
    ],
    "metar": {
-    "raw": "METAR ZSPD 280430Z 31008G13MPS CAVOK 16/M04 Q1024 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZSPD 280500Z 30008MPS CAVOK 16/M04 Q1024 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZSSS": {
@@ -784,15 +784,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZSSS",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "C",
-     "issued": "2026-11-28T04:00:00Z",
-     "text": "ZSSS ARR ATIS C\n0400Z EXP ILS APCH\nLDG RWY 36R\nWIND RWY 36R TDZ 300/6MPS MID 280/7MPS\nEND 290/8MPS\nVIS RWY 36R TDZ 10000M MID 10000M END\n10000M\nNSC\nT 16 /DP MS02\nQNH 1025 HPA\nTAXIWAY A1 T1 CLOSED DUE WORKING IN\nPROGRESS\nQNH OF SHANGHAI TERMINAL CONTROL AREA\n1024 HPA\nADZ YOU HAVE INFO C.",
-     "received": "2026-11-28T04:03:00Z",
-     "requestedBy": "B-8426"
+     "letter": "E",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "ZSSS ARR ATIS E\n0500Z EXP ILS APCH\nLDG RWY 36R\nWIND RWY 36R TDZ 310/10MPS MAX15 MNM8\nMID 300/9MPS END 310/5MPS\nVIS RWY 36R TDZ 10000M MID 10000M END\n10000M\nNSC\nT 16 /DP MS02\nQNH 1025 HPA\nTAXIWAY A1 T1 CLOSED DUE WORKING IN\nPROGRESS\nQNH OF SHANGHAI TERMINAL CONTROL AREA\n1024 HPA\nADZ YOU HAVE INFO E.",
+     "received": "2026-11-28T05:06:00Z",
+     "requestedBy": "B-32CE"
     },
     {
      "type": "DEP",
@@ -804,8 +804,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZSSS 280430Z 30007MPS 270V330 CAVOK 16/M02 Q1025 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZSSS 280500Z 32008MPS CAVOK 16/M02 Q1025 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZGGG": {
@@ -819,28 +819,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZGGG",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "K",
-     "issued": "2026-11-28T04:00:00Z",
-     "text": "ZGGG ARR ATIS K\n0400Z EXP ILS Z/VIS APCH\nINDEPENDENT PARL INSTR APCH\nLDG RWY 01L & 02R & 03\nWIND 040 DEG 3 MPS 360V080 DEG\nCAVOK\nT 25 /DP 09\nQNH 1024 HPA\nADZ YOU HAVE INFO K.",
-     "received": "2026-11-28T04:06:00Z",
-     "requestedBy": "B-8365"
+     "letter": "N",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "ZGGG ARR ATIS N\n0500Z EXP ILS Z/VIS APCH\nINDEPENDENT PARL INSTR APCH\nLDG RWY 01L & 02R & 03\nWIND 050 DEG 2 MPS 360V100 DEG\nCAVOK\nT 26 /DP 10\nQNH 1022 HPA\nADZ YOU HAVE INFO N.",
+     "received": "2026-11-28T05:12:00Z",
+     "requestedBy": "B-32F0"
     },
     {
      "type": "DEP",
-     "letter": "U",
-     "issued": "2026-11-27T22:30:00Z",
-     "text": "ZGGG DEP ATIS U\n2230Z DEP RWY 01R & 02L & 03\nWIND 340 DEG 3 MPS 320V020 DEG\nCAVOK\nT 17 /DP 10\nQNH 1023 HPA\nDELIVERY FREQ 121.95\nADZ YOU HAVE INFO U.",
-     "received": "2026-11-27T22:50:00Z",
-     "requestedBy": "TC-JJG"
+     "letter": "M",
+     "issued": "2026-11-28T04:30:00Z",
+     "text": "ZGGG DEP ATIS M\n0430Z DEP RWY 01R & 02L & 03\nWIND 030 DEG 3 MPS 360V070 DEG\nCAVOK\nT 25 /DP 08\nQNH 1023 HPA\nDELIVERY FREQ 121.95\nRWY INDEPENDENT PARALLEL DEP\nADZ YOU HAVE INFO M.",
+     "received": "2026-11-28T04:31:00Z",
+     "requestedBy": "B-228J"
     }
    ],
    "metar": {
-    "raw": "METAR ZGGG 280430Z 03003MPS 360V070 CAVOK 25/08 Q1023 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZGGG 280500Z 05002MPS 360V100 CAVOK 26/10 Q1022 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZGSZ": {
@@ -854,15 +854,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZGSZ",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "D",
-     "issued": "2026-11-28T03:30:00Z",
-     "text": "ZGSZ ARR ATIS D\n0330Z EXP ILS APCH 33\nEXP ILS OR VIS APCH 34R\nWIND 020/5MPS VRB BTN 350/ AND 080/\nCAVOK\nT 24 /DP 06\nQNH 1023 HPA\nINDEPENDENT PARALLEL DEPARTURES\nDEPENDENT PARALLEL APPROACHES\nMISSED APPROACH ALTITUDE SETTING\n1200METERS\nWHEN AIRBORNE CONTACT ZHUHAI APPROACH\nEXPECTED RNP ILS DME Z APPROACH\nADZ YOU HAVE INFO D.",
-     "received": "2026-11-28T03:45:00Z",
-     "requestedBy": "B-30ED"
+     "letter": "I",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "ZGSZ ARR ATIS I\n0500Z EXP ILS APCH 33\nEXP ILS OR RNP AR OR VIS APCH 34L\nWIND 010/5MPS VRB BTN 350/ AND 050/\nCAVOK\nT 26 /DP 04\nQNH 1021 HPA\nINDEPENDENT PARALLEL DEPARTURES\nDEPENDENT PARALLEL APPROACHES\nMISSED APPROACH ALTITUDE SETTING\n1200METERS\nWHEN AIRBORNE CONTACT ZHUHAI APPROACH\nEXPECTED RNP ILS DME Z APPROACH\nADZ YOU HAVE INFO I.",
+     "received": "2026-11-28T05:13:00Z",
+     "requestedBy": "B-30E6"
     },
     {
      "type": "DEP",
@@ -874,8 +874,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZGSZ 280430Z 02005MPS 340V060 CAVOK 26/07 Q1022 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZGSZ 280500Z 01005MPS 350V050 CAVOK 26/04 Q1021 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZUUU": {
@@ -889,15 +889,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZUUU",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "X",
-     "issued": "2026-11-28T03:31:00Z",
-     "text": "ZUUU ARR ATIS X\n0331Z EXP RNAV ILS APCH\nLDG RWY 02L & 02R\nTA 3000 /TRL 3600\nWIND RWY 02L TDZ 060/1MPS MID 000/0MPS\nEND 090/1MPS\nRWY 02R TDZ 330/2MPS MID 030/1MPS END\n310/1MPS\nVIS RWY 02L TDZ 5000M MID 7000M END\n5000M\nVIS RWY 02R TDZ 4800M MID 4800M END\n5000M\nRVR RWY 02L TDZ P2000M MID P2000M END\nP2000M\nRVR RWY 02R TDZ P2000M MID P2000M END\nP2000M\nNSC\nT 16 /DP 07\nQNH 1027 HPA\nADZ YOU HAVE INFO X.",
-     "received": "2026-11-28T03:41:00Z",
-     "requestedBy": "B-6535"
+     "letter": "B",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "ZUUU ARR ATIS B\n0500Z EXP RNAV ILS APCH\nLDG RWY 02L & 02R\nTA 3000 /TRL 3600\nWIND RWY 02L TDZ\n120/2MPS MID 150/2MPS\nEND 050/2MPS\nRWY 02R TDZ 310/1MPS MID\n300/1MPS END 290/1MPS\nVIS RWY 02L TDZ 8000M\nMID 9999M END 9999M\nVIS RWY 02R TDZ 7000M\nMID 8000M END 8000M\nRVR RWY 02L TDZ P2000M\nMID P2000M END P2000M\nRVR RWY 02R TDZ P2000M\nMID P2000M END P2000M\nCLD FEW 780M\nT 19 /DP 08\nQNH 1025 HPA\nADZ YOU HAVE INFO B.",
+     "received": "2026-11-28T05:05:00Z",
+     "requestedBy": "CA4502 (B-6071)"
     },
     {
      "type": "DEP",
@@ -909,8 +909,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZUUU 280430Z VRB01MPS 8000 NSC 18/08 Q1026 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR ZUUU 280500Z VRB01MPS 8000 FEW026 19/08 Q1025 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZSQD": {
@@ -924,7 +924,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZSQD",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -944,8 +944,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR ZSQD 280400Z 32011MPS 9999 BKN053 08/M07 Q1026 NOSIG",
-    "time": "2026-11-28T04:00:00Z"
+    "raw": "METAR ZSQD 280500Z 32010MPS CAVOK 08/M08 Q1025 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "ZYTL": {
@@ -959,7 +959,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/ZYTL",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -994,15 +994,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/VTBS",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "T",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "VTBS ARR ATIS T\n0430Z VTBS ARR ATIS T\n0431Z SIMULTANEOUS INDEPENDENT\nPARL APCH IN PROGRESS\nEXP ILS Z APCH ARR RWY 01 OR\nRNP APCH RWY 02L\n,\n,PILOT SHALL ADZ BKK APCH ON\nINITIAL CTC IF UNA TO CONDUCT\nRNP APCH DUE TO\nOPERATIONAL CONSTRAINT\n0430Z WIND 030/10KT VRB BTN\n010/ AND 070/ VIS 10KM CLD FEW\n3000FT T32 DP21 QNH\n1016HPA TREND NOSIG\nADZ CONTROLLER WHEN INITIAL\nCONTACT YOU HAVE INFO T",
-     "received": "2026-11-28T04:34:00Z",
-     "requestedBy": "JQ29 (VH-VKF)"
+     "letter": "U",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "VTBS ARR ATIS U\n0500Z VTBS ARR ATIS U\n0501Z SIMULTANEOUS INDEPENDENT PARL APCH IN\nPROGRESS\nEXP ILS Z APCH ARR RWY 01 OR RNP APCH RWY 02L\n,\n,PILOT SHALL ADZ BKK APCH ON INITIAL CTC IF\nUNA TO CONDUCT RNP APCH DUE TO\nOPERATIONAL CONSTRAINT\n0500Z WIND 070/11KT VRB BTN 030/ AND 090/ VIS\n10KM CLD FEW 3000FT T32 DP21 QNH\n1015HPA TREND NOSIG\nADZ CONTROLLER WHEN INITIAL CONTACT YOU HAVE\nINFO U",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "BR68 (B-16736)"
     },
     {
      "type": "DEP",
@@ -1014,8 +1014,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VTBS 280430Z 05011KT 020V080 9999 FEW030 32/21 Q1016 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR VTBS 280500Z 05011KT 010V100 9999 FEW030 32/21 Q1015 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "WSSS": {
@@ -1029,23 +1029,23 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/WSSS",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "M",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "WSSS ARR ATIS M\n0430Z\nMETREPORT 0430Z\nILS APCHRWY 20R\nSIMUL INDEPENDENT ILS AND\nVISUAL APPROACHES ARE\nCONDUCTED ON RWY 20.\nRAPID EXIT TWY WHISKEY THREE\nCLOSED.ARRIVALS ON RUNWAY\nZERO TWO LEFT SHALL PLAN TO\nVACATE VIA RAPID EXIT TWY W5\nAND ARRIVALS ON RWY 20R\nSHALL PLAN TO VACATE VIA\nRAPID EXIT TAXIWAY W7.\nINFORM ATC [IF]\nUNABLE.TAXIING GUIDANCE\nLIGHTS ON ALL TAXIWAYS ARE\nON, FOR LIGHTING INSPECTION,\nWIND 320/ 08KT VRB BTN280\nAND340\nVIS 10KM\nCLD FEW 2000FT\nT31 DP23\nQNH 1013HPA\nNOSIG\nACK ATIS M",
-     "received": "2026-11-28T04:33:00Z",
-     "requestedBy": "TR189 (9V-OFG)"
+     "letter": "O",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "WSSS ARR ATIS O\n0500Z\nMETREPORT 0500Z\nILS APCHRWY 20R\nSIMUL INDEPENDENT ILS\nAND VISUAL APPROACHES\nARE CONDUCTED ON RWY\n20.\nRAPID EXIT TWY WHISKEY\nTHREE CLOSED.ARRIVALS\nON RUNWAY ZERO TWO\nLEFT SHALL PLAN TO\nVACATE VIA RAPID EXIT\nTWY W5 AND ARRIVALS ON\nRWY 20R SHALL PLAN TO\nVACATE VIA RAPID EXIT\nTAXIWAY W7. INFORM ATC\n[IF] UNABLE.\nWIND 330/ 08KT\nVIS 10KM\nCLD FEW 2000FT\nT31 DP23\nQNH 1013HPA\nNOSIG\nACK ATIS O",
+     "received": "2026-11-28T05:11:00Z",
+     "requestedBy": "B-58505"
     },
     {
      "type": "DEP",
-     "letter": "O",
-     "issued": "2026-11-28T04:30:00Z",
-     "text": "WSSS DEP ATIS O\n0430Z\nMETREPORT 0430Z RWY 20C\nSIMUL INDEPENDENT ILS AND VISUAL APPROACHES\nARE CONDUCTED ON RWY 20.\nRWY STOP BAR LIGHTING INTENSITY TRIAL IN\nPROGRESSTAXIING GUIDANCE LIGHTS ON ALL\nTAXIWAYS ARE ON, FOR LIGHTING INSPECTION,\nWIND 240/ 10KT VRB BTN220 AND290\nVIS 10KM\nCLD FEW 2000FT\nT31 DP23\nQNH 1013HPA\nNOSIG\nDEP, INITIAL CMB 3000 FT,\nACK ATIS O",
-     "received": "2026-11-28T04:35:00Z",
-     "requestedBy": "9V-SWL"
+     "letter": "P",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "WSSS DEP ATIS P\n0500Z\nMETREPORT 0500Z RWY 20C\nSIMUL INDEPENDENT ILS AND VISUAL APPROACHES\nARE CONDUCTED ON RWY 20.\nRWY STOP BAR LIGHTING INTENSITY TRIAL IN\nPROGRESSTAXIING GUIDANCE LIGHTS ON ALL\nTAXIWAYS ARE ON, FOR LIGHTING INSPECTION,\nWIND 250/ 10KT\nVIS 10KM\nCLD FEW 2000FT\nT31 DP23\nQNH 1013HPA\nNOSIG\nDEP, INITIAL CMB 3000 FT,\nACK ATIS P",
+     "received": "2026-11-28T05:02:00Z",
+     "requestedBy": "B-16739"
     }
    ],
    "metar": {
@@ -1064,15 +1064,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/WMKK",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "F",
-     "issued": "2026-11-28T02:07:00Z",
-     "text": "WMKK ARR ATIS F\n0207Z WMKK ARR INFO F.\nTIME 0200.\nINDEPENDENT PARALLEL APPROACHES FOR RWY 14 L AND 15 ARE IN PROGRESS.\nEXP RNAV / ILS APCH FOR RWY 14 LEFT.\nEXP RNAV / ILS APCH FOR RWY 15.\nWIND RWY 14L CALM.\nWIND RWY 15 250 DEG, 2 KT.\nVIS RWY 14L TDZ 10 KM OR MORE.\nVIS RWY 15 TDZ 10 KM OR MORE.\nCLD FEW 1000 FT, CLD FEW CB 1700 FT.\nT 26.\nDP 25.\nQNH 1014.\nNOSIG.\nAT FIRST CONTACT WITH LUMPUR RADAR, NOTIFY RCPT OF F",
-     "received": "2026-11-28T02:36:00Z",
-     "requestedBy": "AI2115 (VT-TVA)"
+     "letter": "K",
+     "issued": "2026-11-28T04:33:00Z",
+     "text": "WMKK ARR ATIS K\n0433Z WMKK ARR INFO K.\nTIME 0430.\nINDEPENDENT PARALLEL APPROACHES FOR RWY 14 L AND 15 ARE IN PROGRESS.\nEXP RNAV / ILS APCH FOR RWY 14 LEFT.\nEXP RNAV / ILS APCH FOR RWY 15.\nWIND RWY 14L 130 DEG, 3 KT, VRB BTN 010 AND 160 DEG.\nWIND RWY 15 180 DEG, 4 KT, VRB BTN 110 AND 200 DEG.\nVIS RWY 14L TDZ 10 KM OR MORE.\nVIS RWY 15 TDZ 10 KM OR MORE.\nCLD SCT 1800 FT.\nT 31.\nDP 25.\nQNH 1012.\nNOSIG.\nAT FIRST CONTACT WITH LUMPUR RADAR, NOTIFY RCPT OF K",
+     "received": "2026-11-28T04:55:00Z",
+     "requestedBy": "B-30E7"
     },
     {
      "type": "DEP",
@@ -1084,8 +1084,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR WMKK 280430Z 00000KT 9999 SCT018 31/25 Q1012 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR WMKK 280500Z VRB03KT 9999 SCT018 32/26 Q1012 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "WIII": {
@@ -1099,20 +1099,20 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/WIII",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "S",
      "issued": "2026-11-28T02:30:00Z",
-     "text": "WIII ATIS S\n0230Z\nEXP STANDARD ILS APPROACH EXP RNP APPROACH ARR RWY25L RWY24 DEP RWY25L TRL FL130 WIND VRB3KTS VIS 6KM FEW 2000FT T32 DP24 . QNH 1014HPA . . NOSIG .",
-     "received": "2026-11-28T02:35:00Z",
-     "requestedBy": "B-30F6"
+     "text": "WIII ATIS S\n0230Z\nEXP STANDARD ILS APPROACH EXP RNP APPROACH\nARR RWY25L RWY24 DEP RWY25L TRL FL130 WIND\nVRB3KTS VIS 6KM FEW 2000FT T32 DP24 .\nQNH 1014HPA . . NOSIG .",
+     "received": "2026-11-28T05:08:00Z",
+     "requestedBy": "HZ-AK13"
     }
    ],
    "metar": {
-    "raw": "METAR WIII 280430Z 31006KT 270V350 7000 FEW020 32/24 Q1012 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR WIII 280500Z 29006KT 260V330 7000 FEW020 32/25 Q1012 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "VVNB": {
@@ -1126,28 +1126,28 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/VVNB",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "P",
-     "issued": "2026-11-28T02:30:00Z",
-     "text": "VVNB ARR ATIS P\n0230Z VVNB INFO P 0230Z. ILS X RWY 11L.\nDPTG RWY 11R AND ARR RWY 11L .. 0230Z.\nWIND 290/4KT VIS 8KM RVR RWY 11L TDZ\nABV 2000M MID ABV 2000M CLD NSC T22\nDP18 QNH 1026HPA TREND NOSIG. ADZ ON\nINITIAL CTC YOU HAVE INFO P.",
-     "received": "2026-11-28T02:38:00Z",
-     "requestedBy": "HL7720"
+     "letter": "T",
+     "issued": "2026-11-28T04:31:00Z",
+     "text": "VVNB ARR ATIS T\n0431Z VVNB INFO T 0431Z. ILS\nX RWY 11L. DPTG RWY 11R AND\nARR RWY 11L .. 0431Z. WIND\n010/8KT VIS 10KM RVR RWY 11L\nTDZ ABV 2000M MID ABV 2000M\nCLD FEW 300FT T26 DP13 QNH\n1024HPA TREND NOSIG. ADZ ON\nINITIAL CTC YOU HAVE INFO T.",
+     "received": "2026-11-28T04:33:00Z",
+     "requestedBy": "QR976 (A7-BHF)"
     },
     {
      "type": "DEP",
-     "letter": "M",
-     "issued": "2026-11-28T01:01:00Z",
-     "text": "VVNB DEP ATIS M\n0101Z VVNB INFO M\n0101Z. ILS X RWY 11L.\nDPTG RWY 11R AND ARR\nRWY 11L .. 0101Z. WIND\n320/3KT VIS 3200M RVR\nRWY 11L TDZ ABV 2000M\nMID ABV 2000M BR CLD\nNSC T18 DP17 QNH\n1026HPA TREND BECMG VIS\n6KM NSW. ADZ ON INITIAL\nCTC YOU HAVE INFO M.",
-     "received": "2026-11-28T01:03:00Z",
-     "requestedBy": "HL7646"
+     "letter": "U",
+     "issued": "2026-11-28T05:01:00Z",
+     "text": "VVNB DEP ATIS U\n0501Z VVNB INFO U 0501Z. ILS X RWY 11L.\nDPTG RWY 11R AND ARR RWY 11L .. 0501Z.\nWIND 310/5KT VIS 10KM RVR RWY 11L TDZ\nABV 2000M MID ABV 2000M CLD NSC T27\nDP13 QNH 1024HPA TREND NOSIG. ADZ ON\nINITIAL CTC YOU HAVE INFO U.",
+     "received": "2026-11-28T05:02:00Z",
+     "requestedBy": "HL7720"
     }
    ],
    "metar": {
-    "raw": "METAR VVNB 280430Z 36008KT 330V040 CAVOK 26/13 Q1024 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR VVNB 280500Z 01007KT 320V050 CAVOK 27/13 Q1024 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "VVTS": {
@@ -1161,7 +1161,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/VVTS",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -1181,8 +1181,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VVTS 280430Z 10005KT 060V190 9999 BKN025 33/25 Q1012 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR VVTS 280500Z 04011KT 360V080 9999 -SHRA SCT020 FEW023CB BKN040 30/25 Q1012 TEMPO TL0530 5000 SHRA",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "VVDN": {
@@ -1196,15 +1196,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/VVDN",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "H",
-     "issued": "2026-11-27T14:33:00Z",
-     "text": "VVDN ARR ATIS H\n1433Z VVDN INFO H 1433Z. ILS VICTOR\nAPPROACH 35L.. DPTG RWY 35R.. 1432Z.\nWIND VRB/01KT VIS 6KM FBL RA CLD BKN\n1500FT OVC 3000FT T23 DP22 QNH 1019HPA\nTREND TEMPO VIS 1400M MOD RA BR. RUNWAY\n35R 35L SURFACE CONDITION CODE 5 5 5..\nADZ ON INITIAL CTC YOU HAVE INFO. H.",
-     "received": "2026-11-27T14:38:00Z",
-     "requestedBy": "HL7584"
+     "letter": "U",
+     "issued": "2026-11-28T05:02:00Z",
+     "text": "VVDN ARR ATIS U\n0502Z VVDN INFO U 0502Z. ILS VICTOR\nAPPROACH 35L.. DPTG RWY 35R.. 0502Z.\nWIND 020/16KT VIS 10KM CLD BKN 2600FT\nT24 DP22 QNH 1019HPA TREND TEMPO VIS\n3500M MOD RA BR. RUNWAY 35R 35L SURFACE\nCONDITION CODE 5 5 5.. ADZ ON INITIAL\nCTC YOU HAVE INFO. U.",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "KE0457 (HL7584)"
     },
     {
      "type": "DEP",
@@ -1216,8 +1216,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VVDN 280430Z 01015KT 8000 -RA SCT015 BKN038 25/22 Q1019 NOSIG",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR VVDN 280500Z 02016KT 9999 SCT015 BKN040 24/22 Q1019 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "VDTI": {
@@ -1231,7 +1231,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/VDTI",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -1251,8 +1251,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VDTI 280430Z 02012KT 9999 SCT017 32/24 Q1013",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR VDTI 280500Z 03013KT 9999 SCT017 32/24 Q1013",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "VIDP": {
@@ -1266,15 +1266,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/VIDP",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "V",
-     "issued": "2026-11-28T03:30:00Z",
-     "text": "VIDP ARR ATIS V\n0330Z ATIS VIDP 280347\nVIDP ATIS V\n0330Z EXPECT RADAR VECTORED ILS APPROACH ILS RWY27EXPECT RADAR VECTORED ILS APPROACH ILS RWY29L\nTRL FL60\n/ RWY27 AND RWY29 LEFT FOR ARRIVALS, RWY28 AND RWY29 RIGHT FOR DEPARTURES. VISIBILITY STANDBY DECLARED AT TIME 0135 UTC\nWIND CALM\nVISIBILITY 1000M\nHZ\nCLD NSC\nT17 DP10\nQNH 1023HPA\nTREND NOSIG\nCONFIR ATIS V\nCONTACT ATC",
-     "received": "2026-11-28T04:09:00Z",
-     "requestedBy": "VT-TNW"
+     "letter": "Y",
+     "issued": "2026-11-28T04:30:00Z",
+     "text": "VIDP ARR ATIS Y\n0430Z ATIS VIDP 280436\nVIDP ATIS Y\n0430Z EXPECT RADAR VECTORED\nILS APPROACH ILS\nRWY10EXPECT RADAR VECTORED\nILS APPROACH ILS RWY11L\nTRL FL60\n/ RWY09 FOR DEPARTURES[.]\nRWY10 FOR ARRIVALS, AND\nRWY11 LEFT IN MIXED\nMODE[.]. VISIBILITY STANDBY\nDECLARED AT TIME 0135 UTC\nWIND 270/04KT\nVISIBILITY 1300M\nHZ\nCLD NSC\nT19 DP10\nQNH 1023HPA\nTREND BECMG 1500 HZ\nCONFIR ATIS Y\nCONTACT ATC",
+     "received": "2026-11-28T04:45:00Z",
+     "requestedBy": "KE432 (HL8392)"
     },
     {
      "type": "DEP",
@@ -1286,8 +1286,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR VIDP 280430Z 27004KT 1300 R28/P2000 R27/P2000 R29R/P2000 R29L/P2000 HZ NSC 19/10 Q1023 BECMG 1500 HZ",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR VIDP 280500Z VRB02KT 1600 R28/P2000 R27/2000 R29R/P2000 R29L/P2000 HZ NSC 20/10 Q1023 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "KLAX": {
@@ -1301,13 +1301,13 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KLAX",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
      "letter": "R",
      "issued": "2026-11-28T04:53:00Z",
-     "text": "LAX ATIS INFO R 0453Z. 00000KT 10SM FEW240 18/16 A3003 (THREE ZERO ZERO THREE) RMK AO2 SLP165 T01780156. INST APCHS AND RNAV RNP APCHS RY 24R AND 25L, OR VCTR FOR VISUAL APCH WILL BE PROVIDED, SIMUL VISUAL APCHS TO ALL RWYS ARE IN PROG, SIMUL INSTR DEPARTURES IN PROG RWYS 24 AND 25. CTC L A GC ON 121.75 FOR PUSH OR TAXI ON A. PAPI OTS 24R, SANTA MONICA VOR OTS. BIRD ACTIVITY VICINITY ARPT. INCLUDE YOUR CALL SIGN IN ALL READBACKS. USE CAUTION WHEN EXITING RUNWAY TWO FOUR RIGHT AT TWY V, W, AND Y, TO HOLD SHORT OF RUNWAY TWO FOUR LEFT. MULTIPLE RUNWAY INCURSIONS HAVE OCCURRED. ...ADVS YOU HAVE INFO R."
+     "text": "LAX ATIS INFO R 0453Z. 00000KT 10SM FEW240 18/16 A3003 (THREE ZERO ZERO THREE) RMK AO2 SLP165 T01780156. INST APCHS AND RNAV RNP APCHS RY 24R AND 25L, OR VCTR FOR VISUAL APCH WILL BE PROVIDED, SIMUL VISUAL APCHS TO ALL RWYS ARE IN PROG, SIMUL INSTR DEPARTURES IN PROG RWYS 24 AND 25. CTC L A GC ON 121.75 FOR PUSH OR TAXI ON A. PAPI OTS 24R, SANTA MONICA VOR OTS. BIRD ACTIVITY VICINITY ARPT. GC FREQ FOR ALL RWYS IS 121.75. INCLUDE YOUR CALL SIGN IN ALL READBACKS. USE CAUTION WHEN EXITING RUNWAY TWO FOUR RIGHT AT TWY V, W, AND Y, TO HOLD SHORT OF RUNWAY TWO FOUR LEFT. MULTIPLE RUNWAY INCURSIONS HAVE OCCURRED. ...ADVS YOU HAVE INFO R."
     }
    ],
    "metar": {
@@ -1326,7 +1326,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KSFO",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1351,7 +1351,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KJFK",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1376,7 +1376,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KEWR",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1401,7 +1401,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KORD",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1426,18 +1426,18 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KSEA",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
-     "letter": "C",
-     "issued": "2026-11-28T04:59:00Z",
-     "text": "SEA ATIS INFO C 0459Z SPECIAL. 00000KT 3/4SM R16L/P6000FT BR BKN002 BKN032 OVC065 07/07 A3014 (THREE ZERO ONE FOUR) RMK AO2 TWR VIS 10 T00720072. ILS, RYS 16R AND 16L , APCH IN USE. DEPG RWY 16L, DEPG ACFT PLAN AND BRIEF NUMBERS FOR BOTH RWYS 16L AND 16C. SIMUL APCHS IN USE, BFI & SEA. TRAFFIC BELOW YOU ON FINAL. SIMUL APCHS IN USE TO PARA RYS. NOTAMS... ILS RWY 16C OTS, RWY 16C RUNWAY GUARD LIGHTS OTS. BIRD ACTIVITY VICINITY ARPT. ...ADVS YOU HAVE INFO C."
+     "letter": "D",
+     "issued": "2026-11-28T05:11:00Z",
+     "text": "SEA ATIS INFO D 0511Z SPECIAL. 00000KT 3SM BR SCT002 BKN032 BKN065 08/07 A3015 (THREE ZERO ONE FIVE). ILS, RYS 16R AND 16L , APCH IN USE. DEPG RWY 16L, DEPG ACFT PLAN AND BRIEF NUMBERS FOR BOTH RWYS 16L AND 16C. SIMUL APCHS IN USE, BFI & SEA. TRAFFIC BELOW YOU ON FINAL. SIMUL APCHS IN USE TO PARA RYS. NOTAMS... ILS RWY 16C OTS, RWY 16C RUNWAY GUARD LIGHTS OTS. BIRD ACTIVITY VICINITY ARPT. ...ADVS YOU HAVE INFO D."
     }
    ],
    "metar": {
-    "raw": "SPECI KSEA 280459Z 00000KT 3/4SM R16L/P6000FT BR BKN002 BKN032 OVC065 07/07 A3014 RMK AO2 TWR VIS 10 T00720072 $",
-    "time": "2026-11-28T04:59:00Z"
+    "raw": "SPECI KSEA 280511Z 00000KT 3SM BR SCT002 BKN032 BKN065 08/07 A3015 RMK AO2 TWR VIS 10 T00780072 $",
+    "time": "2026-11-28T05:11:00Z"
    }
   },
   "KATL": {
@@ -1451,7 +1451,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KATL",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -1482,7 +1482,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KIAD",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1507,7 +1507,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KDFW",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -1538,7 +1538,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KIAH",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1563,7 +1563,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KLAS",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1588,7 +1588,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KBOS",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1613,7 +1613,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/KONT",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1638,18 +1638,18 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/PANC",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
-     "letter": "M",
-     "issued": "2026-11-28T04:55:00Z",
-     "text": "ANC ATIS INFO M 0455Z SPECIAL. 18012G20KT 3/4SM R07R/5500VP6000FT -SN BR SCT007 OVC014 M01/M02 A2966 (TWO NINER SIX SIX). 7R, 7L APPROACHES IN USE. LANDING RWY 7R, 7L, DEPARTING RWY 7L, 33. NOTICE TO AIRMEN. AD WIP SNOW REMOVAL ALL RWYS ALTERNATELY CLSD. LLWS ADZYS IN EFFECT. HAZD WX INFO FOR ANC AREA AVBL FM FSS. CONTACT TOWER 118.3 FOR TAXI. RWY 7R 5 5 5 0225Z, RWY 7L 5 5 5 0225Z, RWY 33 5 5 5 0225Z. ...ADVS YOU HAVE INFO M."
+     "letter": "N",
+     "issued": "2026-11-28T05:08:00Z",
+     "text": "ANC ATIS INFO N 0508Z SPECIAL. 19013G21KT 1/2SM R07R/3000V4500FT SN FZFG VV007 M01/M02 A2967 (TWO NINER SIX SEVEN). ILS RWY 15 APPROACHES IN USE. LANDING RWY 15, DEPARTING RWY 25L, 15. NOTICE TO AIRMEN. AD WIP SNOW REMOVAL ALL RWYS ALTERNATELY CLSD. LLWS ADZYS IN EFFECT. HAZD WX INFO FOR ANC AREA AVBL FM FSS. CONTACT TOWER 118.3 FOR TAXI. RWY 7R 5 5 5 0225Z, RWY 7L 5 5 5 0225Z, RWY 33 5 5 5 0225Z. ...ADVS YOU HAVE INFO N."
     }
    ],
    "metar": {
-    "raw": "SPECI PANC 280455Z 20012G20KT 3/4SM R07R/5500VP6000FT -SN BR SCT007 OVC014 M01/M02 A2966 RMK AO2 P0000 T10111022 $",
-    "time": "2026-11-28T04:55:00Z"
+    "raw": "SPECI PANC 280508Z 21013G21KT 1/2SM R07R/3000V4500FT SN FZFG VV007 M01/M02 A2967 RMK AO2 P0002 T10111022 $",
+    "time": "2026-11-28T05:08:00Z"
    }
   },
   "PHNL": {
@@ -1663,7 +1663,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://datis.clowd.io/api/PHNL",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
@@ -1688,20 +1688,20 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/CYVR",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
      "letter": "Q",
      "issued": "2026-11-28T05:00:00Z",
      "text": "CYVR ARR ATIS Q\n0500Z 02003KT 360V070\n10SM FEW008 CIG BKN015\nOVC036 08/08 A3015 APCH\nRNAV Z OR Y OR ILS RWY\n08R, INFORM ARRL OF REQ\nAPCH ON INITIAL CTC. LDG\nAND DEP RWY 08R. RSC 08R\n5/5/5 100 PCT WET, 100\nPCT WET, 100 PCT WET.\nVALID NOV 28 0431 - NOV\n28 1231. INFORM CYVR ATC\nINFO Q",
-     "received": "2026-11-28T05:04:00Z",
-     "requestedBy": "QK8073 (CFCJZ)"
+     "received": "2026-11-28T05:08:00Z",
+     "requestedBy": "WR3414 (C-GENK)"
     }
    ],
    "metar": {
-    "raw": "SPECI CYVR 280416Z 06004KT 10SM FEW008 BKN014 OVC038 09/09 A3014 RMK SF2ST4SC2 SLP207",
-    "time": "2026-11-28T04:16:00Z"
+    "raw": "METAR CYVR 280500Z 04003KT 020V090 10SM FEW008 BKN015 OVC036 08/08 A3015 RMK SF2SC5SC1 SLP212",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "CYYZ": {
@@ -1715,20 +1715,20 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/CYYZ",
-   "checkedAt": "2026-11-28T05:05:35Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ATIS",
-     "letter": "E",
-     "issued": "2026-11-28T04:00:00Z",
-     "text": "CYYZ ARR ATIS E\n0400Z 28007KT 12SM SCT030 CIG BKN068 04/02\nA2941 APCH PRI ILS RWY 24L, AND SRY ILS RWY\n23, SIMUL PRLL APCH IN EFCT. LDG RWY 24L AND\n23 DEP RWY 23. HIGH INTST RWY OPS INPR, ALL\nARRG AND DEPARTING ACFT SHUD PLAN MNM RWY\nOCCUPANCY TIME. GOOSE/SMALL BIRD ACT IN THE\nCYYZ AREA. INFORM CYYZ ATC INFO E",
-     "received": "2026-11-28T04:58:00Z",
+     "letter": "F",
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "CYYZ ARR ATIS F\n0500Z 28008KT 10SM CIG BKN030 BKN058 04/02\nA2941 APCH ILS RWY 23. LDG AND DEP RWY 23.\nACFT ARRG CYYZ WITH PERMISSION TO LAND PRIOR\nTO 1130Z SHALL NTFY CYYZ ATC ON INITIAL CTC.\nGOOSE/SMALL BIRD ACT IN THE CYYZ AREA. INFORM\nCYYZ ATC INFO F",
+     "received": "2026-11-28T05:05:00Z",
      "requestedBy": "VT-ALR"
     }
    ],
    "metar": {
-    "raw": "METAR CYYZ 280400Z 27007KT 12SM SCT030 BKN068 04/02 A2941 RMK SC3AC4 SLP964",
-    "time": "2026-11-28T04:00:00Z"
+    "raw": "METAR CYYZ 280500Z 27008KT 10SM BKN030 BKN058 04/02 A2941 RMK SC6SC1 SLP967",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "EGLL": {
@@ -1742,15 +1742,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/EGLL",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "R",
-     "issued": "2026-11-28T04:20:00Z",
-     "text": "EGLL ARR ATIS R\n0420Z\nLANDING RWY 09R\nRWY09R SURFACE CONDITION CODES: 5/5/5 WET/WET/WET DEPTH: NR/NR/NR COVERAGE: 100%/100%/100%\nTRANSITION-LEVEL: FL 70\nAUTO 13010KT 100V160 9999 OVC012 07/04 Q1020\nIF STAND GUIDANCE IS OFF OR FAILS, REMAIN ON THE TAXIWAY CENTRELINE AND ADVISE ATC\nSTOPBARS IN H24 USE, DO NOT CROSS AN ILLUMINATED STOPBAR\nRUNWAY EXIT A11 UNAVAILABLE FOR RWY 09L\nACKNOWLEDGE RECEIPT OF INFORMATION R",
-     "received": "2026-11-28T04:34:00Z",
-     "requestedBy": "B-LRV"
+     "letter": "S",
+     "issued": "2026-11-28T04:50:00Z",
+     "text": "EGLL ARR ATIS S\n0450Z\nLANDING RWY 09R\nRWY09R SURFACE\nCONDITION CODES: 5/5/5\nWET/WET/WET DEPTH:\nNR/NR/NR COVERAGE:\n100%/100%/100%\nTRANSITION-LEVEL: FL\n70\nAUTO 13010KT 9999\nOVC011 06/04 Q1020\nIF STAND GUIDANCE IS\nOFF OR FAILS, REMAIN\nON THE TAXIWAY\nCENTRELINE AND ADVISE\nATC\nSTOPBARS IN H24 USE, DO\nNOT CROSS AN\nILLUMINATED STOPBAR\nRUNWAY EXIT A11\nUNAVAILABLE FOR RWY\n09L\nACKNOWLEDGE RECEIPT OF\nINFORMATION S",
+     "received": "2026-11-28T05:14:00Z",
+     "requestedBy": "N661UA"
     },
     {
      "type": "DEP",
@@ -1777,7 +1777,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LFPG",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -1804,7 +1804,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/EDDF",
-   "checkedAt": "2026-11-28T04:44:29Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -1839,15 +1839,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/EDDM",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "S",
-     "issued": "2026-11-28T03:20:00Z",
-     "text": "EDDM ARR ATIS S\n0320Z -ATIS EDDM S METAR 280320\n-EXPECT VECTORS FOR ILS APCH RWY\n-RWY 08L\n-RWY COND RWY 08L AT TIME 1928 RWYCC 5 DEPOSIT\nTOTAL RWY WET 100\nPCT\n-TRL 60\n-RWY08R CLSD FM 2200 TILL 0500 UTC\n-08006KT\n-6000\n-\n-BKN007 BKN048\n-TM01 DPM03\n-QNH1027\n-\n-TREND TEMPO FEW009 OVC040",
-     "received": "2026-11-28T03:37:00Z",
-     "requestedBy": "B-16706"
+     "letter": "Z",
+     "issued": "2026-11-28T04:50:00Z",
+     "text": "EDDM ARR ATIS Z\n0450Z ATIS EDDM Z METAR 280450\nEXPECT VECTORS FOR INDEPENDENT PARALLEL ILS APCH\nRWY 08L 08R\nRWY COND RWY 08L AT TIME 0345 RWYCC 5 DEPOSIT TOTAL RWY WET 100\nPCTRWY 08R AT TIME 0426 RWYCC 5 DEPOSIT TOTAL RWY WET 100 PCT\nTRL 60\n07005KT\n7000\nFEW008 OVC048\nTM02 DPM03\nQNH1028\nTREND NOSIG",
+     "received": "2026-11-28T04:54:00Z",
+     "requestedBy": "LH3Y (D-AIXL)"
     },
     {
      "type": "DEP",
@@ -1874,15 +1874,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LIRF",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "J",
-     "issued": "2026-11-28T03:20:00Z",
-     "text": "LIRF ARR ATIS J\n0320Z LIRF ARR J 0320Z ILS W RWY IN USE 16L TL\n70\nWIND TDZ 020/7KT VIS 10KM CLD FEW 3500FT T09\nDP08 QNH 1015HPA NOTICE FOR PILOTS\nAERONAUTICAL INFORMATION PUBLICATION\nSUPPLEMENT 55 26 PHASE 2 IS ACTIVE",
-     "received": "2026-11-28T03:38:00Z",
-     "requestedBy": "C-FIUW"
+     "letter": "P",
+     "issued": "2026-11-28T04:50:00Z",
+     "text": "LIRF ARR ATIS P\n0450Z LIRF ARR P 0450Z RWY 16L\nILS W RWY 16R ILS Z RWY\nIN USE 16L 16R TL 70\nDEPENDENT PARL ILS APCH\nINPR RWY IN USE 16R OR\n16L ASSIGNED BY ROME\nRADAR WIND RWY 16L TDZ\n020/7KT RWY 16R TDZ\n030/7KT CAVOK T09 DP08\nQNH 1015HPA NOTICE FOR\nPILOTS AERONAUTICAL\nINFORMATION PUBLICATION\nSUPPLEMENT 55 26 PHASE 2\nIS ACTIVE",
+     "received": "2026-11-28T05:08:00Z",
+     "requestedBy": "NW214 (N406DX)"
     },
     {
      "type": "DEP",
@@ -1909,15 +1909,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LEMD",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "A",
-     "issued": "2026-11-28T04:10:00Z",
-     "text": "LEMD ATIS A\nRR L 0410Z\nEXPECT ILS Z APCH SINGLE RWY IN USE\nRWY IN USE 32R\nTRL FL140\nLOW VIS PROC CAT THREE IN OPERATION\nWIND 360 DEG 4 KT .\nVIS 500 M\nFG\nVERT VIS 100 FT\nT5 DP5\nQNH 1023HPA\nNOSIG\nCONFIRM ATIS ARR L",
-     "received": "2026-11-28T04:10:00Z",
-     "requestedBy": "IB156 (EC-NLP)"
+     "issued": "2026-11-28T05:00:00Z",
+     "text": "LEMD ATIS A\nRR S 0500Z\nEXPECT ILS Z APCH SINGLE RWY\nIN USE\nRWY IN USE 32R\nTRL FL140\nLOW VIS PROC IN OPERATION\nWIND 350 DEG 5 KT .\nVIS 500 M\nFG\nVERT VIS 100 FT\nT5 DP5\nQNH 1023HPA\nNOSIG\nEXIT LIMA 7 NOT AVAILABLE\nCONFIRM ATIS ARR S",
+     "received": "2026-11-28T05:05:00Z",
+     "requestedBy": "QR001E (A7-BHL)"
     }
    ],
    "metar": {
@@ -1936,14 +1936,14 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LEBL",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
      "letter": "A",
-     "issued": "2026-11-28T03:40:00Z",
-     "text": "LEBL ATIS A\nRR A 0340Z\nEXPECT ILS Z APCH\nRWY IN USE FOR ARR 02\nAND FOR DEP 06R\nTRL FL070\nWIND 330 DEG 13 KT .\nCAVOK.\nT7 DP3\nQNH 1021HPA\nNOSIG\nCONFIRM ATIS ARR A",
-     "received": "2026-11-28T03:49:00Z",
+     "issued": "2026-11-28T05:10:00Z",
+     "text": "LEBL ATIS A\nRR I 0510Z\nEXPECT ILS Z APCH\nRWY IN USE FOR ARR 02\nAND FOR DEP 06R\nTRL FL070\nWIND 330 DEG 15 KT .\nCAVOK.\nT6 DP3\nQNH 1021HPA\nNOSIG\nCONFIRM ATIS ARR I",
+     "received": "2026-11-28T05:10:00Z",
      "requestedBy": "N840MH"
     }
    ],
@@ -1963,23 +1963,23 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/EHAM",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "J",
-     "issued": "2026-11-28T03:20:00Z",
-     "text": "EHAM ARR ATIS J\n0320Z EHAM ARRIVAL INFO J.\nDEMAND.\nMAIN LANDING RWY 18 R.\nTRANSITION LEVEL 040.\nWIND 150 DEG, 6 KT.\nCAVOK.\nT MS 2.\nDP MS 5.\nQNH 1029 HPA.\nNOSIG.\nOPERATIONAL REPORT. EXP RNP APCH.\nCONTACT APCH WITH CALLSIGN ONLY.\nEND OF INFO J",
-     "received": "2026-11-28T03:27:00Z",
-     "requestedBy": "PH-AKE"
+     "letter": "A",
+     "issued": "2026-11-28T04:53:00Z",
+     "text": "EHAM ARR ATIS A\n0453Z EHAM ARRIVAL INFO\nA.\nDEMAND.\nMAIN LANDING RWY 18 R.\nTRANSITION LEVEL 040.\nWIND 140 DEG, 7 KT, VRB\nBTN 090 AND 200 DEG, 12\nKT MAX, 6 KT MNM.\nCAVOK.\nT MS 3.\nDP MS 5.\nQNH 1029 HPA.\nNOSIG.\nOPERATIONAL REPORT. EXP\nRNP APCH.\nCONTACT APCH WITH\nCALLSIGN ONLY.\nEND OF INFO A",
+     "received": "2026-11-28T05:10:00Z",
+     "requestedBy": "N654UA"
     },
     {
      "type": "DEP",
-     "letter": "O",
-     "issued": "2026-11-27T21:54:00Z",
-     "text": "EHAM DEP ATIS O\n2154Z EHAM DEPARTURE\nINFO O.\nDEMAND.\nMAIN DEPARTURE RWY 24.\nMAIN LANDING RWY 18 R.\nWIND 130 DEG, 7 KT, VRB\nBTN 090 AND 170 DEG.\nCAVOK.\nT MS 2.\nDP MS 4.\nQNH 1028 HPA.\nOPERATIONAL REPORT. FOR\nDE-ICE CONTACT YOUR\nDE-ICE COMPANY.\nINFORM SCHIPHOL DEL BY\nVOICE IF UNABLE TO\nCOMPLY WITH NADP 2.\nEND OF INFO O",
-     "received": "2026-11-27T21:58:00Z",
-     "requestedBy": "KL60M (PH-NXX)"
+     "letter": "Q",
+     "issued": "2026-11-28T04:53:00Z",
+     "text": "EHAM DEP ATIS Q\n0453Z EHAM DEPARTURE INFO Q.\nDEMAND.\nMAIN DEPARTURE RWY 24.\nMAIN LANDING RWY 18 R.\nWIND 130 DEG, 6 KT, VRB BTN 100 AND 160 DEG.\nCAVOK.\nT MS 3.\nDP MS 5.\nQNH 1029 HPA.\nOPERATIONAL REPORT. FOR DE-ICE CONTACT YOUR DE-ICE COMPANY.\nINFORM SCHIPHOL DEL BY VOICE IF UNABLE TO COMPLY WITH NADP 2.\nEND OF INFO Q",
+     "received": "2026-11-28T05:09:00Z",
+     "requestedBy": "TP0 (CS-TJP)"
     }
    ],
    "metar": {
@@ -1998,23 +1998,23 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LSZH",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "I",
-     "issued": "2026-11-28T01:20:00Z",
-     "text": "LSZH ARR ATIS I\n0120Z ARRIVALS, EXP ILS APCH, RWY 28.\nTRL 70.\nDEP RWY 32.\nWIND VRB BTN 010 AND 090 DEG, 3 KT.\nVIS 8 KM, TDZ 8 KM.\nCLD BKN 1600 FT.\nT MS 0. DP MS 3.\nQNH 1025.\nTREND TEMPO CLD BKN 1400 FT.",
-     "received": "2026-11-28T01:20:00Z",
-     "requestedBy": "WK5L (HB-IHA)"
+     "letter": "D",
+     "issued": "2026-11-28T04:50:00Z",
+     "text": "LSZH ARR ATIS D\n0450Z ARRIVALS, EXP ILS APCH, RWY 34.\nTRL 70.\nDEP RWY 32. DEPENDENT OPS ON CONVERGING RWY.\nWIND 030 DEG, 7 KT.\nVIS 8 KM, TDZ 9 KM.\nCLD FEW 1800 FT, BKN 2100 FT.\nT MS 0. DP MS 2.\nQNH 1026.\nWS, WIND AT 3400 FT QNH 070 DEG 20 KT, WIND AT 3800 FT QNH 050 DEG 3 KT.\nNOSIG.",
+     "received": "2026-11-28T05:13:00Z",
+     "requestedBy": "LX67G    (HB-JHG)"
     },
     {
      "type": "DEP",
-     "letter": "Q",
-     "issued": "2026-11-27T21:20:00Z",
-     "text": "LSZH DEP ATIS Q\n2120Z DEP RWY 32.\nTRL 70.\nARRIVALS, EXP ILS APCH,\nRWY 28.\nTMA S 1 IS ACT. TMA S 2\nAND S 3 ARE ACT.\nWIND 340 DEG, 4 KT, VRB\nBTN 320 AND 020 DEG.\nVIS 10 KM OR MORE.\nCLD BKN 2500 FT.\nT 1. DP MS 4.\nQNH 1024.\nNOSIG.",
-     "received": "2026-11-27T21:36:00Z",
-     "requestedBy": "UA52 (N77066)"
+     "letter": "T",
+     "issued": "2026-11-28T04:50:00Z",
+     "text": "LSZH DEP ATIS T\n0450Z DEP RWY 32.\nDEPENDENT OPS ON\nCONVERGING RWY.\nTRL 70.\nARRIVALS, EXP ILS APCH,\nRWY 34.\nTMA S 1 IS ACT. TMA S 2\nAND S 3 ARE ACT.\nWIND 340 DEG, 3 KT, VRB\nBTN 320 AND 020 DEG.\nVIS 8 KM.\nCLD FEW 1800 FT, BKN\n2100 FT.\nT MS 0. DP MS 2.\nQNH 1026.\nWS, WIND AT 3400 FT QNH\n070 DEG 20 KT, WIND AT\n3800 FT QNH 050 DEG 3\nKT.\nNOSIG.",
+     "received": "2026-11-28T05:00:00Z",
+     "requestedBy": "TC-JVE"
     }
    ],
    "metar": {
@@ -2033,7 +2033,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LOWW",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -2068,7 +2068,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LKPR",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -2103,15 +2103,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/LTFM",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "P",
-     "issued": "2026-11-28T03:50:00Z",
-     "text": "LTFM ARR ATIS P\n0350Z EXP ILS Z APCH 34L\nRWY 34L WIND 320 DEG 10 KT TRL 130 VIS 8000 M -DZ BKN00400 FT BKN02200 FT T 13 DP 12 QNH 1017 NOSIG\nEND OF ATIS P",
-     "received": "2026-11-28T04:06:00Z",
-     "requestedBy": "TC-LOD"
+     "letter": "R",
+     "issued": "2026-11-28T04:50:00Z",
+     "text": "LTFM ARR ATIS R\n0450Z EXP ILS Z APCH 34L\nRWY 34L WIND 320 DEG 09 KT TRL 130 VIS 8000 M BKN00400 FT BKN02200 FT T 13 DP 12 QNH 1017 NOSIG\nEND OF ATIS R",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "TC-LLF"
     },
     {
      "type": "DEP",
@@ -2138,15 +2138,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/OMDB",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "A",
-     "issued": "2026-11-28T04:01:00Z",
-     "text": "OMDB ARR ATIS A\n0401Z OMDB ARR A.\nAT TIME 0400.\nEXP ILS APPROACH, ARR RWY 30 LEFT.\nSFC WIND 160 DEG, 3 KT, VRB BTN 100 AND 260 DEG.\nVIS 6 KM.\nNSC.\nT 23.\nDP 16.\nQNH 1019 HPA.\nNOSIG.\nADZ ACFT TYPE ON FST CTC.\nACFT ON TWY M AND N ARE NOT PERMITTED TO TAXI BEHIND ACFT HLDG AT ANY RWY HLDG POINT.\nCAUTION POSSIBLE GLIDE SLOPE FLUC.\nDXB VFR FREQ 126. 775.\nSQUAWK ASSIGNED TRANSPONDER CODE UNTIL ON STAND.\nMNM RWY OCCUPANCY REQUIRED.\nCAUTION BIRD ACT IN THE VICINITY OF AERODROME.\nADVS ATC COPIED A.",
-     "received": "2026-11-28T04:02:00Z",
-     "requestedBy": "A6-EUE"
+     "letter": "B",
+     "issued": "2026-11-28T04:31:00Z",
+     "text": "OMDB ARR ATIS B\n0431Z OMDB ARR B.\nAT TIME 0430.\nEXP ILS APPROACH, ARR RWY 30 LEFT.\nSFC WIND 190 DEG, 3 KT, VRB BTN 130 AND 220\nDEG.\nVIS 7 KM.\nNSC.\nT 23.\nDP 16.\nQNH 1019 HPA.\nNOSIG.\nADZ ACFT TYPE ON FST CTC.\nACFT ON TWY M AND N ARE NOT PERMITTED TO TAXI\nBEHIND ACFT HLDG AT ANY RWY HLDG POINT.\nCAUTION POSSIBLE GLIDE SLOPE FLUC.\nDXB VFR FREQ 126. 775.\nSQUAWK ASSIGNED TRANSPONDER CODE UNTIL ON\nSTAND.\nMNM RWY OCCUPANCY REQUIRED.\nCAUTION BIRD ACT IN THE VICINITY OF AERODROME.\nADVS ATC COPIED B.",
+     "received": "2026-11-28T04:41:00Z",
+     "requestedBy": "A6-ENU"
     },
     {
      "type": "DEP",
@@ -2173,7 +2173,7 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/OTHH",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
@@ -2193,8 +2193,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR OTHH 280400Z 30006KT 8000 NSC 23/20 Q1019 NOSIG",
-    "time": "2026-11-28T04:00:00Z"
+    "raw": "METAR OTHH 280500Z 31007KT 9000 NSC 24/20 Q1020 NOSIG",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "YSSY": {
@@ -2208,15 +2208,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/YSSY",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "R",
-     "issued": "2026-11-28T01:43:00Z",
-     "text": "YSSY ARR ATIS R\n0143Z ATIS YSSY R 280143\nAPCH: EXPECT INSTR APCH THEN INDEPENDENT VISUAL APCH WHEN\nVISUAL. DO NOT PASS THROUGH ASSIGNED RWY CENTRE LINE\nRWY: 34L AND R FOR ARRS AND DEPS\nOPR INFO: INDEPENDENT PARL DEPARTURES IN PROGRESS\nWIND: 020/15-25, MAX XW 20KTS\nVIS: GT 10KM\nWX: SHRA\nCLD: FEW022\nTMP: 26\nQNH: 1010\nSIGWX: CAUTION POSSIBLE TURBULENCE ON FINAL RUNWAY 34R",
-     "received": "2026-11-28T02:05:00Z",
-     "requestedBy": "B-1020"
+     "letter": "X",
+     "issued": "2026-11-28T04:43:00Z",
+     "text": "YSSY ARR ATIS X\n0443Z ATIS YSSY X 280443\nAPCH: EXPECT INSTR APCH THEN INDEPENDENT VISUAL APCH WHEN\nVISUAL. DO NOT PASS THROUGH ASSIGNED RWY CENTRE LINE\nRWY: 34L AND R FOR ARRS AND DEPS\nSFC COND: RUNWAY 34L SURFACE CONDITION 5,5,5, WET,WET,WET.\nRUNWAY 34R SURFACE CONDITION 5,5,5, WET,WET,WET\nOPR INFO: INDEPENDENT PARL DEPARTURES IN PROGRESS\nWIND: 020/18-28, MAX XW 20KTS\nVIS: 10 KM, REDUCED TO 6 KM\nWX: SHRA\nCLD: FEW020 SCT045\nTMP: 24\nQNH: 1007\nSIGWX: CAUTION POSSIBLE TURBULENCE ON FINAL RUNWAY 34R",
+     "received": "2026-11-28T05:07:00Z",
+     "requestedBy": "DL41 (N575DZ)"
     },
     {
      "type": "DEP",
@@ -2228,8 +2228,8 @@
     }
    ],
    "metar": {
-    "raw": "SPECI YSSY 280430Z 03015KT 7000 SHRA VCSH FEW020 SCT040 BKN110 23/21 Q1008",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR YSSY 280500Z 03015KT 9999 VCSH FEW045 BKN095 BKN120 23/22 Q1007 RESHRA",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "YBBN": {
@@ -2243,15 +2243,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/YBBN",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "M",
-     "issued": "2026-11-28T02:03:00Z",
-     "text": "YBBN ARR ATIS M\n0203Z ATIS YBBN M 280203\nAPCH: EXP INST APCH\nRWY: 01L AND R ARR AND DEP\nOPR INFO: INDEPENDENT PARALLEL DEPARTURES IN PROGRESS.\nWND: 010/15\nVIS: GREATER THAN 10 KM\nWX: SH IN AREA\nCLD: FEW012 SCT020\n+ TMP: 27\nQNH: 1016",
-     "received": "2026-11-28T02:35:00Z",
-     "requestedBy": "B-1020"
+     "letter": "P",
+     "issued": "2026-11-28T04:20:00Z",
+     "text": "YBBN ARR ATIS P\n0420Z ATIS YBBN P 280420\nAPCH: EXP INST APCH\nRWY: 01L AND R ARR AND DEP\n+ OPR INFO: INDEPENDENT PARALLEL DEPARTURES IN PROGRESS.\nUNAUTHORISED RPAS ACTIVITY REPORTED ON FINAL RWY 01L AT 700FT AT 2\nNM\nWND: 010/18\nVIS: GREATER THAN 10 KM\nWX: SH IN AREA\nCLD: FEW012 SCT020\nTMP: 27\nQNH: 1014",
+     "received": "2026-11-28T04:37:00Z",
+     "requestedBy": "CZ301 (B-308T)"
     },
     {
      "type": "DEP",
@@ -2263,8 +2263,8 @@
     }
    ],
    "metar": {
-    "raw": "METAR YBBN 280430Z AUTO 03017KT 9999 // NCD 27/23 Q1014",
-    "time": "2026-11-28T04:30:00Z"
+    "raw": "METAR YBBN 280500Z AUTO 03015KT 9999 // NCD 27/23 Q1013",
+    "time": "2026-11-28T05:00:00Z"
    }
   },
   "NZAA": {
@@ -2278,15 +2278,15 @@
    "phone": [],
    "links": [],
    "sourceUrl": "https://atis.guru/atis/NZAA",
-   "checkedAt": "2026-11-28T04:11:19Z",
+   "checkedAt": "2026-11-28T05:15:52Z",
    "atis": [
     {
      "type": "ARR",
-     "letter": "H",
-     "issued": "2026-11-28T03:02:00Z",
-     "text": "NZAA ARR ATIS H\n0302Z\nAPCH: ILS DME\nRWY: 05 RIGHT\nRWY COND: RWYCC 6/6/6 NR/NR/NR NR/NR/NR\nDRY/DRY/DRY\nOPR INFO: CTN, INCREASED BIRD ACT.\nWIND: 360/14KT\nVIS: 20 KM\nCLD: FEW 3000 FT SCT 4500 FT\nTEMPERATURE: 22 DEW POINT: 14\nQNH: 1025 HPA\nSIGWX: COND SUITABLE FOR A VISUAL APCH.\n2000 FT WIND: REP 350/12KT\nON FIRST CTC WITH NZAA ATC NOTIFY RCPT OF H.",
-     "received": "2026-11-28T03:02:00Z",
-     "requestedBy": "MU779 (B-2025)"
+     "letter": "I",
+     "issued": "2026-11-28T04:07:00Z",
+     "text": "NZAA ARR ATIS I\n0407Z\nAPCH: ILS DME\nRWY: 05 RIGHT\nRWY COND: RWYCC 6/6/6 NR/NR/NR NR/NR/NR DRY/DRY/DRY\nWIND: 010/12KT 340V040\nVIS: 20 KM\nCLD: FEW 3200 FT\nTEMPERATURE: 22 DEW POINT: 15\nQNH: 1025 HPA\nSIGWX: COND SUITABLE FOR A VISUAL APCH.\n2000 FT WIND: FORECAST 030/10KT\nON FIRST CTC WITH NZAA ATC NOTIFY RCPT OF I.",
+     "received": "2026-11-28T05:14:00Z",
+     "requestedBy": "N838RV"
     },
     {
      "type": "DEP",
